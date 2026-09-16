@@ -272,10 +272,10 @@
 
     @php
         $checkinSection = request()->query('section', 'cashier') === 'qr' ? 'qr' : 'cashier';
-        $cashierOnlyCheckins = $cashierTodayCheckins->filter(fn ($record) => $record->checkin_method === 'cashier');
-        $qrPendingCheckins = $cashierPendingCheckins->filter(fn ($record) => $record->checkin_method === 'qr_member');
-        $qrTodayCheckins = $cashierTodayCheckins->filter(fn ($record) => $record->checkin_method === 'qr_member');
-        $qrEntries = $qrPendingCheckins->concat($qrTodayCheckins)->unique('id')->values();
+        $allEntries = $cashierPendingCheckins->concat($cashierTodayCheckins)
+            ->unique('id')
+            ->sortByDesc('checked_in_at')
+            ->values();
     @endphp
 
     <div class="topbar-card p-4 mb-3">
@@ -302,7 +302,7 @@
 
     @if ($checkinSection === 'cashier')
         <div class="row g-4">
-            <div class="col-12 col-xl-7">
+            <div class="col-12 col-xl-5">
                 <div class="card cashier-validation-card p-4 h-100">
                     <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-3">
                         <h2 class="h4 fw-bold mb-0">Pilih Member</h2>
@@ -341,34 +341,8 @@
                 </div>
             </div>
 
-            <div class="col-12 col-xl-5">
-                <div class="card cashier-qr-info-card p-4 h-100">
-                    <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-3">
-                        <h2 class="h4 fw-bold mb-0 today-checkin-title">Hari Ini</h2>
-                        <span class="today-checkin-count">{{ $cashierOnlyCheckins->count() }}</span>
-                    </div>
-
-                    <div class="today-checkin-list">
-                        @forelse ($cashierOnlyCheckins as $record)
-                            <div class="today-checkin-item">
-                                @if ($record->member?->profile_photo_url)
-                                    <img src="{{ $record->member->profile_photo_url }}" alt="Foto {{ $record->member->full_name }}" class="table-avatar">
-                                @elseif ($record->member)
-                                    <span class="table-avatar-placeholder">{{ $record->member->profile_initials }}</span>
-                                @else
-                                    <span class="table-avatar-placeholder">-</span>
-                                @endif
-                                <div class="min-w-0">
-                                    <div class="today-checkin-name">{{ $record->member?->full_name ?? '-' }}</div>
-                                    <div class="small today-checkin-source">Kasir</div>
-                                </div>
-                                <div class="today-checkin-time">{{ $record->checked_in_at->format('H:i') }}</div>
-                            </div>
-                        @empty
-                            <div class="text-center py-4 text-secondary">Belum ada check-in lewat kasir.</div>
-                        @endforelse
-                    </div>
-                </div>
+            <div class="col-12 col-xl-7">
+                @include('cashier.partials.checkin_table')
             </div>
         </div>
     @else
@@ -399,80 +373,7 @@
                 </div>
             </div>
             <div class="col-12 col-xl-7">
-                <div class="card cashier-validation-card p-4 h-100">
-                    <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-3">
-                        <div>
-                            <div class="section-label">QR</div>
-                            <h2 class="h4 fw-bold mt-2 mb-0">Tabel Check-in QR</h2>
-                        </div>
-                        <span class="status-badge badge-soft-teal">{{ $qrEntries->count() }} masuk</span>
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table align-middle mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Member</th>
-                                    <th>Kode</th>
-                                    <th>Status</th>
-                                    <th>Waktu</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($qrEntries as $record)
-                                    @php
-                                        $member = $record->member;
-                                        $statusLabel = $record->verification_status === 'pending' ? 'Menunggu' : 'Diverifikasi';
-                                        $statusClass = $record->verification_status === 'pending' ? 'warning' : 'success';
-                                    @endphp
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                @if ($member?->profile_photo_url)
-                                                    <img src="{{ $member->profile_photo_url }}" alt="Foto {{ $member->full_name }}" class="table-avatar">
-                                                @elseif ($member)
-                                                    <span class="table-avatar-placeholder">{{ $member->profile_initials }}</span>
-                                                @else
-                                                    <span class="table-avatar-placeholder">-</span>
-                                                @endif
-                                                <div>
-                                                    <div class="fw-semibold">{{ $member?->full_name ?? ($record->submitted_name ?: '-') }}</div>
-                                                    <div class="small muted-copy">{{ $record->submitted_phone ?: ($member?->phone ?? '-') }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>{{ $member?->checkin_code ?? '-' }}</td>
-                                        <td>
-                                            <span class="badge text-bg-{{ $statusClass }}">{{ $statusLabel }}</span>
-                                        </td>
-                                        <td>{{ $record->checked_in_at->format('d M Y, H:i') }}</td>
-                                        <td>
-                                            @if ($record->verification_status === 'pending')
-                                                <div class="d-flex gap-2 flex-wrap">
-                                                    <form method="POST" action="{{ route('cashier.checkins.verify', $record) }}">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-success rounded-pill">Validasi</button>
-                                                    </form>
-                                                    <form method="POST" action="{{ route('cashier.checkins.reject', $record) }}">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill">Tolak</button>
-                                                    </form>
-                                                </div>
-                                            @else
-                                                <span class="text-muted">-</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center py-4 text-secondary">Belum ada check-in lewat QR hari ini.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                @include('cashier.partials.checkin_table')
             </div>
         </div>
     @endif
@@ -619,7 +520,7 @@
 
                 if (confirmPhotoWrap) {
                     confirmPhotoWrap.innerHTML = member.profile_photo_url
-                        ? `<img src="${escapeHtml(member.profile_photo_url)}" alt="Foto ${escapeHtml(member.full_name)}" class="cashier-confirm-photo">`
+                        ? `<a href="${escapeHtml(member.profile_photo_url)}" target="_blank" title="Lihat Foto Penuh"><img src="${escapeHtml(member.profile_photo_url)}" alt="Foto ${escapeHtml(member.full_name)}" class="cashier-confirm-photo" style="cursor: pointer;"></a>`
                         : `<span class="cashier-confirm-placeholder">${escapeHtml(member.profile_initials || '-')}</span>`;
                 }
 

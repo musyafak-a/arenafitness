@@ -49,12 +49,11 @@
             border-radius: 1.35rem;
             --hero-x: 50%;
             --hero-y: 50%;
-            background:
-                linear-gradient(115deg, rgba(8,8,10,.96) 0%, rgba(12,12,14,.8) 50%, rgba(40,10,14,.54) 100%),
-                url('https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat;
-            box-shadow: var(--shadow);
+            background: #121212 url('https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=1800&q=85&sat=-100') center/cover no-repeat;
+            background-blend-mode: multiply;
+            box-shadow: none;
             isolation: isolate;
-            transition: border-color .18s ease, box-shadow .18s ease;
+            transition: border-color .18s ease;
         }
 
         .cashier-hero::before {
@@ -88,8 +87,8 @@
         }
 
         .cashier-hero:hover {
-            border-color: rgba(255,66,74,.28);
-            box-shadow: var(--shadow), 0 0 0 1px rgba(255,66,74,.08);
+            border-color: #E61919;
+            box-shadow: none;
         }
 
         .cashier-hero:hover::after {
@@ -132,9 +131,8 @@
         .cashier-kicker::before {
             content: '';
             width: 2rem;
-            height: 2px;
-            border-radius: 999px;
-            background: #ff424a;
+            height: 100%;
+            background: #E61919;
         }
 
         .cashier-hero-title {
@@ -143,8 +141,8 @@
             color: #fff;
             font-size: clamp(2.25rem, 5vw, 4.9rem);
             line-height: .96;
-            font-weight: 800;
-            letter-spacing: 0;
+            font-weight: 900;
+            letter-spacing: -0.02em;
         }
 
         .cashier-hero-copy {
@@ -186,9 +184,9 @@
         }
 
         .cashier-action.primary {
-            background: linear-gradient(135deg, #ff4b53, #d80f27);
-            border-color: rgba(255,255,255,.2);
-            box-shadow: 0 18px 42px rgba(216,15,39,.28);
+            background: #E61919;
+            border-color: #b31212;
+            box-shadow: none;
         }
 
         .cashier-action-icon,
@@ -298,8 +296,7 @@
             border: 1px solid var(--border);
             border-radius: 1.15rem;
             background: var(--surface);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(18px);
+            box-shadow: none;
             transition: transform .18s ease, border-color .18s ease;
         }
 
@@ -360,9 +357,7 @@
         }
 
         .cashier-panel.elevated {
-            background:
-                linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
-                var(--surface);
+            background: var(--surface);
         }
 
         .cashier-panel-header {
@@ -390,8 +385,8 @@
             justify-content: center;
             border-radius: .85rem;
             color: #fff;
-            background: linear-gradient(135deg, #ff4b53, #d80f27);
-            box-shadow: 0 16px 28px rgba(216,15,39,.22);
+            background: #E61919;
+            box-shadow: none;
         }
 
         .cashier-toolbar {

@@ -82,7 +82,7 @@
                     <div class="flex flex-col items-center text-center">
                         <div class="relative h-52 w-52 border border-brand-red/45 bg-black/50 overflow-hidden shadow-[0_0_40px_rgba(255,85,64,.18)]">
                             @if($member?->profile_photo_url)
-                                <img class="h-full w-full object-cover grayscale contrast-125" alt="{{ $memberName }}" src="{{ $member->profile_photo_url }}"/>
+                                <img class="h-full w-full object-cover" alt="{{ $memberName }}" src="{{ $member->profile_photo_url }}"/>
                             @else
                                 <div class="h-full w-full flex items-center justify-center text-brand-red font-display text-8xl uppercase">{{ $initial }}</div>
                             @endif

@@ -62,6 +62,13 @@ Route::post('/profile-photo-requests/{photoRequest}/approve', function (ProfileP
         'reviewed_by' => auth()->id(),
     ]);
 
+    \App\Models\Announcement::create([
+        'title' => 'Foto Profil Disetujui',
+        'body' => "[TARGET_MEMBER_ID:{$member->id}] Pengajuan ganti foto profil Anda telah disetujui oleh admin.",
+        'status' => 'published',
+        'publish_at' => now(),
+    ]);
+
     return redirect()->route('admin.profile-photo-requests')->with('status', 'Foto profil member berhasil disetujui dan diganti.');
 })->name('profile-photo-requests.approve');
 

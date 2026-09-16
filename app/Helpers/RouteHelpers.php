@@ -151,6 +151,10 @@ class RouteHelpers
         string $redirectRoute = 'admin.checkins',
         array $redirectParams = []
     ): \Illuminate\Http\RedirectResponse {
+        if ($request->has('gym_member_id') && !$request->has('member_id')) {
+            $request->merge(['member_id' => $request->input('gym_member_id')]);
+        }
+
         $validated = $request->validate([
             'member_id'      => ['nullable', 'exists:members,id', 'required_without_all:checkin_code,submitted_phone'],
             'checkin_code'   => ['nullable', 'string', 'max:40', 'required_without_all:member_id,submitted_phone'],
@@ -223,6 +227,15 @@ class RouteHelpers
             'verified_by'         => $verificationStatus === 'verified' ? self::authUserId() : null,
             'notes'               => $validated['notes'] ?? null,
         ]);
+
+        if ($checkin) {
+            \App\Models\Announcement::create([
+                'title' => 'Check-In Berhasil',
+                'body' => "[TARGET_MEMBER_ID:{$member->id}] Anda berhasil check-in pada " . now()->format('d M Y, H:i') . ".",
+                'status' => 'published',
+                'publish_at' => now(),
+            ]);
+        }
 
         $redirect = redirect()->route($redirectRoute, $redirectParams)
             ->with('status', "Check-in {$successLabel} untuk {$member->full_name} berhasil dicatat.")

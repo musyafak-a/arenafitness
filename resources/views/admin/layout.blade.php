@@ -5,8 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ $pageTitle ?? 'Dashboard Admin Arena Gym' }}</title>
 
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=outfit:400,500,600,700,800|space-grotesk:500,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script>
@@ -18,165 +17,147 @@
         </script>
 
         <style>
+            * {
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
             :root {
-                --app-bg: #060606;
-                --surface: rgba(20, 20, 20, 0.92);
-                --surface-soft: rgba(34, 34, 34, 0.94);
-                --border: rgba(255, 255, 255, 0.08);
-                --border-strong: rgba(255, 68, 68, 0.3);
-                --text-main: #f5f5f5;
-                --text-muted: #a1a1aa;
-                --panel-glow: rgba(255, 59, 59, 0.14);
-                --red: #ff3b3b;
-                --red-deep: #a60f1f;
-                --red-soft: #ff8a8a;
+                --app-bg: #121212;
+                --surface: #121212;
+                --surface-soft: #1a1a1a;
+                --border: #555555;
+                --border-strong: #E61919;
+                --text-main: #EAEAEA;
+                --text-muted: #888888;
+                --panel-glow: transparent;
+                --red: #E61919;
+                --red-deep: #b31212;
+                --red-soft: #ff3333;
                 --charcoal: #111111;
                 --charcoal-2: #181818;
-                --shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
-                --body-gradient:
-                    radial-gradient(circle at top right, rgba(255, 59, 59, 0.22), transparent 28%),
-                    radial-gradient(circle at bottom left, rgba(166, 15, 31, 0.28), transparent 24%),
-                    linear-gradient(160deg, #050505 0%, #0c0c0c 48%, #15080a 100%);
-                --grid-line: rgba(255,255,255,0.025);
-                --sidebar-bg: linear-gradient(180deg, rgba(25, 25, 25, 0.96) 0%, rgba(10, 10, 10, 0.96) 100%);
-                --sidebar-link-color: rgba(255,255,255,0.76);
-                --sidebar-nav-label-color: rgba(255,255,255,0.56);
-                --sidebar-extra-bg: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
-                --hero-pill-bg: rgba(255,255,255,0.04);
-                --hero-pill-border: rgba(255,255,255,0.08);
-                --hero-pill-color: #d4d4d8;
-                --hero-stat-bg: linear-gradient(180deg, rgba(42, 42, 42, 0.94) 0%, rgba(28, 28, 28, 0.96) 100%);
-                --table-head-bg: rgba(255,255,255,0.03);
-                --field-bg: rgba(255,255,255,0.04);
-                --field-border: rgba(255,255,255,0.12);
-                --field-placeholder: rgba(255,255,255,0.38);
-                --field-focus-bg: rgba(255,255,255,0.06);
-                --field-disabled-bg: rgba(255,255,255,0.08);
-                --field-disabled-color: rgba(255,255,255,0.72);
-                --modal-bg: linear-gradient(180deg, rgba(22, 22, 22, 0.98) 0%, rgba(12, 12, 12, 0.98) 100%);
-                --modal-border: rgba(255,255,255,0.08);
-                --toggle-bg: rgba(255,255,255,0.04);
-                --toggle-border: rgba(255,255,255,0.12);
+                --shadow: none;
+                --body-gradient: #121212;
+                --grid-line: rgba(255, 255, 255, 0.1);
+                --sidebar-bg: #121212;
+                --sidebar-link-color: #EAEAEA;
+                --sidebar-nav-label-color: #888888;
+                --sidebar-extra-bg: #1a1a1a;
+                --hero-pill-bg: #1a1a1a;
+                --hero-pill-border: #555555;
+                --hero-pill-color: #EAEAEA;
+                --hero-stat-bg: #121212;
+                --table-head-bg: #1a1a1a;
+                --field-bg: #121212;
+                --field-border: #555555;
+                --field-placeholder: #555555;
+                --field-focus-bg: #1a1a1a;
+                --field-disabled-bg: #222222;
+                --field-disabled-color: #888888;
+                --modal-bg: #121212;
+                --modal-border: #555555;
+                --toggle-bg: #1a1a1a;
+                --toggle-border: #555555;
             }
 
             html[data-theme="light"] {
-                --app-bg: #f7f4f2;
-                --surface: rgba(255, 255, 255, 0.92);
-                --surface-soft: rgba(255, 255, 255, 0.97);
-                --border: rgba(15, 23, 42, 0.1);
-                --border-strong: rgba(214, 40, 57, 0.22);
-                --text-main: #18181b;
-                --text-muted: #5b6270;
-                --panel-glow: rgba(214, 40, 57, 0.12);
-                --shadow: 0 24px 48px rgba(15, 23, 42, 0.08);
-                --body-gradient:
-                    radial-gradient(circle at top right, rgba(255, 111, 111, 0.16), transparent 26%),
-                    radial-gradient(circle at bottom left, rgba(214, 40, 57, 0.1), transparent 24%),
-                    linear-gradient(160deg, #fffdfc 0%, #f8f5f2 48%, #f2ece8 100%);
-                --grid-line: rgba(15,23,42,0.04);
-                --sidebar-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(247, 242, 239, 0.98) 100%);
-                --sidebar-link-color: rgba(24,24,27,0.78);
-                --sidebar-nav-label-color: rgba(24,24,27,0.48);
-                --sidebar-extra-bg: linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(248,245,242,0.96) 100%);
-                --hero-pill-bg: rgba(15,23,42,0.03);
-                --hero-pill-border: rgba(15,23,42,0.08);
-                --hero-pill-color: #3f3f46;
-                --hero-stat-bg: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(245,240,236,0.98) 100%);
-                --table-head-bg: rgba(15,23,42,0.04);
-                --field-bg: rgba(255,255,255,0.85);
-                --field-border: rgba(15,23,42,0.12);
-                --field-placeholder: rgba(24,24,27,0.38);
-                --field-focus-bg: rgba(255,255,255,0.96);
-                --field-disabled-bg: rgba(15,23,42,0.05);
-                --field-disabled-color: rgba(24,24,27,0.6);
-                --modal-bg: linear-gradient(180deg, rgba(255,255,255,0.99) 0%, rgba(247,242,239,0.99) 100%);
-                --modal-border: rgba(15,23,42,0.08);
-                --toggle-bg: rgba(15,23,42,0.03);
-                --toggle-border: rgba(15,23,42,0.1);
+                --app-bg: #F4F4F0;
+                --surface: #F4F4F0;
+                --surface-soft: #EAE8E3;
+                --border: #050505;
+                --border-strong: #E61919;
+                --text-main: #050505;
+                --text-muted: #555555;
+                --panel-glow: transparent;
+                --shadow: none;
+                --body-gradient: #F4F4F0;
+                --grid-line: rgba(5, 5, 5, 0.15);
+                --sidebar-bg: #F4F4F0;
+                --sidebar-link-color: #050505;
+                --sidebar-nav-label-color: #555555;
+                --sidebar-extra-bg: #EAE8E3;
+                --hero-pill-bg: #EAE8E3;
+                --hero-pill-border: #050505;
+                --hero-pill-color: #050505;
+                --hero-stat-bg: #F4F4F0;
+                --table-head-bg: #EAE8E3;
+                --field-bg: #F4F4F0;
+                --field-border: #050505;
+                --field-placeholder: #555555;
+                --field-focus-bg: #EAE8E3;
+                --field-disabled-bg: #DDDDDD;
+                --field-disabled-color: #888888;
+                --modal-bg: #F4F4F0;
+                --modal-border: #050505;
+                --toggle-bg: #EAE8E3;
+                --toggle-border: #050505;
             }
 
             body.cashier-layout {
-                --body-gradient:
-                    radial-gradient(circle at top right, rgba(255, 59, 59, 0.22), transparent 28%),
-                    radial-gradient(circle at bottom left, rgba(166, 15, 31, 0.28), transparent 24%),
-                    linear-gradient(160deg, #050505 0%, #0c0c0c 48%, #15080a 100%);
-                --surface: rgba(20, 20, 20, 0.92);
-                --surface-soft: rgba(34, 34, 34, 0.94);
-                --border: rgba(255, 255, 255, 0.08);
-                --border-strong: rgba(255, 68, 68, 0.3);
-                --panel-glow: rgba(255, 59, 59, 0.14);
-                --shadow: 0 26px 52px rgba(0, 0, 0, 0.45);
-                --sidebar-bg: linear-gradient(180deg, rgba(25, 25, 25, 0.96) 0%, rgba(10, 10, 10, 0.96) 100%);
-                --sidebar-extra-bg: linear-gradient(180deg, rgba(255, 59, 59, 0.1) 0%, rgba(166, 15, 31, 0.06) 100%);
-                --hero-pill-bg: rgba(255, 59, 59, 0.1);
-                --hero-pill-border: rgba(255, 138, 138, 0.24);
-                --hero-pill-color: #fff0f0;
-                --hero-stat-bg: linear-gradient(180deg, rgba(42, 42, 42, 0.94) 0%, rgba(28, 28, 28, 0.96) 100%);
-                --table-head-bg: rgba(255, 59, 59, 0.09);
-                --field-bg: rgba(20, 20, 20, 0.9);
-                --field-border: rgba(255, 138, 138, 0.18);
-                --field-placeholder: rgba(255, 235, 235, 0.42);
-                --field-focus-bg: rgba(30, 10, 10, 0.96);
-                --field-disabled-bg: rgba(20, 10, 10, 0.82);
-                --field-disabled-color: rgba(247, 219, 219, 0.66);
-                --modal-bg: linear-gradient(180deg, rgba(22, 22, 22, 0.98) 0%, rgba(12, 12, 12, 0.98) 100%);
-                --modal-border: rgba(255, 138, 138, 0.14);
-                --toggle-bg: rgba(255, 59, 59, 0.08);
-                --toggle-border: rgba(255, 138, 138, 0.18);
+                --body-gradient: #121212;
+                --surface: #121212;
+                --surface-soft: #1a1a1a;
+                --border: #555555;
+                --border-strong: #E61919;
+                --panel-glow: transparent;
+                --shadow: none;
+                --sidebar-bg: #121212;
+                --sidebar-extra-bg: #1a1a1a;
+                --hero-pill-bg: #1a1a1a;
+                --hero-pill-border: #555555;
+                --hero-pill-color: #EAEAEA;
+                --hero-stat-bg: #121212;
+                --table-head-bg: #1a1a1a;
+                --field-bg: #121212;
+                --field-border: #555555;
+                --field-placeholder: #555555;
+                --field-focus-bg: #1a1a1a;
+                --field-disabled-bg: #222222;
+                --field-disabled-color: #888888;
+                --modal-bg: #121212;
+                --modal-border: #555555;
+                --toggle-bg: #1a1a1a;
+                --toggle-border: #555555;
             }
 
             html[data-theme="light"] body.cashier-layout {
-                --body-gradient:
-                    radial-gradient(circle at top right, rgba(255, 111, 111, 0.16), transparent 26%),
-                    radial-gradient(circle at bottom left, rgba(214, 40, 57, 0.1), transparent 24%),
-                    linear-gradient(160deg, #fffdfc 0%, #f8f5f2 48%, #f2ece8 100%);
-                --surface: rgba(255, 255, 255, 0.92);
-                --surface-soft: rgba(255, 255, 255, 0.97);
-                --border: rgba(15, 23, 42, 0.1);
-                --border-strong: rgba(214, 40, 57, 0.22);
-                --text-main: #18181b;
-                --text-muted: #5b6270;
-                --panel-glow: rgba(214, 40, 57, 0.12);
-                --shadow: 0 24px 48px rgba(15, 23, 42, 0.08);
-                --sidebar-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(247, 242, 239, 0.98) 100%);
-                --sidebar-link-color: rgba(24,24,27,0.78);
-                --sidebar-nav-label-color: rgba(24,24,27,0.48);
-                --sidebar-extra-bg: linear-gradient(180deg, rgba(255,240,240,0.97) 0%, rgba(255,230,230,0.99) 100%);
-                --hero-pill-bg: rgba(214, 40, 57, 0.08);
-                --hero-pill-border: rgba(214, 40, 57, 0.18);
-                --hero-pill-color: #7f1d1d;
-                --hero-stat-bg: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(252,235,235,1) 100%);
-                --table-head-bg: rgba(214,40,57,0.08);
-                --field-bg: rgba(255,255,255,0.85);
-                --field-border: rgba(214,40,57,0.16);
-                --field-placeholder: rgba(24,24,27,0.38);
-                --field-focus-bg: rgba(255, 243, 243, 1);
-                --field-disabled-bg: rgba(214,40,57,0.05);
-                --field-disabled-color: rgba(24,24,27,0.6);
-                --modal-bg: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(253,238,238,1) 100%);
-                --modal-border: rgba(214,40,57,0.1);
-                --toggle-bg: rgba(214,40,57,0.06);
-                --toggle-border: rgba(214,40,57,0.14);
+                --body-gradient: #F4F4F0;
+                --surface: #F4F4F0;
+                --surface-soft: #EAE8E3;
+                --border: #050505;
+                --border-strong: #E61919;
+                --text-main: #050505;
+                --text-muted: #555555;
+                --panel-glow: transparent;
+                --shadow: none;
+                --sidebar-bg: #F4F4F0;
+                --sidebar-link-color: #050505;
+                --sidebar-nav-label-color: #555555;
+                --sidebar-extra-bg: #EAE8E3;
+                --hero-pill-bg: #EAE8E3;
+                --hero-pill-border: #050505;
+                --hero-pill-color: #050505;
+                --hero-stat-bg: #F4F4F0;
+                --table-head-bg: #EAE8E3;
+                --field-bg: #F4F4F0;
+                --field-border: #050505;
+                --field-placeholder: #555555;
+                --field-focus-bg: #EAE8E3;
+                --field-disabled-bg: #DDDDDD;
+                --field-disabled-color: #888888;
+                --modal-bg: #F4F4F0;
+                --modal-border: #050505;
+                --toggle-bg: #EAE8E3;
+                --toggle-border: #050505;
             }
 
             body {
-                font-family: 'Outfit', sans-serif;
+                font-family: 'Inter', sans-serif;
                 background: var(--body-gradient);
                 color: var(--text-main);
                 min-height: 100vh;
             }
 
-            body::before {
-                content: '';
-                position: fixed;
-                inset: 0;
-                pointer-events: none;
-                background-image:
-                    linear-gradient(var(--grid-line) 1px, transparent 1px),
-                    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-                background-size: 42px 42px;
-                mask-image: linear-gradient(180deg, rgba(0,0,0,.75), transparent);
-            }
+
 
             .sidebar {
                 width: min(360px, calc(100vw - 2rem));
@@ -342,9 +323,9 @@
                 align-items: center;
                 justify-content: center;
                 padding: 0 0.6rem;
-                background: linear-gradient(135deg, #ff2323 0%, #1d0909 100%);
-                font-weight: 800;
-                font-family: 'Space Grotesk', sans-serif;
+                background: var(--red);
+                font-weight: 900;
+                font-family: 'Inter', sans-serif;
                 color: #fff;
                 letter-spacing: 0.06em;
                 text-transform: uppercase;
@@ -356,8 +337,7 @@
             body.cashier-layout .brand-mark,
             body.cashier-layout .metric-icon,
             body.cashier-layout .table-avatar-placeholder {
-                background: linear-gradient(135deg, #ff2323 0%, #1d0909 100%);
-                box-shadow: 0 16px 28px rgba(255, 59, 59, 0.28);
+                background: var(--red);
             }
 
             .sidebar-link {
@@ -378,16 +358,14 @@
             .sidebar-link:hover,
             .sidebar-link.active {
                 color: var(--text-main);
-                background: linear-gradient(90deg, rgba(255, 59, 59, 0.16), rgba(255,255,255,0.03));
-                border-color: rgba(255, 59, 59, 0.2);
-                transform: translateX(2px);
+                background: var(--surface-soft);
+                border-color: var(--red);
             }
 
             body.cashier-layout .sidebar-link:hover,
             body.cashier-layout .sidebar-link.active {
-                background: linear-gradient(90deg, rgba(255, 59, 59, 0.16), rgba(255,255,255,0.03));
-                border-color: rgba(255, 59, 59, 0.2);
-                box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+                background: var(--surface-soft);
+                border-color: var(--red);
             }
 
             .sidebar-nav-group + .sidebar-nav-group {
@@ -501,20 +479,18 @@
 
             .hero-pill.active {
                 color: #fff;
-                border-color: rgba(255, 59, 59, 0.34);
-                background: linear-gradient(135deg, rgba(255, 59, 59, 0.26) 0%, rgba(123, 8, 23, 0.34) 100%);
-                box-shadow: 0 14px 24px rgba(120, 9, 23, 0.22);
+                border-color: var(--border-strong);
+                background: var(--red);
             }
 
             body.cashier-layout .hero-pill:hover {
-                border-color: rgba(255, 59, 59, 0.3);
-                background: linear-gradient(135deg, rgba(255, 59, 59, 0.18) 0%, rgba(166, 15, 31, 0.12) 100%);
+                border-color: var(--border-strong);
+                background: var(--surface-soft);
             }
 
             body.cashier-layout .hero-pill.active {
-                border-color: rgba(255, 59, 59, 0.34);
-                background: linear-gradient(135deg, rgba(255, 59, 59, 0.28) 0%, rgba(166, 15, 31, 0.18) 100%);
-                box-shadow: 0 14px 24px rgba(166, 15, 31, 0.22);
+                border-color: var(--border-strong);
+                background: var(--red);
             }
 
             .hero-stat-card {
@@ -530,6 +506,7 @@
             }
 
             .hero-stat-value {
+                font-family: 'JetBrains Mono', monospace;
                 font-size: clamp(1.7rem, 2vw, 2.25rem);
                 font-weight: 800;
                 line-height: 1.1;
@@ -552,24 +529,22 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                font-weight: 700;
-                font-family: 'Space Grotesk', sans-serif;
+                font-weight: 900;
+                font-family: 'Inter', sans-serif;
             }
 
             .icon-teal,
             .icon-orange,
             .icon-navy,
             .icon-green {
-                background: linear-gradient(135deg, #ff5a5a 0%, #8f0013 100%);
-                box-shadow: 0 18px 26px rgba(166, 15, 31, 0.35);
+                background: var(--red);
             }
 
             body.cashier-layout .icon-teal,
             body.cashier-layout .icon-orange,
             body.cashier-layout .icon-navy,
             body.cashier-layout .icon-green {
-                background: linear-gradient(135deg, #ff5a5a 0%, #8f0013 100%);
-                box-shadow: 0 18px 26px rgba(166, 15, 31, 0.35);
+                background: var(--red);
             }
 
             .list-card {
@@ -623,7 +598,7 @@
                 height: 2.5rem;
                 border-radius: 50%;
                 flex: 0 0 auto;
-                background: linear-gradient(135deg, #ff6666 0%, #8f0013 100%);
+                background: var(--red);
                 color: #fff;
                 font-size: .82rem;
                 font-weight: 800;
@@ -680,7 +655,7 @@
                 text-transform: uppercase;
                 letter-spacing: .1em;
                 color: var(--text-muted);
-                font-weight: 800;
+                font-weight: 900;
                 background: var(--table-head-bg);
             }
 
@@ -753,17 +728,15 @@
 
             .btn-dark,
             .btn-outline-light:hover {
-                background: linear-gradient(135deg, #ff4c4c 0%, #b10018 100%);
-                border-color: #d62839;
+                background: var(--red);
+                border-color: var(--red-deep);
                 color: #fff;
-                box-shadow: 0 18px 28px rgba(177, 0, 24, 0.35);
             }
 
             body.cashier-layout .btn-dark,
             body.cashier-layout .btn-outline-light:hover {
-                background: linear-gradient(135deg, #ff4c4c 0%, #b10018 100%);
-                border-color: #d62839;
-                box-shadow: 0 18px 28px rgba(177, 0, 24, 0.35);
+                background: var(--red);
+                border-color: var(--red-deep);
             }
 
             body.cashier-layout main {
@@ -796,8 +769,18 @@
             html[data-theme="light"] body.cashier-layout .panel-card,
             html[data-theme="light"] body.cashier-layout .metric-card,
             html[data-theme="light"] body.cashier-layout .list-card {
-                background:
-                    linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(252,235,235,1) 100%);
+                background: #F4F4F0;
+            }
+            
+            /* Apply Monospace to table and stats */
+            .table tbody td, .cashier-stat-value, .amount-text {
+                font-family: 'JetBrains Mono', monospace !important;
+            }
+            .hero-title, .cashier-hero-title, h1, h2, h3, h4, h5, h6 {
+                font-family: 'Inter', sans-serif !important;
+                font-weight: 900 !important;
+                text-transform: uppercase;
+                letter-spacing: -0.03em;
             }
 
             body.cashier-layout .table-responsive {

@@ -484,7 +484,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="mt-10 btn-primary w-full" href="https://www.google.com/maps/search/?api=1&query=-7.816346388525824,111.9867116109346" target="_blank" rel="noopener">
+                    <a class="mt-10 btn-primary w-full" href="https://maps.app.goo.gl/jQxnQRvTwBfHBtBTA" target="_blank" rel="noopener">
                         <span class="material-symbols-outlined text-[20px] mr-2">near_me</span>
                         Petunjuk Jalan
                     </a>
@@ -493,12 +493,12 @@
                     <div class="relative group">
                         <div class="relative border border-white/10 overflow-hidden bg-white/5 backdrop-blur-md shadow-[0_24px_80px_rgba(0,0,0,.42)]">
                             <iframe
-                                class="w-full h-[360px] md:h-[520px] grayscale invert brightness-[0.7] contrast-[1.1] hover:grayscale-0 hover:invert-0 transition-all duration-700"
-                                src="https://maps.google.com/maps?q=-7.816346388525824,111.9867116109346&z=17&output=embed"
+                                class="w-full h-[360px] md:h-[520px] transition-all duration-700"
+                                src="https://maps.google.com/maps?q=Arena+Fitness,+Jl.+Wilis+Mukti+III+No.59,+Campurejo,+Kediri&t=&z=17&ie=UTF8&iwloc=&output=embed"
                                 title="Lokasi Arena Fitness"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            <a class="absolute inset-0" href="https://www.google.com/maps/search/?api=1&query=-7.816346388525824,111.9867116109346" target="_blank" rel="noopener" aria-label="Buka detail lokasi di Google Maps"></a>
+                            <a class="absolute inset-0" href="https://maps.app.goo.gl/jQxnQRvTwBfHBtBTA" target="_blank" rel="noopener" aria-label="Buka detail lokasi di Google Maps"></a>
                             <div class="absolute top-6 left-6 glass-panel p-4 flex items-center gap-4">
                                 <div class="w-3 h-3 bg-brand-red rounded-full animate-pulse shadow-[0_0_10px_#ff5540]"></div>
                                 <span class="font-label-caps text-xs uppercase tracking-[0.2em] text-white">Arena Location</span>

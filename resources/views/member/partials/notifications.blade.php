@@ -3,12 +3,43 @@
     $hasMembershipWarning = filled($membershipWarning ?? null);
     $channelUrl = $channelUrl ?? config('services.whatsapp.channel_url');
     $shouldShowChannelPrompt = ($showWhatsAppChannelPrompt ?? false) && filled($channelUrl);
+    
     $notificationCount = $memberAnnouncements->count() + ($hasMembershipWarning ? 1 : 0) + ($shouldShowChannelPrompt ? 1 : 0);
+    
     $notificationSignature = collect([
         $memberAnnouncements->pluck('id')->implode('-'),
         $hasMembershipWarning ? 'membership-' . ($membershipWarning['days_left'] ?? 'warning') : null,
         $shouldShowChannelPrompt ? 'whatsapp-channel' : null,
     ])->filter()->implode('|');
+
+    // Build unified preview list
+    $previewNotifs = collect();
+    if ($hasMembershipWarning) {
+        $previewNotifs->push([
+            'type' => 'warning',
+            'title' => $membershipWarning['title'],
+            'message' => $membershipWarning['message'],
+            'url' => route('member.membership')
+        ]);
+    }
+    foreach ($memberAnnouncements as $notice) {
+        $previewNotifs->push([
+            'type' => 'announcement',
+            'title' => $notice->title,
+            'message' => \Illuminate\Support\Str::limit(preg_replace('/^\[TARGET_MEMBER_ID:\d+\]\s*/', '', $notice->body), 80),
+            'url' => route('member.messages') . '#notice-' . $notice->id
+        ]);
+    }
+    if ($shouldShowChannelPrompt) {
+        $previewNotifs->push([
+            'type' => 'channel',
+            'title' => 'Gabung Saluran WhatsApp',
+            'message' => 'Dapatkan informasi umum lewat saluran resmi.',
+            'url' => $channelUrl
+        ]);
+    }
+    
+    $previewNotifs = $previewNotifs->take(3);
 @endphp
 
 <style>
@@ -34,12 +65,35 @@
 </style>
 
 <div class="relative" data-member-notifications data-notification-count="{{ $notificationCount }}" data-notification-key="{{ $notificationSignature }}">
-    <a id="memberNotifToggle" href="{{ route('member.messages') }}" class="relative inline-flex items-center justify-center w-10 h-10 border border-[#353535] text-[#ebbbb4] hover:border-[#ff5540] hover:text-[#ff5540] transition-colors" aria-label="Buka pemberitahuan member">
+    <button id="memberNotifToggle" type="button" class="relative inline-flex items-center justify-center w-10 h-10 border border-[#353535] text-[#ebbbb4] hover:border-[#ff5540] hover:text-[#ff5540] transition-colors" aria-label="Buka pemberitahuan member">
         <span class="material-symbols-outlined text-[20px]">notifications</span>
         @if($notificationCount > 0)
             <span data-member-notif-badge class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-[#ff5540] text-black text-[10px] leading-[18px] font-bold text-center">{{ min($notificationCount, 9) }}</span>
         @endif
-    </a>
+    </button>
+    
+    <!-- Dropdown Popup -->
+    <div id="memberNotifDropdown" class="absolute top-12 right-0 w-80 md:w-96 border border-[#353535] bg-[#131313] shadow-[0_24px_60px_rgba(0,0,0,.6)] hidden flex-col z-[100]">
+        <div class="px-4 py-3 border-b border-[#353535] bg-[#1b1b1b] flex justify-between items-center">
+            <span class="font-['JetBrains_Mono'] text-xs text-white uppercase tracking-[0.18em]">Notifikasi Terbaru</span>
+            @if($notificationCount > 0)
+                <span class="text-[10px] bg-[#ff5540]/20 text-[#ff5540] px-2 py-0.5">{{ $notificationCount }} Baru</span>
+            @endif
+        </div>
+        <div class="max-h-[320px] overflow-y-auto">
+            @forelse($previewNotifs as $notif)
+                <a href="{{ $notif['url'] }}" @if($notif['type']==='channel') target="_blank" rel="noopener noreferrer" @endif class="block px-4 py-3 border-b border-[#353535] hover:bg-[#1f1f1f] transition-colors">
+                    <p class="text-sm font-semibold {{ $notif['type'] === 'warning' ? 'text-[#ff5540]' : 'text-white' }}">{{ $notif['title'] }}</p>
+                    <p class="text-xs text-[#ebbbb4] mt-1">{{ $notif['message'] }}</p>
+                </a>
+            @empty
+                <div class="px-4 py-6 text-center text-[#ebbbb4] text-xs">Belum ada notifikasi.</div>
+            @endforelse
+        </div>
+        <a href="{{ route('member.messages') }}" class="block px-4 py-3 text-center text-xs font-['JetBrains_Mono'] uppercase tracking-[0.18em] text-[#ff5540] bg-[#1b1b1b] hover:bg-[#ff5540] hover:text-black transition-colors">
+            Lihat Semua Peringatan
+        </a>
+    </div>
 </div>
 
 @if($notificationCount > 0)
@@ -82,9 +136,11 @@
         root.dataset.initialized = 'true';
 
         const toggle = root.querySelector('#memberNotifToggle');
+        const dropdown = document.getElementById('memberNotifDropdown');
         const badge = root.querySelector('[data-member-notif-badge]');
         const toast = document.getElementById('memberNotifToast');
         const close = document.getElementById('memberNotifToastClose');
+        
         const notificationKey = root.dataset.notificationKey || 'empty';
         const notificationCount = Number(root.dataset.notificationCount || 0);
         const storageKey = `arena-member-notification-seen:${notificationKey}`;
@@ -110,13 +166,23 @@
 
         if (toggle) {
             toggle.addEventListener('click', (event) => {
+                event.stopPropagation();
                 if (!isSeen()) {
-                    event.preventDefault();
                     acknowledge();
-                    return;
+                }
+                if (dropdown) {
+                    dropdown.classList.toggle('hidden');
+                    dropdown.classList.toggle('flex');
                 }
             });
         }
+        
+        document.addEventListener('click', (event) => {
+            if (dropdown && !dropdown.classList.contains('hidden') && !root.contains(event.target)) {
+                dropdown.classList.add('hidden');
+                dropdown.classList.remove('flex');
+            }
+        });
 
         if (toast) {
             setTimeout(() => {
