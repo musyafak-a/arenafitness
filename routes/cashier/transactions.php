@@ -261,6 +261,15 @@ Route::post('/transactions', function (Request $request) {
             ]);
 
             $product->decrement('stock', $quantity);
+
+            \App\Models\ProductStockLog::create([
+                'product_id' => $product->id,
+                'type' => 'out',
+                'quantity' => $quantity,
+                'description' => 'Penjualan produk (Kasir)',
+                'reference_id' => (string) $transaction->id,
+                'user_id' => \App\Helpers\RouteHelpers::authUserId(),
+            ]);
         }
 
         if ($paymentMethod === 'cash') {

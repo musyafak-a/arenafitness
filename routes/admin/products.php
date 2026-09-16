@@ -67,7 +67,17 @@ Route::post('/products', function (Request $request) {
 
     $validated['is_active'] = $request->boolean('is_active', true);
 
-    Product::create($validated);
+    $product = Product::create($validated);
+
+    if ($product->stock > 0) {
+        \App\Models\ProductStockLog::create([
+            'product_id' => $product->id,
+            'type' => 'in',
+            'quantity' => $product->stock,
+            'description' => 'Stok awal produk baru',
+            'user_id' => auth()->id(),
+        ]);
+    }
 
     return redirect()->route('admin.products')->with('status', 'Produk berhasil ditambahkan.');
 })->name('products.store');
@@ -105,7 +115,20 @@ Route::put('/products/{product}', function (Request $request, Product $product) 
 
     $validated['is_active'] = $request->boolean('is_active');
 
+    $oldStock = $product->stock;
     $product->update($validated);
+    $newStock = $product->stock;
+
+    if ($newStock !== $oldStock) {
+        $diff = $newStock - $oldStock;
+        \App\Models\ProductStockLog::create([
+            'product_id' => $product->id,
+            'type' => $diff > 0 ? 'in' : 'out',
+            'quantity' => abs($diff),
+            'description' => 'Penyesuaian stok oleh admin',
+            'user_id' => auth()->id(),
+        ]);
+    }
 
     return redirect()->route('admin.products')->with('status', 'Produk berhasil diperbarui.');
 })->name('products.update');

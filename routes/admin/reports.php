@@ -30,6 +30,7 @@ $buildAdminReportsData = function (Request $request): array {
         ->orWhere('name', 'like', '%vitamin%')
         ->orderBy('name')
         ->get();
+    $stockLogRecords = \App\Models\ProductStockLog::with(['product', 'user'])->latest()->get();
 
     $verifiedTransactions    = $cashierTransactions->filter(fn (Transaction $t) => $t->payment_status === 'verified');
     $memberPaymentRecords     = $cashierTransactions->where('type', Transaction::TYPE_MEMBERSHIP)->values();
@@ -48,7 +49,7 @@ $buildAdminReportsData = function (Request $request): array {
     ];
 
     // ── Filter params ─────────────────────────────────────────────────────────
-    $activeDetailTab = in_array($request->query('detail_tab'), ['activity', 'membership', 'member-payments', 'daily-pass-payments', 'other-transactions', 'expenses'], true) ? $request->query('detail_tab') : 'activity';
+    $activeDetailTab = in_array($request->query('detail_tab'), ['activity', 'membership', 'member-payments', 'daily-pass-payments', 'other-transactions', 'expenses', 'stock-logs'], true) ? $request->query('detail_tab') : 'activity';
     $detailFilterType = in_array($request->query('detail_filter'), ['month', 'range'], true) ? $request->query('detail_filter') : 'month';
     $detailMonthInput = (string) $request->query('detail_month', now()->format('Y-m'));
     $detailMonth      = preg_match('/^\d{4}-\d{2}$/', $detailMonthInput) ? Carbon::createFromFormat('Y-m', $detailMonthInput)->startOfMonth() : now()->startOfMonth();
@@ -132,6 +133,17 @@ $buildAdminReportsData = function (Request $request): array {
 
     $reportCatalog = collect([
         [
+            'title'       => 'Laporan Stok Barang',
+            'group'       => 'Operasional',
+            'summary'     => 'Riwayat penambahan, pengurangan, dan transaksi penjualan produk.',
+            'date_label'  => 'Semua',
+            'count_label' => $stockLogRecords->count() . ' log',
+            'highlight'   => 'Stok terbaru',
+            'preview'     => 'Data pergerakan stok',
+            'details'     => ['Barang masuk', 'Barang keluar', 'Transaksi kasir'],
+            'slug'        => 'laporan-stok',
+        ],
+        [
             'title'       => 'Laporan Member',
             'group'       => 'Operasional',
             'summary'     => 'Ringkasan keanggotaan member, status aktif, member baru, dan expired.',
@@ -162,7 +174,7 @@ $buildAdminReportsData = function (Request $request): array {
             'details'     => ['Jam check-in', 'Jumlah hadir per hari', 'Member hadir', 'Status kehadiran'],
         ],
         [
-            'title'       => 'Laporan Stok Barang',
+            'title'       => 'Laporan Vitamin',
             'group'       => 'Operasional',
             'summary'     => 'Daftar stok vitamin yang tersimpan di database produk.',
             'date_label'  => 'Per ' . now()->format('d M Y'),
@@ -184,7 +196,7 @@ $buildAdminReportsData = function (Request $request): array {
 
         $report['slug'] = Str::slug($report['title']);
         return $report;
-    })->map(function ($report) use ($memberRecords, $filteredMemberRecords, $checkinRecords, $detailMonth, $detailRangeStart, $detailRangeEnd, $buildDailyRows, $buildMonthlyRows, $formatMoney, $verifiedTransactions, $expenseRecords, $memberPaymentRecords, $dailyPassPaymentRecords, $productSaleRecords, $vitaminProductRecords) {
+    })->map(function ($report) use ($memberRecords, $filteredMemberRecords, $checkinRecords, $detailMonth, $detailRangeStart, $detailRangeEnd, $buildDailyRows, $buildMonthlyRows, $formatMoney, $verifiedTransactions, $expenseRecords, $memberPaymentRecords, $dailyPassPaymentRecords, $productSaleRecords, $vitaminProductRecords, $stockLogRecords) {
         $stockSales = $productSaleRecords
             ->filter(fn ($transaction) => $transaction->transaction_at && $transaction->transaction_at->betweenIncluded($detailRangeStart, $detailRangeEnd));
 
@@ -384,7 +396,7 @@ $buildAdminReportsData = function (Request $request): array {
                     ])->values()->toArray(),
                 'overview' => ['Daftar member check-in', 'Jumlah hadir per hari', 'Member unik bulanan', 'Status verifikasi'],
             ],
-            'laporan-stok-barang' => [
+            'laporan-vitamin' => [
                 'daily_stat_columns' => ['Tanggal', 'Total Jenis Vitamin', 'Total Stok', 'Stok Rendah', 'Terjual'],
                 'daily_stat_rows' => [[
                     now()->translatedFormat('d M'),
@@ -412,6 +424,18 @@ $buildAdminReportsData = function (Request $request): array {
                 ])->toArray(),
                 'overview' => ['Nama vitamin', 'Brand dan SKU', 'Stok saat ini', 'Harga jual', 'Status produk'],
             ],
+            'laporan-stok-barang' => [
+                'columns' => ['Waktu', 'Produk', 'Tipe', 'Jumlah', 'Keterangan', 'Oleh'],
+                'rows' => $stockLogRecords->map(fn($log) => [
+                    $log->created_at?->format('d M Y H:i') ?? '-',
+                    $log->product?->name ?? 'Produk Dihapus',
+                    $log->type === 'in' ? 'Masuk' : ($log->type === 'out' ? 'Keluar' : 'Penyesuaian'),
+                    $log->quantity,
+                    $log->description ?? '-',
+                    $log->user?->name ?? '-',
+                ])->toArray(),
+                'overview' => ['Waktu pergerakan', 'Nama produk terkait', 'Jenis pergerakan', 'Jumlah', 'Catatan/Keterangan', 'Pengguna sistem'],
+            ],
             default => [],
         };
 
@@ -433,6 +457,7 @@ $buildAdminReportsData = function (Request $request): array {
         'memberPaymentRecords'    => collect(),
         'dailyPassPaymentRecords' => collect(),
         'otherTransactionRecords' => collect(),
+        'stockLogRecords'         => $stockLogRecords,
     ];
 };
 

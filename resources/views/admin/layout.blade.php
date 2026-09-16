@@ -1464,7 +1464,6 @@
                                                             : (($activePage ?? 'dashboard') === $item['key']));
                                                 @endphp
                                                 <a class="sidebar-link {{ $isActive ? 'active' : '' }}" href="{{ $item['route'] }}">
-                                                    <span class="sidebar-dot"></span>
                                                     <span class="sidebar-link-label">{{ $item['label'] }}</span>
                                                 </a>
                                             @endforeach
