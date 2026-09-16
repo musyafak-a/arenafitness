@@ -3,6 +3,7 @@
 use App\Helpers\RouteHelpers;
 use App\Models\ProfilePhotoChangeRequest;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/profile-photo-requests', function () {
     if ($redirect = RouteHelpers::ensureAdmin()) {
@@ -24,7 +25,7 @@ Route::get('/profile-photo-requests/{photoRequest}/photo', function (ProfilePhot
         return $redirect;
     }
 
-    $path = base_path('user/storage/app/public/' . $photoRequest->requested_photo_path);
+    $path = storage_path('app/public/' . $photoRequest->requested_photo_path);
 
     abort_unless(is_file($path), 404);
 
@@ -47,11 +48,7 @@ Route::post('/profile-photo-requests/{photoRequest}/approve', function (ProfileP
     }
 
     if ($member->profile_photo_path) {
-        $oldPath = base_path('user/storage/app/public/' . $member->profile_photo_path);
-
-        if (is_file($oldPath)) {
-            @unlink($oldPath);
-        }
+        Storage::disk('public')->delete($member->profile_photo_path);
     }
 
     $member->update([
@@ -62,7 +59,7 @@ Route::post('/profile-photo-requests/{photoRequest}/approve', function (ProfileP
     $photoRequest->update([
         'status' => 'approved',
         'reviewed_at' => now(),
-        'reviewed_by' => (string) (session('auth.name') ?? session('auth.login') ?? 'admin'),
+        'reviewed_by' => auth()->id(),
     ]);
 
     return redirect()->route('admin.profile-photo-requests')->with('status', 'Foto profil member berhasil disetujui dan diganti.');
@@ -77,7 +74,7 @@ Route::post('/profile-photo-requests/{photoRequest}/reject', function (ProfilePh
         $photoRequest->update([
             'status' => 'rejected',
             'reviewed_at' => now(),
-            'reviewed_by' => (string) (session('auth.name') ?? session('auth.login') ?? 'admin'),
+            'reviewed_by' => auth()->id(),
         ]);
     }
 

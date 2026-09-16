@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Models\GymMember;
+use App\Models\Member;
 use Illuminate\Support\Collection;
 
 class WhatsAppHelper
@@ -44,7 +44,7 @@ class WhatsAppHelper
         return trim("ARENA GYM\n\nPengumuman Admin\n{$title}\n\n{$body}");
     }
 
-    public static function reminderMessage(GymMember $member): string
+    public static function reminderMessage(Member $member): string
     {
         $expiryText = $member->expires_at?->format('d M Y') ?? '-';
 
@@ -53,7 +53,7 @@ class WhatsAppHelper
 
     public static function buildDispatches(Collection $members, string $message): array
     {
-        $dispatches = $members->map(function (GymMember $member) use ($message) {
+        $dispatches = $members->map(function (Member $member) use ($message) {
             $url = self::buildUrl($member->phone, $message);
 
             return [

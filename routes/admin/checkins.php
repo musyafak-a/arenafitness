@@ -1,12 +1,14 @@
 <?php
 
 use App\Helpers\RouteHelpers;
+use App\Models\Checkin;
 use App\Models\DailyGuest;
-use App\Models\GymCheckin;
-use App\Models\GymMember;
+use App\Models\Member;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,15 +24,17 @@ Route::get('/checkins', function (Request $request) {
     $startOfToday = now()->startOfDay();
     $endOfToday = now()->endOfDay();
 
-    $todayCheckinsCount = GymCheckin::where('verification_status', 'verified')
+    $todayCheckinsCount = Checkin::where('verification_status', 'verified')
         ->whereBetween('checked_in_at', [$startOfToday, $endOfToday])
         ->count();
 
     $todayDailyPassCount = DailyGuest::whereBetween('created_at', [$startOfToday, $endOfToday])
         ->count();
 
-    $todayDailyPassRevenue = DailyGuest::whereBetween('created_at', [$startOfToday, $endOfToday])
-        ->sum('payment_amount');
+    $todayDailyPassRevenue = Transaction::where('type', Transaction::TYPE_DAILY_PASS)
+        ->where('payment_status', 'verified')
+        ->whereBetween('transaction_at', [$startOfToday, $endOfToday])
+        ->sum('amount');
 
     $dateFrom = $request->filled('date_from')
         ? Carbon::parse($request->date_from)->startOfDay()
@@ -44,7 +48,8 @@ Route::get('/checkins', function (Request $request) {
 
     $memberLogs = collect();
     if (!$typeFilter || $typeFilter === 'member') {
-        $memberQuery = GymCheckin::with('member')
+        $memberQuery = Checkin::with('member')
+            ->whereNotNull('member_id')
             ->where('verification_status', 'verified')
             ->latest('checked_in_at');
 
@@ -60,7 +65,7 @@ Route::get('/checkins', function (Request $request) {
             'nama' => $item->member->full_name ?? 'N/A',
             'sub' => $item->member->checkin_code ?? '',
             'info' => 'Aktif hingga: ' . ($item->member->expires_at?->format('d M Y') ?? '-'),
-            'waktu' => $item->checked_in_at->translatedFormat('d M Y, H:i'),
+            'waktu' => $item->checked_in_at ? $item->checked_in_at->translatedFormat('d M Y, H:i') : '-',
             'waktu_raw' => $item->checked_in_at,
             'payment_method' => null,
             'amount' => null,
@@ -83,10 +88,10 @@ Route::get('/checkins', function (Request $request) {
             'nama' => $item->full_name,
             'sub' => '',
             'info' => 'Daily Pass',
-            'waktu' => $item->created_at->translatedFormat('d M Y, H:i'),
+            'waktu' => $item->created_at ? $item->created_at->translatedFormat('d M Y, H:i') : '-',
             'waktu_raw' => $item->created_at,
-            'payment_method' => $item->payment_method,
-            'amount' => $item->payment_amount,
+            'payment_method' => $item->payment_method ?? 'Cash',
+            'amount' => $item->payment_amount ?? 20000,
         ]);
     }
 
@@ -105,8 +110,7 @@ Route::get('/checkins', function (Request $request) {
         ]
     );
 
-    $memberOptions = GymMember::where('status', 'member')
-        ->where('expires_at', '>=', now())
+    $memberOptions = Member::where('expires_at', '>=', now())
         ->orderBy('full_name')
         ->get(['id', 'full_name', 'checkin_code']);
 
@@ -119,7 +123,8 @@ Route::get('/checkins', function (Request $request) {
         'allLogs' => $allLogs,
         'memberOptions' => $memberOptions,
         'paymentMethods' => $paymentMethods,
-        'checkinRecords' => GymCheckin::with('member')
+        'checkinRecords' => Checkin::with('member')
+            ->whereNotNull('member_id')
             ->where('verification_status', 'verified')
             ->whereBetween('checked_in_at', [$startOfToday, $endOfToday])
             ->latest('checked_in_at')
@@ -154,12 +159,37 @@ Route::post('/checkins/daily-pass', function (Request $request) {
         'payment_method' => 'required|string',
     ]);
 
-    DailyGuest::create([
+    $guest = DailyGuest::create([
         'full_name' => $validated['name'],
         'phone' => $validated['phone'] ?? null,
-        'payment_amount' => $validated['price'],
-        'payment_method' => $validated['payment_method'],
+        'visit_type' => 'regular',
         'visit_at' => now(),
+    ]);
+
+    // Record checkin for guest
+    Checkin::create([
+        'daily_guest_id' => $guest->id,
+        'checked_in_at' => now(),
+        'checkin_method' => 'admin',
+        'verification_status' => 'verified',
+        'verified_at' => now(),
+        'verified_by' => auth()->id(),
+    ]);
+
+    // Record transaction
+    Transaction::create([
+        'invoice' => 'INV-' . date('Ymd') . strtoupper(Str::random(6)),
+        'daily_guest_id' => $guest->id,
+        'cashier_user_id' => auth()->id(),
+        'customer_name' => $guest->full_name,
+        'type' => Transaction::TYPE_DAILY_PASS,
+        'description' => 'Daily Pass Kunjungan',
+        'amount' => (int) $validated['price'],
+        'paid_amount' => (int) $validated['price'],
+        'change_amount' => 0,
+        'payment_method' => $validated['payment_method'],
+        'payment_status' => 'verified',
+        'transaction_at' => now(),
     ]);
 
     return redirect()->back()->with('status', 'Daily pass berhasil dicatat!');

@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'category',
         'category_id',
+        'name',
         'brand',
         'sku',
         'price',
@@ -22,11 +23,6 @@ class Product extends Model
         'is_active',
     ];
 
-    public function categoryRelation()
-    {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
-
     protected function casts(): array
     {
         return [
@@ -34,5 +30,15 @@ class Product extends Model
             'stock' => 'integer',
             'is_active' => 'boolean',
         ];
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function transactionItems(): HasMany
+    {
+        return $this->hasMany(TransactionItem::class, 'product_id');
     }
 }

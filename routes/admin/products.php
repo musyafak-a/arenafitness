@@ -18,9 +18,12 @@ Route::get('/products', function () {
     }
 
     $products = Product::query()
-        ->orderByDesc('is_active')
-        ->orderBy('category')
-        ->orderBy('name')
+        ->select('products.*')
+        ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+        ->orderByDesc('products.is_active')
+        ->orderBy('categories.name')
+        ->orderBy('products.name')
+        ->with('category')
         ->get();
 
     $categories = \App\Models\Category::orderBy('name')->get();
@@ -60,8 +63,7 @@ Route::post('/products', function (Request $request) {
         $validated['category_id'] = $cat->id;
     }
 
-    $category = \App\Models\Category::find($validated['category_id']);
-    $validated['category'] = strtolower($category->name);
+    unset($validated['category']);
 
     $validated['is_active'] = $request->boolean('is_active', true);
 
@@ -99,8 +101,7 @@ Route::put('/products/{product}', function (Request $request, Product $product) 
         $validated['category_id'] = $cat->id;
     }
 
-    $category = \App\Models\Category::find($validated['category_id']);
-    $validated['category'] = strtolower($category->name);
+    unset($validated['category']);
 
     $validated['is_active'] = $request->boolean('is_active');
 
@@ -149,13 +150,7 @@ Route::put('/categories/{category}', function (Request $request, \App\Models\Cat
 
     $category->update($validated);
 
-    // Also update products string representation for backward compatibility if name changed
-    $products = $category->products;
-    foreach ($products as $product) {
-        $product->update([
-            'category' => strtolower($category->name)
-        ]);
-    }
+    // Removed string category update
 
     return redirect()->route('admin.products')->with('status', 'Kategori berhasil diperbarui.');
 })->name('categories.update');

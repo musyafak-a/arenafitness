@@ -505,10 +505,10 @@
                                 </div>
                             @else
                                 <div class="form-group" id="loginField">
-                                    <label for="login">Username</label>
+                                    <label for="login">Username atau Email</label>
                                     <div class="input-wrap">
-                                        <input type="text" id="login" name="login" value="{{ $loginValue }}" placeholder="Masukkan ID Staff" required>
-                                        <i class="fas fa-user-shield field-icon"></i>
+                                         <input type="text" id="login" name="login" value="{{ $loginValue }}" placeholder="Masukkan Username atau Email" required>
+                                         <i class="fas fa-user-shield field-icon"></i>
                                     </div>
                                 </div>
                             @endif

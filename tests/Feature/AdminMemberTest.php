@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\GymCheckin;
-use App\Models\GymMember;
+use App\Models\Checkin;
+use App\Models\Member;
+use App\Models\MembershipPlan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
@@ -14,6 +15,12 @@ class AdminMemberTest extends TestCase
 
     public function test_admin_can_store_member_with_automatic_monthly_package(): void
     {
+        MembershipPlan::query()->create([
+            'name' => 'Bulanan',
+            'duration_months' => 1,
+            'price' => 90000,
+        ]);
+
         $response = $this
             ->withSession([
                 'auth' => [
@@ -32,40 +39,38 @@ class AdminMemberTest extends TestCase
 
         $response->assertRedirect(route('admin.members'));
 
-        $this->assertDatabaseHas('gym_members', [
+        $this->assertDatabaseHas('members', [
             'full_name' => 'Member Bulanan',
-            'member_status' => 'member',
-            'membership_plan' => 'Membership 1 Bulan',
+            'email' => 'member@example.com',
+            'phone' => '08123456789',
+        ]);
+
+        $this->assertDatabaseHas('membership_subscriptions', [
+            'status' => 'active',
+            'amount_paid' => 90000,
             'payment_method' => 'qris',
-            'payment_amount' => 90000,
-            'package_status' => 'active',
-            'joined_at' => now()->startOfDay()->toDateTimeString(),
-            'expires_at' => now()->copy()->startOfDay()->addMonthNoOverflow()->toDateTimeString(),
         ]);
 
         $this->get(route('admin.members'))
             ->assertOk()
-            ->assertSee('QRIS')
             ->assertSee('Member Bulanan');
     }
 
     public function test_member_page_shows_detail_action_and_monthly_training_history(): void
     {
-        $member = GymMember::query()->create([
+        $member = Member::query()->create([
             'full_name' => 'Raka Pradana',
-            'member_status' => 'member',
-            'membership_plan' => 'Bulanan',
-            'package_status' => 'active',
-            'payment_method' => 'cash',
-            'payment_amount' => 50000,
+            'email' => 'raka@example.com',
+            'phone' => '08123456788',
             'joined_at' => now()->subDays(10),
             'expires_at' => now()->addDays(20),
         ]);
 
-        GymCheckin::query()->create([
-            'gym_member_id' => $member->id,
+        Checkin::query()->create([
+            'member_id' => $member->id,
             'checked_in_at' => Carbon::parse('2026-04-10 07:30:00'),
             'checkin_method' => 'admin',
+            'verification_status' => 'verified',
             'notes' => 'Latihan pagi',
         ]);
 
@@ -85,30 +90,20 @@ class AdminMemberTest extends TestCase
 
     public function test_admin_can_search_member_data(): void
     {
-        GymMember::query()->create([
+        Member::query()->create([
             'full_name' => 'Rina Saputri',
             'email' => 'rina@example.com',
             'phone' => '081111111111',
             'checkin_code' => 'AG-RINA-01',
-            'member_status' => 'member',
-            'membership_plan' => 'Bulanan',
-            'package_status' => 'active',
-            'payment_method' => 'cash',
-            'payment_amount' => 50000,
             'joined_at' => now()->subDays(7),
             'expires_at' => now()->addDays(23),
         ]);
 
-        GymMember::query()->create([
+        Member::query()->create([
             'full_name' => 'Budi Hartono',
             'email' => 'budi@example.com',
             'phone' => '082222222222',
             'checkin_code' => 'AG-BUDI-01',
-            'member_status' => 'member',
-            'membership_plan' => 'Bulanan',
-            'package_status' => 'active',
-            'payment_method' => 'qris',
-            'payment_amount' => 50000,
             'joined_at' => now()->subDays(5),
             'expires_at' => now()->addDays(25),
         ]);

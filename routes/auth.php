@@ -66,67 +66,53 @@ Route::post('/login/master-admin', fn () => redirect()->route('login', ['role' =
 
 // ── Login submit ──────────────────────────────────────────────────────────────
 Route::post('/login', function (Request $request) {
-    $validated = $request->validate([
-        'role'     => ['required', 'in:member,admin,master_admin,cashier'],
-        'login'    => ['required_if:role,admin,master_admin,cashier'],
-        'email'    => ['required_if:role,member', 'string'],
+    $request->validate([
         'password' => ['required'],
     ]);
 
-    if ($validated['role'] === 'member') {
-        // Handle member login
-        $user = User::query()
-            ->where(function ($query) use ($validated) {
-                $query->where('email', $validated['email'])
-                      ->orWhere('login', $validated['email']);
-            })
-            ->where('role', 'member')
-            ->first();
+    $identifier = trim((string) ($request->input('login') ?: $request->input('email')));
+    $password   = (string) $request->input('password');
 
-        if (! $user || ! Hash::check($validated['password'], $user->password)) {
-            return back()
-                ->withErrors(['email' => 'Email/Username atau password tidak sesuai.'])
-                ->withInput();
-        }
-
-        $request->session()->regenerate();
-        $request->session()->put('auth', [
-            'id'    => $user->id,
-            'name'  => $user->name,
-            'email' => $user->email,
-            'role'  => 'member',
-        ]);
-
-        return redirect()->route('member.dashboard');
+    if ($identifier === '') {
+        return back()
+            ->withErrors([
+                $request->has('email') ? 'email' : 'login' => 'Username atau Email wajib diisi.'
+            ])
+            ->withInput();
     }
 
-    // Handle admin/cashier login
+    // Cari user berdasarkan login (username) maupun email
     $user = User::query()
-        ->where('login', $validated['login'])
-        ->where('role', $validated['role'])
+        ->where('login', $identifier)
+        ->orWhere('email', $identifier)
         ->first();
 
-    if (! $user) {
-        $user = User::query()->where('login', $validated['login'])->first();
-    }
-
-    if (
-        ! $user
-        || ! in_array($user->role, ['admin', 'master_admin', 'cashier'], true)
-        || ! Hash::check($validated['password'], $user->password)
-    ) {
+    if (! $user || ! Hash::check($password, $user->password)) {
         return back()
-            ->withErrors(['login' => 'Username atau password tidak sesuai.'])
+            ->withErrors([
+                $request->filled('login') ? 'login' : 'email' => 'Username/Email atau password tidak sesuai.'
+            ])
             ->withInput();
     }
 
     $request->session()->regenerate();
-    $request->session()->put('auth', [
+
+    // Pastikan session kompatibel untuk seluruh modul (admin, cashier, member)
+    $sessionData = [
+        'id'      => $user->id,
+        'user_id' => $user->id,
         'role'    => $user->role,
         'login'   => $user->login,
-        'user_id' => $user->id,
+        'email'   => $user->email,
         'name'    => $user->name,
-    ]);
+    ];
+
+    $request->session()->put('auth', $sessionData);
+
+    if ($user->role === 'member') {
+        $request->session()->put('show_whatsapp_channel_prompt', true);
+        return redirect()->route('member.dashboard');
+    }
 
     return in_array($user->role, ['admin', 'master_admin'], true)
         ? redirect()->route('admin.dashboard')

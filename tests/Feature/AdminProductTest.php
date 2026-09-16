@@ -37,7 +37,6 @@ class AdminProductTest extends TestCase
 
         $this->assertDatabaseHas('products', [
             'name' => 'Whey Protein Gold',
-            'category' => 'suplemen',
             'price' => 350000,
             'stock' => 12,
             'is_active' => 1,
@@ -60,7 +59,6 @@ class AdminProductTest extends TestCase
         $this->assertDatabaseHas('products', [
             'id' => $product->id,
             'name' => 'Vitamin C 1000',
-            'category' => 'vitamin',
             'price' => 95000,
             'stock' => 20,
             'is_active' => 0,

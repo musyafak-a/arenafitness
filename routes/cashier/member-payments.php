@@ -1,12 +1,13 @@
 <?php
 
 use App\Helpers\RouteHelpers;
-use App\Models\CashierTransaction;
-use App\Models\GymMember;
+use App\Models\Member;
+use App\Models\MembershipPlan;
+use App\Models\MembershipSubscription;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,7 @@ Route::get('/member-payments', function (Request $request) {
     }
 
     $memberSearch = trim((string) $request->query('member_q', ''));
-    $members = GymMember::query()
-        ->whereIn('status', ['member', 'daily_pass'])
+    $members = Member::query()
         ->when($memberSearch !== '', function ($query) use ($memberSearch) {
             $query->where(function ($q) use ($memberSearch) {
                 $q->where('full_name', 'like', '%' . $memberSearch . '%')
@@ -31,7 +31,6 @@ Route::get('/member-payments', function (Request $request) {
                     ->orWhere('checkin_code', 'like', '%' . $memberSearch . '%');
             });
         })
-        ->orderByRaw("CASE WHEN status = 'member' THEN 0 ELSE 1 END")
         ->orderBy('full_name')
         ->paginate(10, ['*'], 'members_page')
         ->withQueryString();
@@ -43,7 +42,7 @@ Route::get('/member-payments', function (Request $request) {
 
     // Pagination dengan limit 10 data per halaman
     $memberPayments = collect($viewData['memberPayments'])
-        ->filter(fn (CashierTransaction $t) => $t->transaction_at->gte(now()->subDay()))
+        ->filter(fn (Transaction $t) => $t->transaction_at && $t->transaction_at->gte(now()->subDay()))
         ->values();
 
     // Konversi collection ke paginated result
@@ -74,14 +73,21 @@ Route::post('/member-payments', function (Request $request) {
     }
 
     $validated = $request->validate([
-        'gym_member_id'  => ['required', 'exists:gym_members,id'],
+        'gym_member_id'  => ['nullable', 'exists:members,id'],
+        'member_id'      => ['nullable', 'exists:members,id'],
         'amount'         => ['nullable', 'integer'],
         'paid_amount'    => ['nullable', 'integer', 'min:0'],
         'payment_method' => ['required', 'in:cash,qris'],
         'notes'          => ['nullable', 'string'],
     ]);
 
-    $membershipAmount = 90000;
+    $memberId = $validated['member_id'] ?? $validated['gym_member_id'];
+    if (! $memberId) {
+        return back()->withErrors(['member_id' => 'Member wajib dipilih.']);
+    }
+
+    $plan = MembershipPlan::where('duration_months', 1)->first();
+    $membershipAmount = $plan?->price ?? 90000;
     $paidAmount       = $validated['payment_method'] === 'qris'
         ? $membershipAmount
         : (int) ($validated['paid_amount'] ?? 0);
@@ -94,45 +100,42 @@ Route::post('/member-payments', function (Request $request) {
 
     $changeAmount     = max($paidAmount - $membershipAmount, 0);
     $paymentStatus    = $validated['payment_method'] === 'cash' ? 'verified' : 'pending';
-    $member           = GymMember::query()->findOrFail($validated['gym_member_id']);
-    $transactionType  = 'Membership 1 Bulan';
+    $member           = Member::query()->findOrFail($memberId);
 
     // Jika tunai → langsung perpanjang membership
     if ($paymentStatus === 'verified') {
-        $memberUpdate = [
-            'payment_method'  => $validated['payment_method'],
-            'joined_at'       => $member->joined_at ?? Carbon::today()->toDateString(),
-            'expires_at'      => RouteHelpers::calculateMembershipRenewalExpiry($member, Carbon::today()),
-            'status'          => 'member',
-        ];
+        $startDate = ($member->expires_at && Carbon::parse($member->expires_at)->isFuture())
+            ? Carbon::parse($member->expires_at)
+            : now();
+        $newExpiresAt = Carbon::parse(RouteHelpers::calculateMembershipRenewalExpiry($member, Carbon::today()));
 
-        if (Schema::hasColumn('gym_members', 'membership_plan')) {
-            $memberUpdate['membership_plan'] = $transactionType;
-        }
+        $member->update([
+            'expires_at' => $newExpiresAt,
+        ]);
 
-        if (Schema::hasColumn('gym_members', 'payment_amount')) {
-            $memberUpdate['payment_amount'] = $membershipAmount;
-        }
-
-        if (Schema::hasColumn('gym_members', 'package_status')) {
-            $memberUpdate['package_status'] = 'active';
-        }
-
-        $member->update($memberUpdate);
+        MembershipSubscription::create([
+            'member_id'          => $member->id,
+            'membership_plan_id' => $plan?->id,
+            'start_date'         => $startDate,
+            'end_date'           => $newExpiresAt,
+            'amount_paid'        => $membershipAmount,
+            'payment_method'     => $validated['payment_method'],
+            'status'             => 'active',
+        ]);
     }
 
-    CashierTransaction::create([
+    Transaction::create([
         'invoice'          => RouteHelpers::generateInvoice('MP'),
-        'gym_member_id'    => $member->id,
+        'member_id'        => $member->id,
+        'cashier_user_id'  => RouteHelpers::authUserId(),
         'customer_name'    => $member->full_name,
-        'transaction_group'=> 'member_payment',
-        'transaction_type' => $transactionType,
+        'type'             => Transaction::TYPE_MEMBERSHIP,
+        'description'      => 'Perpanjangan Membership 1 Bulan',
         'amount'           => $membershipAmount,
         'paid_amount'      => $paidAmount,
         'change_amount'    => $changeAmount,
         'payment_method'   => $validated['payment_method'],
         'payment_status'   => $paymentStatus,
-        'receipt_status'   => $paymentStatus === 'verified' ? 'ready' : 'pending',
         'transaction_at'   => now(),
         'notes'            => $validated['notes'] ?? null,
     ]);

@@ -30,8 +30,12 @@ class AdminNonMemberTest extends TestCase
 
         $this->assertDatabaseHas('daily_guests', [
             'full_name' => 'Tamu Harian',
+        ]);
+
+        $this->assertDatabaseHas('transactions', [
+            'type' => 'daily_pass',
             'payment_method' => 'qris',
-            'payment_amount' => 30000,
+            'amount' => 30000,
         ]);
 
         $this->get(route('admin.daily-passes'))
@@ -67,8 +71,12 @@ class AdminNonMemberTest extends TestCase
         $this->assertDatabaseCount('daily_guests', 2);
         $this->assertDatabaseHas('daily_guests', [
             'full_name' => 'Tamu Kedua',
+        ]);
+
+        $this->assertDatabaseHas('transactions', [
+            'type' => 'daily_pass',
             'payment_method' => 'qris',
-            'payment_amount' => 30000,
+            'amount' => 30000,
         ]);
     }
 }

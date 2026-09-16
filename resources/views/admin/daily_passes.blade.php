@@ -58,11 +58,11 @@
                                 <td>{{ $dailyPass->phone ?: '-' }}</td>
                                 <td>
                                     <span class="badge bg-primary bg-opacity-20 text-primary rounded-pill" style="font-size: 10px;">
-                                        {{ strtoupper($dailyPass->payment_method ?? 'CASH') }}
+                                        {{ strtoupper($dailyPass->transactions->first()?->payment_method ?? 'CASH') }}
                                     </span>
                                 </td>
                                 <td class="fw-bold text-white">
-                                    Rp{{ number_format($dailyPass->payment_amount, 0, ',', '.') }}
+                                    Rp{{ number_format($dailyPass->transactions->first()?->amount ?? 30000, 0, ',', '.') }}
                                 </td>
                                 <td>
                                     <div class="small">{{ $dailyPass->visit_at ? $dailyPass->visit_at->format('d M Y') : '-' }}</div>

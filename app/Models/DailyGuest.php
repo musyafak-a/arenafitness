@@ -4,25 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DailyGuest extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel secara eksplisit
     protected $table = 'daily_guests';
 
-    // Daftarkan kolom yang boleh diisi (mass assignable)
     protected $fillable = [
         'full_name',
         'phone',
-        'payment_amount',
-        'payment_method',
+        'visit_type',
         'visit_at',
     ];
 
-    // Pastikan visit_at dianggap sebagai objek Carbon/tanggal
     protected $casts = [
         'visit_at' => 'datetime',
     ];
+
+    public function checkins(): HasMany
+    {
+        return $this->hasMany(Checkin::class, 'daily_guest_id');
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'daily_guest_id');
+    }
 }

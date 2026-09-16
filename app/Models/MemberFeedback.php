@@ -14,7 +14,7 @@ class MemberFeedback extends Model
 
     protected $fillable = [
         'user_id',
-        'gym_member_id',
+        'member_id',
         'name',
         'email',
         'subject',
@@ -33,6 +33,6 @@ class MemberFeedback extends Model
 
     public function member(): BelongsTo
     {
-        return $this->belongsTo(GymMember::class, 'gym_member_id');
+        return $this->belongsTo(Member::class, 'member_id');
     }
 }

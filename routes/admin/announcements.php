@@ -3,7 +3,7 @@
 use App\Helpers\RouteHelpers;
 use App\Helpers\WhatsAppHelper;
 use App\Models\Announcement;
-use App\Models\GymMember;
+use App\Models\Member;
 use App\Services\WhatsAppGatewayService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -37,8 +37,7 @@ Route::get('/announcements', function () {
         ->latest('archived_at')
         ->get();
 
-    // PERBAIKAN: Hapus filter 'member_status' karena semua di tabel gym_members adalah member tetap
-    $expiringMembers = GymMember::query()
+    $expiringMembers = Member::query()
         ->whereNotNull('expires_at')
         ->whereDate('expires_at', '>', $today)
         ->whereDate('expires_at', '<=', $sevenDaysFromNow)
@@ -70,7 +69,7 @@ Route::post('/announcements/publish', function (Request $request) {
     $announcement = Announcement::create([
         'title'      => $validated['title'],
         'body'       => $validated['body'],
-        'status'     => 'active',
+        'status'     => 'published',
         'publish_at' => now(),
     ]);
 
@@ -89,7 +88,6 @@ Route::post('/announcements/publish', function (Request $request) {
         ]);
 })->name('announcements.publish');
 
-// ── Jadwalkan ─────────────────────────────────────────────────────────────────
 // ── Arsipkan ──────────────────────────────────────────────────────────────────
 Route::post('/announcements/archive', function (Request $request) {
     if ($redirect = RouteHelpers::ensureAdmin()) {
@@ -123,7 +121,7 @@ Route::post('/announcements/restore', function (Request $request) {
     Announcement::query()
         ->whereKey($validated['announcement_id'])
         ->update([
-            'status' => 'active',
+            'status' => 'published',
             'archived_at' => null
         ]);
 
@@ -152,11 +150,9 @@ Route::post('/announcements/reminders', function (Request $request) {
         return $redirect;
     }
 
-    $validated = $request->validate([
-        'gym_member_id' => ['required', 'exists:gym_members,id'],
-    ]);
+    $memberId = $request->input('gym_member_id') ?? $request->input('member_id');
+    $member = Member::query()->findOrFail($memberId);
 
-    $member = GymMember::query()->findOrFail($validated['gym_member_id']);
     $daysLeft = $member->expires_at
         ? (int) Carbon::today()->diffInDays($member->expires_at->copy()->startOfDay(), false)
         : null;
@@ -174,7 +170,7 @@ Route::post('/announcements/reminders', function (Request $request) {
     Announcement::create([
         'title' => 'Pengingat Membership',
         'body' => "[TARGET_MEMBER_ID:{$member->id}] {$message}",
-        'status' => 'active',
+        'status' => 'published',
         'publish_at' => now(),
     ]);
 

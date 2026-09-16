@@ -1,13 +1,14 @@
 <?php
 
 use App\Helpers\RouteHelpers;
-use App\Models\CashierTransaction;
-use App\Models\GymMember;
+use App\Models\Member;
+use App\Models\MembershipPlan;
+use App\Models\MembershipSubscription;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,40 +31,39 @@ Route::post('/verifications/{paymentId}', function (Request $request, int $payme
         return $redirect;
     }
 
-    $transaction = CashierTransaction::query()->findOrFail($paymentId);
+    $transaction = Transaction::query()->findOrFail($paymentId);
 
     $transaction->update([
         'payment_status' => 'verified',
-        'receipt_status' => 'ready',
         'paid_amount' => $transaction->paid_amount ?? $transaction->amount,
         'change_amount' => $transaction->change_amount ?? 0,
     ]);
 
-    // Jika pembayaran membership → perpanjang masa aktif member
-    if ($transaction->transaction_group === 'member_payment' && $transaction->gym_member_id) {
-        $member = GymMember::query()->find($transaction->gym_member_id);
+    // Jika pembayaran membership → perpanjang masa aktif member dan buat subscription
+    if ($transaction->type === Transaction::TYPE_MEMBERSHIP && $transaction->member_id) {
+        $member = Member::query()->find($transaction->member_id);
 
         if ($member) {
-            $memberUpdate = [
-                'payment_method'  => $transaction->payment_method,
-                'joined_at'       => $member->joined_at ?? Carbon::today()->toDateString(),
-                'expires_at'      => RouteHelpers::calculateMembershipRenewalExpiry($member, Carbon::today()),
-                'status'          => 'member',
-            ];
+            $startDate = ($member->expires_at && Carbon::parse($member->expires_at)->isFuture())
+                ? Carbon::parse($member->expires_at)
+                : now();
+            $newExpiresAt = Carbon::parse(RouteHelpers::calculateMembershipRenewalExpiry($member, Carbon::today()));
 
-            if (Schema::hasColumn('gym_members', 'membership_plan')) {
-                $memberUpdate['membership_plan'] = $transaction->transaction_type;
-            }
+            $member->update([
+                'expires_at' => $newExpiresAt,
+            ]);
 
-            if (Schema::hasColumn('gym_members', 'payment_amount')) {
-                $memberUpdate['payment_amount'] = $transaction->amount;
-            }
+            $plan = MembershipPlan::where('duration_months', 1)->first();
 
-            if (Schema::hasColumn('gym_members', 'package_status')) {
-                $memberUpdate['package_status'] = 'active';
-            }
-
-            $member->update($memberUpdate);
+            MembershipSubscription::create([
+                'member_id'          => $member->id,
+                'membership_plan_id' => $plan?->id,
+                'start_date'         => $startDate,
+                'end_date'           => $newExpiresAt,
+                'amount_paid'        => $transaction->amount,
+                'payment_method'     => $transaction->payment_method ?? 'qris',
+                'status'             => 'active',
+            ]);
         }
     }
 
@@ -93,12 +93,12 @@ Route::get('/receipts', function (Request $request) {
     unset($receiptQuery['receipt_page']);
 
     $receiptItems = collect($viewData['receiptQueue'])
-        ->filter(fn (CashierTransaction $t) => $t->payment_method === 'qris')
+        ->filter(fn (Transaction $t) => $t->payment_method === 'qris')
         ->when(
             $search !== '',
             fn ($col) => $col->filter(
-                fn (CashierTransaction $t) => str_contains(
-                    str()->lower($t->customer_name),
+                fn (Transaction $t) => str_contains(
+                    str()->lower((string) $t->customer_name),
                     str()->lower($search)
                 )
             )
@@ -129,9 +129,7 @@ Route::get('/receipts/{invoice}/print', function (string $invoice) {
         return $redirect;
     }
 
-    $receipt = CashierTransaction::query()->where('invoice', $invoice)->firstOrFail();
-
-    $receipt->update(['receipt_status' => 'printed']);
+    $receipt = Transaction::query()->where('invoice', $invoice)->firstOrFail();
 
     return view('cashier.receipt-print', [
         'pageTitle' => "Cetak Bukti {$invoice}",

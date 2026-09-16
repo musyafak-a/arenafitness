@@ -1,16 +1,15 @@
 <?php
 
 use App\Helpers\RouteHelpers;
-use App\Models\CashierTransaction;
-use App\Models\ExpenseRecord;
-use App\Models\GymCheckin;
-use App\Models\GymMember;
+use App\Models\Checkin;
 use App\Models\DailyGuest;
+use App\Models\ExpenseRecord;
+use App\Models\Member;
 use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /*
@@ -21,25 +20,26 @@ use Illuminate\Support\Str;
 
 $buildAdminReportsData = function (Request $request): array {
     // Ambil data dasar
-    $memberRecords      = GymMember::query()->get();
-    $dailyPassRecords   = DailyGuest::query()->get();
-    $checkinRecords     = GymCheckin::query()->with('member')->where('verification_status', 'verified')->latest('checked_in_at')->get();
-    $cashierTransactions= CashierTransaction::query()->with(['member', 'product'])->latest('transaction_at')->get();
-    $expenseRecords     = ExpenseRecord::query()->latest('expense_date')->latest()->get();
+    $memberRecords       = Member::query()->get();
+    $dailyPassRecords    = DailyGuest::query()->get();
+    $checkinRecords      = Checkin::query()->with('member')->where('verification_status', 'verified')->latest('checked_in_at')->get();
+    $cashierTransactions = Transaction::query()->with(['member', 'items.product'])->latest('transaction_at')->get();
+    $expenseRecords      = ExpenseRecord::query()->latest('expense_date')->latest()->get();
     $vitaminProductRecords = Product::query()
-        ->where('category', 'vitamin')
+        ->whereHas('category', fn($q) => $q->where('name', 'like', '%vitamin%'))
+        ->orWhere('name', 'like', '%vitamin%')
         ->orderBy('name')
         ->get();
 
-    $verifiedTransactions    = $cashierTransactions->filter(fn (CashierTransaction $t) => $t->payment_status === 'verified');
-    $memberPaymentRecords     = $cashierTransactions->where('transaction_group', 'member_payment')->values();
-    $dailyPassPaymentRecords  = $cashierTransactions->where('transaction_group', 'daily_pass')->values();
-    $productSaleRecords       = $cashierTransactions->where('transaction_group', 'product_sale')->values();
-    $otherTransactionRecords  = $cashierTransactions->where('transaction_group', 'other')->values();
+    $verifiedTransactions    = $cashierTransactions->filter(fn (Transaction $t) => $t->payment_status === 'verified');
+    $memberPaymentRecords     = $cashierTransactions->where('type', Transaction::TYPE_MEMBERSHIP)->values();
+    $dailyPassPaymentRecords  = $cashierTransactions->where('type', Transaction::TYPE_DAILY_PASS)->values();
+    $productSaleRecords       = $cashierTransactions->where('type', Transaction::TYPE_PRODUCT_SALE)->values();
+    $otherTransactionRecords  = $cashierTransactions->where('type', Transaction::TYPE_OTHER)->values();
 
-    $activeMembers     = $memberRecords->filter(fn (GymMember $m) => $m->expires_at && $m->expires_at->gt(now()->addDays(7)));
-    $endingSoonMembers = $memberRecords->filter(fn (GymMember $m) => $m->expires_at && $m->expires_at->lte(now()->addDays(7)) && $m->expires_at->gte(now()));
-    $expiredMembers    = $memberRecords->filter(fn (GymMember $m) => $m->expires_at && $m->expires_at->lt(now()));
+    $activeMembers     = $memberRecords->filter(fn (Member $m) => $m->expires_at && $m->expires_at->gt(now()->addDays(7)));
+    $endingSoonMembers = $memberRecords->filter(fn (Member $m) => $m->expires_at && $m->expires_at->lte(now()->addDays(7)) && $m->expires_at->gte(now()));
+    $expiredMembers    = $memberRecords->filter(fn (Member $m) => $m->expires_at && $m->expires_at->lt(now()));
 
     $membershipReportSummary = [
         'active'  => $activeMembers->count(),
@@ -77,37 +77,37 @@ $buildAdminReportsData = function (Request $request): array {
     $reportMonthStart = $detailMonth->copy()->startOfMonth();
     $reportMonthEnd   = $detailMonth->copy()->endOfMonth();
 
-    $monthlyVerifiedTransactions = $verifiedTransactions->filter(fn ($t) => $t->transaction_at->between($reportMonthStart, $reportMonthEnd))->values();
-    $monthlyExpenseRecords = $expenseRecords->filter(fn ($e) => $e->expense_date->between($reportMonthStart, $reportMonthEnd))->values();
+    $monthlyVerifiedTransactions = $verifiedTransactions->filter(fn ($t) => $t->transaction_at && $t->transaction_at->between($reportMonthStart, $reportMonthEnd))->values();
+    $monthlyExpenseRecords = $expenseRecords->filter(fn ($e) => $e->expense_date && $e->expense_date->between($reportMonthStart, $reportMonthEnd))->values();
 
     $financialSummary = [
         'month_label'               => $reportMonthStart->translatedFormat('F Y'),
         'total_revenue'             => $monthlyVerifiedTransactions->sum('amount'),
         'total_expense'             => $monthlyExpenseRecords->sum('amount'),
         'net_revenue'               => $monthlyVerifiedTransactions->sum('amount') - $monthlyExpenseRecords->sum('amount'),
-        'member_revenue'            => $monthlyVerifiedTransactions->where('transaction_group', 'member_payment')->sum('amount'),
-        'daily_pass_revenue'        => $monthlyVerifiedTransactions->where('transaction_group', 'daily_pass')->sum('amount'),
-        'other_revenue'             => $monthlyVerifiedTransactions->where('transaction_group', 'other')->sum('amount'),
+        'member_revenue'            => $monthlyVerifiedTransactions->where('type', Transaction::TYPE_MEMBERSHIP)->sum('amount'),
+        'daily_pass_revenue'        => $monthlyVerifiedTransactions->where('type', Transaction::TYPE_DAILY_PASS)->sum('amount'),
+        'other_revenue'             => $monthlyVerifiedTransactions->where('type', Transaction::TYPE_OTHER)->sum('amount'),
         'verified_transaction_count'=> $monthlyVerifiedTransactions->count(),
         'expense_count'             => $monthlyExpenseRecords->count(),
     ];
 
     // ── Training Stats ────────────────────────────────────────────────────────
     $dailyTrainingStats = [
-        'today_checkins' => $checkinRecords->filter(fn($c) => $c->checked_in_at->isToday())->count(),
+        'today_checkins' => $checkinRecords->filter(fn($c) => $c->checked_in_at && $c->checked_in_at->isToday())->count(),
     ];
 
     // ── Histori Bulanan ───────────────────────────────────────────────────────
     $financialMonthlyHistory = collect(range(0, 5))->map(function (int $offset) use ($verifiedTransactions, $expenseRecords) {
         $monthStart = now()->copy()->subMonths($offset)->startOfMonth();
         $monthEnd   = $monthStart->copy()->endOfMonth();
-        $mRev = $verifiedTransactions->filter(fn ($t) => $t->transaction_at->between($monthStart, $monthEnd))->sum('amount');
-        $mExp = $expenseRecords->filter(fn ($e) => $e->expense_date->between($monthStart, $monthEnd))->sum('amount');
+        $mRev = $verifiedTransactions->filter(fn ($t) => $t->transaction_at && $t->transaction_at->between($monthStart, $monthEnd))->sum('amount');
+        $mExp = $expenseRecords->filter(fn ($e) => $e->expense_date && $e->expense_date->between($monthStart, $monthEnd))->sum('amount');
         return ['month_label' => $monthStart->translatedFormat('F Y'), 'total_revenue' => $mRev, 'total_expense' => $mExp, 'net_revenue' => $mRev - $mExp];
     })->values()->reverse()->values();
 
     // ── Visitor Statistics ────────────────────────────────────────────────────
-    $visitorDailyRows = collect(); // Logic dipersingkat untuk performa
+    $visitorDailyRows = collect();
     for ($date = $detailRangeStart->copy(); $date->lte($detailRangeEnd); $date->addDay()) {
         $visitorDailyRows->push(['date' => $date->copy()]);
     }
@@ -188,13 +188,6 @@ $buildAdminReportsData = function (Request $request): array {
         $stockSales = $productSaleRecords
             ->filter(fn ($transaction) => $transaction->transaction_at && $transaction->transaction_at->betweenIncluded($detailRangeStart, $detailRangeEnd));
 
-        $stockSalesByProduct = $stockSales
-            ->groupBy('product_id')
-            ->map(fn ($transactions) => [
-                'quantity' => $transactions->sum('quantity'),
-                'amount' => $transactions->sum('amount'),
-            ]);
-
         $dummyDetails = match ($report['slug']) {
             'aktivitas-latihan' => [
                 'daily_stat_columns' => ['Tanggal', 'Kehadiran'],
@@ -251,11 +244,11 @@ $buildAdminReportsData = function (Request $request): array {
                 'columns' => ['Nama Member', 'Jenis Keanggotaan', 'Status', 'Berakhir', 'Tanggal Daftar', 'Metode Pembayaran'],
                 'rows' => $filteredMemberRecords->map(fn($member) => [
                     $member->full_name,
-                    $member->payment_method ? ucfirst($member->payment_method) : 'Reguler',
+                    'Member',
                     $member->expires_at && $member->expires_at->gte(now()) ? 'Aktif' : 'Expired',
                     $member->expires_at?->format('d M Y') ?? '-',
                     $member->joined_at?->format('d M Y') ?? '-',
-                    $member->payment_method ? ucfirst($member->payment_method) : 'Reguler',
+                    'Cash',
                 ])->take(10)->toArray(),
                 'member_table_columns' => ['Nama Member', 'Metode Pembayaran', 'Tanggal Daftar', 'Berakhir'],
                 'member_table_groups' => [
@@ -300,33 +293,33 @@ $buildAdminReportsData = function (Request $request): array {
                             $transaction->member?->full_name ?? $transaction->customer_name ?? 'Tidak dikenal',
                             'Member',
                             $formatMoney($transaction->amount),
-                            ucfirst($transaction->payment_method ?? $transaction->transaction_type ?? 'Tunai'),
+                            ucfirst($transaction->payment_method ?? 'Cash'),
                         ])->toBase()->merge($dailyPassPaymentRecords->filter(fn($transaction) => $transaction->transaction_at && $transaction->transaction_at->betweenIncluded($detailRangeStart, $detailRangeEnd))->take(5)->map(fn($transaction) => [
                             $transaction->transaction_at?->translatedFormat('d M Y') ?? '-',
                             $transaction->customer_name ?? 'Daily Pass',
                             'Daily Pass',
                             $formatMoney($transaction->amount),
-                            ucfirst($transaction->payment_method ?? $transaction->transaction_type ?? 'Tunai'),
+                            ucfirst($transaction->payment_method ?? 'Cash'),
                         ])->toBase())->take(10)->values()->toArray(),
                     ],
                     'Penjualan Produk' => [
                         'columns' => ['Tanggal', 'Pelanggan', 'Produk', 'Jumlah', 'Metode Pembayaran'],
                         'rows' => $productSaleRecords->filter(fn($transaction) => $transaction->transaction_at && $transaction->transaction_at->betweenIncluded($detailRangeStart, $detailRangeEnd))->map(fn($transaction) => [
                             $transaction->transaction_at?->translatedFormat('d M Y') ?? '-',
-                            $transaction->customer_name ?? 'Daily Pass',
-                            $transaction->product?->name ?? ucfirst(str_replace('_', ' ', $transaction->transaction_group)),
+                            $transaction->customer_name ?? ($transaction->member?->full_name ?? 'Pelanggan'),
+                            $transaction->description ?? 'Produk',
                             $formatMoney($transaction->amount),
-                            ucfirst($transaction->payment_method ?? $transaction->transaction_type ?? 'Tunai'),
+                            ucfirst($transaction->payment_method ?? 'Cash'),
                         ])->toBase()->values()->toArray(),
                     ],
                     'Riwayat Pemasukan' => [
                         'columns' => ['Tanggal', 'Sumber', 'Keterangan', 'Jumlah', 'Metode Pembayaran'],
                         'rows' => $verifiedTransactions->filter(fn($transaction) => $transaction->transaction_at && $transaction->transaction_at->betweenIncluded($detailRangeStart, $detailRangeEnd))->map(fn($transaction) => [
-                            $transaction->transaction_at->format('d M Y'),
-                            ucfirst(str_replace('_', ' ', $transaction->transaction_group)),
-                            $transaction->customer_name ?? $transaction->member?->full_name ?? 'Tidak dikenal',
+                            $transaction->transaction_at ? $transaction->transaction_at->format('d M Y') : '-',
+                            Transaction::typeLabel($transaction->type),
+                            $transaction->customer_name ?? ($transaction->member?->full_name ?? '-'),
                             $formatMoney($transaction->amount),
-                            ucfirst($transaction->payment_method ?? $transaction->transaction_type ?? 'Tunai'),
+                            ucfirst($transaction->payment_method ?? 'Cash'),
                         ])->sortByDesc(fn($row) => Carbon::parse($row[0]))->values()->toArray(),
                     ],
                     'Riwayat Pengeluaran' => [
@@ -364,7 +357,7 @@ $buildAdminReportsData = function (Request $request): array {
                     $monthEnd = $date->copy()->endOfMonth();
                     $monthlyCheckins = $checkinRecords->filter(fn($checkin) => $checkin->checked_in_at && $checkin->checked_in_at->betweenIncluded($monthStart, $monthEnd));
                     $uniqueMembers = $monthlyCheckins
-                        ->map(fn($checkin) => $checkin->gym_member_id ?: ($checkin->submitted_name . '|' . $checkin->submitted_phone))
+                        ->map(fn($checkin) => $checkin->member_id ?: ($checkin->submitted_name . '|' . $checkin->submitted_phone))
                         ->filter()
                         ->unique()
                         ->count();
@@ -398,7 +391,7 @@ $buildAdminReportsData = function (Request $request): array {
                     $vitaminProductRecords->count(),
                     $vitaminProductRecords->sum('stock'),
                     $vitaminProductRecords->where('stock', '<', 3)->count(),
-                    $stockSales->sum('quantity'),
+                    $stockSales->sum('amount'),
                 ]],
                 'monthly_stat_columns' => ['Bulan', 'Total Jenis Vitamin', 'Total Stok', 'Stok Rendah', 'Terjual'],
                 'monthly_stat_rows' => [[
@@ -406,59 +399,18 @@ $buildAdminReportsData = function (Request $request): array {
                     $vitaminProductRecords->count(),
                     $vitaminProductRecords->sum('stock'),
                     $vitaminProductRecords->where('stock', '<', 3)->count(),
-                    $stockSales->sum('quantity'),
+                    $stockSales->sum('amount'),
                 ]],
-                'columns' => ['Nama Vitamin', 'Brand', 'SKU', 'Stok', 'Terjual', 'Pendapatan Terjual', 'Status'],
+                'columns' => ['Nama Vitamin', 'Brand', 'SKU', 'Stok', 'Harga', 'Status'],
                 'rows' => $vitaminProductRecords->map(fn($product) => [
                     $product->name,
                     $product->brand ?: '-',
                     $product->sku ?: '-',
-                    number_format($product->stock, 0, ',', '.') . ' ' . $product->unit,
-                    $stockSalesByProduct->get($product->id)['quantity'] ?? 0,
-                    $formatMoney($stockSalesByProduct->get($product->id)['amount'] ?? 0),
+                    number_format($product->stock, 0, ',', '.') . ' ' . ($product->unit ?? 'pcs'),
+                    $formatMoney($product->price),
                     $product->is_active ? 'Aktif' : 'Nonaktif',
                 ])->toArray(),
-                'overview' => ['Nama vitamin', 'Brand dan SKU', 'Stok saat ini', 'Jumlah terjual', 'Pendapatan penjualan'],
-                'detail_title' => 'Daftar stok vitamin',
-                'reportSections' => [
-                    'Rincian Penjualan' => [
-                        'columns' => ['Produk', 'Jumlah Terjual', 'Pendapatan'],
-                        'rows' => $vitaminProductRecords->map(fn($product) => [
-                            $product->name,
-                            $stockSalesByProduct->get($product->id)['quantity'] ?? 0,
-                            $formatMoney($stockSalesByProduct->get($product->id)['amount'] ?? 0),
-                        ])->toArray(),
-                    ],
-                    'Rincian Barang Terjual' => [
-                        'columns' => ['Tanggal', 'Invoice', 'Pelanggan', 'Produk', 'Brand', 'SKU', 'Qty', 'Harga Satuan', 'Total', 'Pembayaran', 'Status'],
-                        'rows' => $stockSales
-                            ->sortByDesc('transaction_at')
-                            ->map(fn($transaction) => [
-                                $transaction->transaction_at?->translatedFormat('d M Y H:i') ?? '-',
-                                $transaction->invoice ?: '-',
-                                $transaction->customer_name ?: ($transaction->member?->full_name ?? 'Daily Pass'),
-                                $transaction->product?->name ?? $transaction->transaction_type ?? 'Produk tidak dikenal',
-                                $transaction->product?->brand ?: '-',
-                                $transaction->product?->sku ?: '-',
-                                number_format($transaction->quantity ?? 0, 0, ',', '.') . ' ' . ($transaction->product?->unit ?? 'pcs'),
-                                $formatMoney((int) round(($transaction->amount ?? 0) / max((int) ($transaction->quantity ?? 1), 1))),
-                                $formatMoney($transaction->amount ?? 0),
-                                ucfirst($transaction->payment_method ?? 'Tunai'),
-                                ucfirst($transaction->payment_status ?? '-'),
-                            ])->values()->toArray(),
-                    ],
-                    'Produk Terlaris' => [
-                        'columns' => ['Produk', 'Qty Terjual', 'Pendapatan'],
-                        'rows' => collect($stockSalesByProduct)
-                            ->sortByDesc(fn($stats) => $stats['quantity'])
-                            ->take(10)
-                            ->map(fn($stats, $productId) => [
-                                $vitaminProductRecords->firstWhere('id', $productId)?->name ?? 'Produk tidak dikenal',
-                                $stats['quantity'],
-                                $formatMoney($stats['amount']),
-                            ])->values()->toArray(),
-                    ],
-                ],
+                'overview' => ['Nama vitamin', 'Brand dan SKU', 'Stok saat ini', 'Harga jual', 'Status produk'],
             ],
             default => [],
         };
@@ -475,7 +427,6 @@ $buildAdminReportsData = function (Request $request): array {
         'detailFilterMonth'       => $detailMonth->format('Y-m'),
         'detailFilterLabel'       => $reportDateLabel,
         'visitorDailyRows'        => $visitorDailyRows,
-        // Tambahkan variabel kosong agar tidak error di bagian detail jika belum dipilih
         'recentTrainingActivities'=> collect(),
         'membershipOperationalRows'=> collect(),
         'expenseRecords'          => collect(),
@@ -499,73 +450,51 @@ $buildExcelResponse = function (array $selectedReport, array $reportData) {
         }
 
         $html .= '</tr></thead><tbody>';
+
         if ($rows->isEmpty()) {
-            $html .= '<tr><td colspan="' . $colspan . '">Tidak ada data</td></tr>';
+            $html .= '<tr><td colspan="' . $colspan . '" style="text-align:center;">Data tidak ditemukan</td></tr>';
         } else {
             foreach ($rows as $row) {
                 $html .= '<tr>';
-                foreach ((array) $row as $cell) {
+                foreach ($row as $cell) {
                     $html .= '<td>' . $escape($cell) . '</td>';
                 }
                 $html .= '</tr>';
             }
         }
 
-        return $html . '</tbody></table>';
+        $html .= '</tbody></table><br/>';
+
+        return $html;
     };
 
-    $sections = [];
-    $sections[] = $renderTable('Ringkasan', ['Keterangan', 'Nilai'], [
-        ['Laporan', $selectedReport['title'] ?? '-'],
-        ['Kategori', $selectedReport['group'] ?? '-'],
-        ['Periode', $reportData['detailFilterLabel'] ?? '-'],
-        ['Tanggal Laporan', $selectedReport['date_label'] ?? '-'],
-        ['Jumlah Data', $selectedReport['count_label'] ?? '-'],
-        ['Highlight', $selectedReport['highlight'] ?? '-'],
-    ]);
+    $filename = 'laporan-' . $selectedReport['slug'] . '-' . now()->format('Ymd-His') . '.xls';
+
+    $html = '<html><head><meta charset="utf-8"/><style>'
+        . 'body { font-family: Arial, sans-serif; font-size: 12px; }'
+        . 'table { border-collapse: collapse; width: 100%; margin-bottom: 16px; }'
+        . 'th, td { border: 1px solid #d1d5db; padding: 6px 8px; text-align: left; vertical-align: top; }'
+        . 'th { background-color: #f3f4f6; font-weight: bold; }'
+        . 'h1 { font-size: 18px; margin-bottom: 4px; }'
+        . 'h2 { font-size: 14px; margin-top: 14px; margin-bottom: 6px; }'
+        . '.meta { margin-bottom: 12px; color: #4b5563; }'
+        . '</style></head><body>';
+
+    $html .= '<h1>' . $escape($selectedReport['title']) . '</h1>';
+    $html .= '<div class="meta">Periode: ' . $escape($selectedReport['date_label']) . ' | Dibuat: ' . $escape(now()->translatedFormat('d F Y H:i')) . '</div>';
 
     if (! empty($selectedReport['daily_stat_columns']) && ! empty($selectedReport['daily_stat_rows'])) {
-        $sections[] = $renderTable('Statistik Harian', $selectedReport['daily_stat_columns'], $selectedReport['daily_stat_rows']);
+        $html .= $renderTable('Statistik Harian', $selectedReport['daily_stat_columns'], $selectedReport['daily_stat_rows']);
     }
 
     if (! empty($selectedReport['monthly_stat_columns']) && ! empty($selectedReport['monthly_stat_rows'])) {
-        $sections[] = $renderTable('Statistik Bulanan', $selectedReport['monthly_stat_columns'], $selectedReport['monthly_stat_rows']);
+        $html .= $renderTable('Statistik Bulanan', $selectedReport['monthly_stat_columns'], $selectedReport['monthly_stat_rows']);
     }
 
-    if (($selectedReport['slug'] ?? '') === 'laporan-member' && ! empty($selectedReport['member_table_groups'])) {
-        foreach ($selectedReport['member_table_groups'] as $groupLabel => $groupMembers) {
-            $rows = collect($groupMembers)->map(fn($member) => [
-                $member->full_name,
-                $member->payment_method ? ucfirst($member->payment_method) : 'Reguler',
-                $member->joined_at?->format('d M Y') ?? '-',
-                $member->expires_at?->format('d M Y') ?? '-',
-            ]);
-
-            $sections[] = $renderTable('Member ' . $groupLabel, $selectedReport['member_table_columns'], $rows);
-        }
-    } elseif (! empty($selectedReport['reportSections'])) {
-        foreach ($selectedReport['reportSections'] as $sectionLabel => $sectionData) {
-            $sections[] = $renderTable($sectionLabel, $sectionData['columns'] ?? [], $sectionData['rows'] ?? []);
-        }
-    } else {
-        $sections[] = $renderTable($selectedReport['detail_title'] ?? 'Detail Laporan', $selectedReport['columns'] ?? [], $selectedReport['rows'] ?? []);
+    if (! empty($selectedReport['columns']) && ! empty($selectedReport['rows'])) {
+        $html .= $renderTable('Data Rinci', $selectedReport['columns'], $selectedReport['rows']);
     }
 
-    $filename = Str::slug($selectedReport['title'] ?? 'laporan') . '-' . now()->format('Ymd-His') . '.xls';
-    $html = '<!doctype html><html><head><meta charset="UTF-8"><style>
-        body { font-family: Calibri, Arial, sans-serif; color: #111827; }
-        h1 { font-size: 22px; margin: 0 0 4px; color: #111827; }
-        h2 { font-size: 16px; margin: 22px 0 8px; color: #1f2937; }
-        .meta { margin-bottom: 18px; color: #4b5563; }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 16px; }
-        th { background: #111827; color: #ffffff; font-weight: 700; text-align: left; }
-        th, td { border: 1px solid #d1d5db; padding: 8px 10px; vertical-align: top; }
-        tr:nth-child(even) td { background: #f9fafb; }
-        td { mso-number-format:"\@"; }
-    </style></head><body>';
-    $html .= '<h1>' . $escape($selectedReport['title'] ?? 'Laporan') . '</h1>';
-    $html .= '<div class="meta">Arena Gym - Export ' . $escape(now()->format('d M Y H:i')) . '</div>';
-    $html .= implode('', $sections);
     $html .= '</body></html>';
 
     return response($html, 200, [
@@ -577,33 +506,31 @@ $buildExcelResponse = function (array $selectedReport, array $reportData) {
 };
 
 $buildMemberExportResponse = function () {
+    $members = Member::orderBy('full_name')->get();
     $escape = fn($value): string => e((string) $value);
-    $members = GymMember::query()->orderBy('full_name')->get();
     $filename = 'data-member-' . now()->format('Ymd-His') . '.xls';
-    $columns = ['Nama', 'Status', 'Paket', 'Metode Pembayaran', 'Tanggal Daftar', 'Berakhir', 'Catatan'];
 
-    $html = '<!doctype html><html><head><meta charset="UTF-8"><style>
-        body { font-family: Calibri, Arial, sans-serif; color: #111827; }
-        h1 { font-size: 22px; margin: 0 0 16px; }
-        table { border-collapse: collapse; width: 100%; }
-        th { background: #111827; color: #ffffff; font-weight: 700; text-align: left; }
-        th, td { border: 1px solid #d1d5db; padding: 8px 10px; vertical-align: top; }
-        tr:nth-child(even) td { background: #f9fafb; }
-        td { mso-number-format:"\@"; }
-    </style></head><body><h1>Data Member Arena Gym</h1><table><thead><tr>';
+    $html = '<html><head><meta charset="utf-8"/><style>'
+        . 'body { font-family: Arial, sans-serif; font-size: 12px; }'
+        . 'table { border-collapse: collapse; width: 100%; }'
+        . 'th, td { border: 1px solid #d1d5db; padding: 6px 8px; text-align: left; }'
+        . 'th { background-color: #f3f4f6; font-weight: bold; }'
+        . 'h1 { font-size: 16px; margin-bottom: 8px; }'
+        . '</style></head><body>';
 
-    foreach ($columns as $column) {
-        $html .= '<th>' . $escape($column) . '</th>';
-    }
+    $html .= '<h1>Data Member Arena Gym</h1>';
+    $html .= '<p>Tanggal Ekspor: ' . now()->translatedFormat('d F Y H:i') . '</p>';
+    $html .= '<table><thead><tr>'
+        . '<th>Nama Lengkap</th><th>Email</th><th>Telepon</th>'
+        . '<th>Tgl Daftar</th><th>Masa Aktif</th><th>Catatan</th>'
+        . '</tr></thead><tbody>';
 
-    $html .= '</tr></thead><tbody>';
     foreach ($members as $member) {
         $html .= '<tr>';
         foreach ([
             $member->full_name,
-            ucfirst(str_replace('_', ' ', $member->member_status ?? '-')),
-            $member->membership_plan ?? '-',
-            $member->payment_method ? ucfirst($member->payment_method) : '-',
+            $member->email ?? '-',
+            $member->phone ?? '-',
             $member->joined_at?->format('d M Y') ?? '-',
             $member->expires_at?->format('d M Y') ?? '-',
             $member->notes ?? '-',
@@ -650,9 +577,9 @@ Route::post('/reports/expenses', function (Request $request) {
     if ($redirect = RouteHelpers::ensureAdmin()) return $redirect;
     ExpenseRecord::create($request->validate([
         'title' => 'required|string|max:255',
-        'category' => 'required|string|max:60',
+        'category' => 'nullable|string|max:60',
         'amount' => 'required|integer|min:1',
-        'payment_method' => 'nullable|in:cash,qris',
+        'payment_method' => 'nullable|in:cash,qris,transfer',
         'expense_date' => 'required|date',
         'notes' => 'nullable|string',
     ]));

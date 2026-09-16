@@ -1,17 +1,16 @@
 <?php
 
-use App\Models\CashierTransaction;
-use App\Models\GymMember;
 use App\Models\Announcement;
+use App\Models\Member;
 use App\Models\MemberFeedback;
 use App\Models\ProfilePhotoChangeRequest;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -24,7 +23,7 @@ use Illuminate\Validation\Rule;
 */
 
 // Helpers for Member Authentication & Membership Status Check
-$isMemberMembershipActive = function (?GymMember $member): bool {
+$isMemberMembershipActive = function (?Member $member): bool {
     return (bool) ($member?->expires_at && $member->expires_at->copy()->startOfDay()->gte(now()->startOfDay()));
 };
 
@@ -45,7 +44,7 @@ $activeMemberSession = function (Request $request) use ($isMemberMembershipActiv
         return ['redirect' => redirect()->route('member.login')->withErrors(['email' => 'Sesi login berakhir, silakan login kembali.'])];
     }
 
-    $member = $user->gymMember;
+    $member = $user->member;
     if (! $isMemberMembershipActive($member)) {
         $request->session()->forget(['auth', 'show_whatsapp_channel_prompt']);
         return ['redirect' => $inactiveMembershipRedirect()];
@@ -54,11 +53,11 @@ $activeMemberSession = function (Request $request) use ($isMemberMembershipActiv
     return ['user' => $user, 'member' => $member];
 };
 
-$memberNotificationData = function (?User $user, ?GymMember $member, bool $pullChannelPrompt = false): array {
+$memberNotificationData = function (?User $user, ?Member $member, bool $pullChannelPrompt = false): array {
     $announcements = collect();
     if ($member) {
         $announcements = Announcement::query()
-            ->where('status', 'active')
+            ->where('status', '!=', 'archived')
             ->where('body', 'like', "[TARGET_MEMBER_ID:{$member->id}]%")
             ->latest('publish_at')
             ->get();
@@ -102,7 +101,7 @@ View::composer('member.*', function ($view) use ($memberNotificationData) {
     }
 
     $user = User::query()->where('id', session('auth.id'))->where('role', 'member')->first();
-    $member = $user?->gymMember;
+    $member = $user?->member;
     $view->with($memberNotificationData($user, $member, true));
 });
 
@@ -153,7 +152,7 @@ Route::post('/member/login', function (Request $request) use ($isMemberMembershi
             ->withInput();
     }
 
-    if (! $isMemberMembershipActive($user->gymMember)) {
+    if (! $isMemberMembershipActive($user->member)) {
         return $inactiveMembershipRedirect()->withInput($request->only('email'));
     }
 
@@ -174,7 +173,7 @@ Route::post('/member/login', function (Request $request) use ($isMemberMembershi
 Route::get('/member/activate', function (Request $request) {
     $memberSearch = trim((string) $request->query('q', ''));
 
-    $activationMembers = GymMember::query()
+    $activationMembers = Member::query()
         ->with('user')
         ->when($memberSearch !== '', function ($query) use ($memberSearch) {
             $query->where(function ($q) use ($memberSearch) {
@@ -330,16 +329,12 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
         $user = $session['user'];
         $member = $session['member'];
         $totalCheckins = $member ? $member->verifiedCheckins()->count() : 0;
-        $membershipStatus = collect([
-            $member?->member_status,
-            $member?->membership_plan,
-            $member?->status,
-        ])->first(fn ($value) => filled($value)) ?? 'member';
+        $membershipStatus = 'member';
 
         $announcements = collect();
         if ($member) {
             $announcements = Announcement::query()
-                ->where('status', 'active')
+                ->where('status', '!=', 'archived')
                 ->where('body', 'like', "[TARGET_MEMBER_ID:{$member->id}]%")
                 ->latest('publish_at')
                 ->get();
@@ -435,7 +430,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
         $announcements = collect();
         if ($member) {
             $announcements = Announcement::query()
-                ->where('status', 'active')
+                ->where('status', '!=', 'archived')
                 ->where('body', 'like', "[TARGET_MEMBER_ID:{$member->id}]%")
                 ->latest('publish_at')
                 ->get();
@@ -444,7 +439,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
         return view('member.messages', [
             'user' => $user,
             'member' => $member,
-            'membershipStatus' => $member?->status ?? 'member',
+            'membershipStatus' => 'member',
             'announcements' => $announcements,
         ]);
     })->name('messages');
@@ -529,12 +524,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
 
         $user = $session['user'];
         $member = $session['member'];
-
-        $membershipStatus = collect([
-            $member?->member_status,
-            $member?->membership_plan,
-            $member?->status,
-        ])->first(fn ($value) => filled($value)) ?? 'member';
+        $membershipStatus = 'member';
 
         return view('member.barcode', [
             'user' => $user,
@@ -554,11 +544,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
 
         $user = $session['user'];
         $member = $session['member'];
-        $membershipStatus = collect([
-            $member?->member_status,
-            $member?->membership_plan,
-            $member?->status,
-        ])->first(fn ($value) => filled($value)) ?? 'member';
+        $membershipStatus = 'member';
 
         $joinedAt = $member?->joined_at;
         $expiresAt = $member?->expires_at;
@@ -569,20 +555,13 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
         $elapsedDays = $joinedAt ? max(0, $joinedAt->startOfDay()->diffInDays(now()->startOfDay())) : 0;
         $progressPercent = min(100, max(0, (int) round(($elapsedDays / $totalDays) * 100)));
 
-        $paymentHistory = collect();
-        if ($member && Schema::hasTable('cashier_transactions')) {
-            $paymentQuery = CashierTransaction::query()
-                ->where('gym_member_id', $member->id);
-
-            if (Schema::hasColumn('cashier_transactions', 'product_id')) {
-                $paymentQuery->whereNull('product_id');
-            }
-
-            $paymentHistory = $paymentQuery
+        $paymentHistory = $member
+            ? $member->transactions()
+                ->where('type', Transaction::TYPE_MEMBERSHIP)
                 ->latest('transaction_at')
                 ->limit(5)
-                ->get();
-        }
+                ->get()
+            : collect();
 
         $latestPayment = $paymentHistory->first();
 
@@ -608,11 +587,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
         $user = $session['user'];
         $member = $session['member'];
         $totalCheckins = $member ? $member->verifiedCheckins()->count() : 0;
-        $membershipStatus = collect([
-            $member?->member_status,
-            $member?->membership_plan,
-            $member?->status,
-        ])->first(fn ($value) => filled($value)) ?? 'member';
+        $membershipStatus = 'member';
 
         return view('member.profile', [
             'user' => $user,
@@ -622,7 +597,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
             'photoChangesRemaining' => max(0, 3 - (int) ($member?->profile_photo_change_count ?? 0)),
             'pendingPhotoRequest' => $member
                 ? ProfilePhotoChangeRequest::query()
-                    ->where('gym_member_id', $member->id)
+                    ->where('member_id', $member->id)
                     ->where('status', 'pending')
                     ->latest()
                     ->first()
@@ -671,7 +646,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
                     $member->profile_photo_change_count = $changeCount + 1;
                 } else {
                     $hasPendingRequest = ProfilePhotoChangeRequest::query()
-                        ->where('gym_member_id', $member->id)
+                        ->where('member_id', $member->id)
                         ->where('status', 'pending')
                         ->exists();
 
@@ -685,7 +660,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
 
                     ProfilePhotoChangeRequest::query()->create([
                         'user_id' => $user?->id,
-                        'gym_member_id' => $member->id,
+                        'member_id' => $member->id,
                         'requested_photo_path' => $requestPath,
                         'status' => 'pending',
                     ]);
@@ -738,7 +713,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
         }
 
         $hasPendingRequest = ProfilePhotoChangeRequest::query()
-            ->where('gym_member_id', $member->id)
+            ->where('member_id', $member->id)
             ->where('status', 'pending')
             ->exists();
 
@@ -748,7 +723,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
 
         ProfilePhotoChangeRequest::query()->create([
             'user_id' => $user?->id,
-            'gym_member_id' => $member->id,
+            'member_id' => $member->id,
             'requested_photo_path' => $request->file('profile_photo')->store('member-profile-photo-requests', 'public'),
             'status' => 'pending',
         ]);
@@ -773,7 +748,7 @@ Route::prefix('member')->name('member.')->group(function () use ($activeMemberSe
 
         MemberFeedback::query()->create([
             'user_id' => $user->id,
-            'gym_member_id' => $member?->id,
+            'member_id' => $member?->id,
             'name' => $member?->full_name ?? $user->name,
             'email' => $member?->email ?? $user->email,
             'subject' => $validated['category'],

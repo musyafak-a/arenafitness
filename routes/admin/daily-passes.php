@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\DailyGuest;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Helpers\RouteHelpers;
 
@@ -18,7 +20,7 @@ Route::get('/daily-passes', function (Request $request) {
 
     $search = trim($request->string('q')->value());
 
-    $query = DailyGuest::query()->latest('visit_at');
+    $query = DailyGuest::query()->with('transactions')->latest('visit_at');
 
     if ($search !== '') {
         $query->where('full_name', 'like', '%' . $search . '%')
@@ -46,13 +48,26 @@ Route::post('/daily-passes', function (Request $request) {
         'notes'          => ['nullable', 'string'],
     ]);
 
-    DailyGuest::query()->create([
-        'full_name'      => $validated['full_name'],
-        'phone'          => $validated['phone'] ?? null,
-        'payment_amount' => (int) ($validated['payment_amount'] ?? 30000),
-        'payment_method' => $validated['payment_method'],
-        'visit_at'       => now(),
-    ]);
+    DB::transaction(function () use ($validated) {
+        $guest = DailyGuest::query()->create([
+            'full_name'  => $validated['full_name'],
+            'phone'      => $validated['phone'] ?? null,
+            'visit_type' => 'daily_pass',
+            'visit_at'   => now(),
+        ]);
+
+        Transaction::query()->create([
+            'invoice'          => 'INV-' . time() . '-' . rand(100, 999),
+            'daily_guest_id'   => $guest->id,
+            'type'             => 'daily_pass',
+            'amount'           => (int) ($validated['payment_amount'] ?? 30000),
+            'paid_amount'      => (int) ($validated['payment_amount'] ?? 30000),
+            'payment_method'   => $validated['payment_method'],
+            'payment_status'   => 'verified',
+            'transaction_at'   => now(),
+            'cashier_user_id'  => RouteHelpers::authUserId(),
+        ]);
+    });
 
     return redirect()->route('admin.daily-passes')->with('status', 'Data kunjungan daily pass berhasil ditambahkan.');
 })->name('daily-passes.store');

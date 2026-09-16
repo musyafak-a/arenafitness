@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,7 +15,6 @@ class CashierProductTransactionTest extends TestCase
     {
         $product = Product::query()->create([
             'name' => 'Vitamin C 1000',
-            'category' => 'vitamin',
             'brand' => 'Healthy Co',
             'sku' => 'VITC-001',
             'price' => 95000,
@@ -45,16 +45,19 @@ class CashierProductTransactionTest extends TestCase
             ])
             ->assertRedirect(route('cashier.transactions.products'));
 
-        $this->assertDatabaseHas('cashier_transactions', [
-            'product_id' => $product->id,
+        $this->assertDatabaseHas('transactions', [
             'customer_name' => 'Budi',
-            'transaction_group' => 'product_sale',
-            'transaction_type' => 'Vitamin C 1000',
+            'type' => Transaction::TYPE_PRODUCT_SALE,
             'amount' => 190000,
             'paid_amount' => 200000,
             'change_amount' => 10000,
-            'quantity' => 2,
             'payment_status' => 'verified',
+        ]);
+
+        $this->assertDatabaseHas('transaction_items', [
+            'product_id' => $product->id,
+            'quantity' => 2,
+            'subtotal' => 190000,
         ]);
 
         $this->assertDatabaseHas('products', [

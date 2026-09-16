@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -24,15 +25,14 @@ class CashierDailyPaymentTest extends TestCase
             'notes' => 'Tidak cetak dulu',
         ])->assertRedirect(route('cashier.transactions', ['section' => 'daily_pass']));
 
-        $this->assertDatabaseHas('cashier_transactions', [
+        $this->assertDatabaseHas('transactions', [
             'customer_name' => 'Tamu Tunai',
-            'transaction_group' => 'daily_pass',
+            'type' => Transaction::TYPE_DAILY_PASS,
             'amount' => 20000,
             'paid_amount' => 50000,
             'change_amount' => 30000,
             'payment_method' => 'cash',
             'payment_status' => 'verified',
-            'receipt_status' => 'ready',
         ]);
 
         $this->withSession([

@@ -1,9 +1,8 @@
 <?php
 
 use App\Helpers\RouteHelpers;
-use App\Models\GymCheckin;
-use App\Models\GymMember;
-use App\Models\MemberHistory;
+use App\Models\Checkin;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +36,7 @@ Route::get('/checkins/lookup-member', function (Request $request) {
     ]);
 
     $checkinCode = strtoupper(trim($validated['checkin_code']));
-    $member = GymMember::query()
+    $member = Member::query()
         ->where('checkin_code', $checkinCode)
         ->first();
 
@@ -83,7 +82,7 @@ Route::post('/checkins', function (Request $request) {
 })->name('checkins.store');
 
 // ── Verifikasi check-in pending (dari QR self-service) ────────────────────────
-Route::post('/checkins/{checkin}/verify', function (GymCheckin $checkin) {
+Route::post('/checkins/{checkin}/verify', function (Checkin $checkin) {
     if ($redirect = RouteHelpers::ensureCashier()) {
         return $redirect;
     }
@@ -96,29 +95,15 @@ Route::post('/checkins/{checkin}/verify', function (GymCheckin $checkin) {
         'verification_status' => 'verified',
         'checkin_method'      => 'qr_member',
         'verified_at'         => now(),
-        'verified_by'         => (string) (session('auth.name') ?? session('auth.login') ?? 'kasir'),
+        'verified_by'         => RouteHelpers::authUserId(),
     ]);
-
-    MemberHistory::query()->firstOrCreate(
-        [
-            'source_type' => GymCheckin::class,
-            'source_id' => $checkin->id,
-        ],
-        [
-            'gym_member_id' => $checkin->gym_member_id,
-            'history_type'  => 'checkin',
-            'occurred_at'   => $checkin->checked_in_at,
-            'title'         => 'Check-in member',
-            'description'   => 'Check-in melalui QR',
-        ]
-    );
 
     return redirect()->route('cashier.checkins')
         ->with('status', "Check-in {$checkin->member?->full_name} berhasil divalidasi kasir.");
 })->name('checkins.verify');
 
 // ── Tolak check-in pending ────────────────────────────────────────────────────
-Route::post('/checkins/{checkin}/reject', function (GymCheckin $checkin) {
+Route::post('/checkins/{checkin}/reject', function (Checkin $checkin) {
     if ($redirect = RouteHelpers::ensureCashier()) {
         return $redirect;
     }
@@ -130,7 +115,7 @@ Route::post('/checkins/{checkin}/reject', function (GymCheckin $checkin) {
     $checkin->update([
         'verification_status' => 'rejected',
         'verified_at'         => now(),
-        'verified_by'         => (string) (session('auth.name') ?? session('auth.login') ?? 'kasir'),
+        'verified_by'         => RouteHelpers::authUserId(),
     ]);
 
     return redirect()->route('cashier.checkins')

@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\CashierTransaction;
-use App\Models\GymMember;
+use App\Models\Member;
+use App\Models\MembershipPlan;
+use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
@@ -16,13 +17,14 @@ class CashierMemberPaymentTest extends TestCase
     {
         Carbon::setTestNow('2026-05-20 09:00:00');
 
-        $member = GymMember::query()->create([
+        MembershipPlan::query()->create([
+            'name' => 'Bulanan',
+            'duration_months' => 1,
+            'price' => 90000,
+        ]);
+
+        $member = Member::query()->create([
             'full_name' => 'Member Tanggal 26',
-            'member_status' => 'member',
-            'membership_plan' => 'Bulanan',
-            'package_status' => 'active',
-            'payment_method' => 'cash',
-            'payment_amount' => 50000,
             'joined_at' => '2026-04-26',
             'expires_at' => '2026-05-26',
         ]);
@@ -33,9 +35,8 @@ class CashierMemberPaymentTest extends TestCase
                 'login' => 'kasir',
             ],
         ])->post(route('cashier.member-payments.store'), [
-            'gym_member_id' => $member->id,
-            'transaction_type' => 'Perpanjangan Membership',
-            'amount' => 50000,
+            'member_id' => $member->id,
+            'amount' => 90000,
             'paid_amount' => 100000,
             'payment_method' => 'cash',
             'notes' => 'Renew lebih awal',
@@ -45,9 +46,9 @@ class CashierMemberPaymentTest extends TestCase
 
         $this->assertSame('2026-06-26', $member->expires_at?->toDateString());
 
-        $this->assertDatabaseHas('cashier_transactions', [
-            'gym_member_id' => $member->id,
-            'transaction_group' => 'member_payment',
+        $this->assertDatabaseHas('transactions', [
+            'member_id' => $member->id,
+            'type' => Transaction::TYPE_MEMBERSHIP,
             'amount' => 90000,
             'paid_amount' => 100000,
             'change_amount' => 10000,
@@ -61,27 +62,28 @@ class CashierMemberPaymentTest extends TestCase
     {
         Carbon::setTestNow('2026-05-20 09:00:00');
 
-        $member = GymMember::query()->create([
+        MembershipPlan::query()->create([
+            'name' => 'Bulanan',
+            'duration_months' => 1,
+            'price' => 90000,
+        ]);
+
+        $member = Member::query()->create([
             'full_name' => 'Member Pending',
-            'member_status' => 'member',
-            'membership_plan' => 'Bulanan',
-            'package_status' => 'active',
-            'payment_method' => 'qris',
-            'payment_amount' => 50000,
             'joined_at' => '2026-04-26',
             'expires_at' => '2026-05-26',
         ]);
 
-        $transaction = CashierTransaction::query()->create([
+        $transaction = Transaction::query()->create([
             'invoice' => 'MP-TEST-001',
-            'gym_member_id' => $member->id,
+            'member_id' => $member->id,
             'customer_name' => $member->full_name,
-            'transaction_group' => 'member_payment',
-            'transaction_type' => 'Perpanjangan Membership',
-            'amount' => 50000,
+            'type' => Transaction::TYPE_MEMBERSHIP,
+            'description' => 'Perpanjangan Membership',
+            'amount' => 90000,
+            'paid_amount' => 90000,
             'payment_method' => 'qris',
             'payment_status' => 'pending',
-            'receipt_status' => 'pending',
             'transaction_at' => Carbon::now(),
             'notes' => 'Menunggu verifikasi',
         ]);

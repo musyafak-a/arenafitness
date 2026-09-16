@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\GymCheckin;
-use App\Models\GymMember;
+use App\Models\Checkin;
+use App\Models\Member;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -26,13 +26,8 @@ class CashierQrCheckinTest extends TestCase
 
     public function test_member_can_submit_self_service_qr_checkin(): void
     {
-        $member = GymMember::query()->create([
+        $member = Member::query()->create([
             'full_name' => 'Alya Fitri',
-            'member_status' => 'member',
-            'membership_plan' => 'Bulanan',
-            'package_status' => 'active',
-            'payment_method' => 'qris',
-            'payment_amount' => 50000,
             'phone' => '08123456789',
             'joined_at' => now()->subDays(7),
             'expires_at' => now()->addDays(23),
@@ -45,8 +40,8 @@ class CashierQrCheckinTest extends TestCase
             'notes' => 'Check-in dari QR kasir',
         ])->assertRedirect(route('member.checkin'));
 
-        $this->assertDatabaseHas('gym_checkins', [
-            'gym_member_id' => $member->id,
+        $this->assertDatabaseHas('checkins', [
+            'member_id' => $member->id,
             'checkin_method' => 'qr_member',
             'verification_status' => 'pending',
             'submitted_name' => 'Alya Fitri',
@@ -54,9 +49,9 @@ class CashierQrCheckinTest extends TestCase
             'notes' => 'Check-in dari QR kasir',
         ]);
 
-        $this->assertSame(1, GymCheckin::query()->count());
+        $this->assertSame(1, Checkin::query()->count());
 
-        $checkin = GymCheckin::query()->firstOrFail();
+        $checkin = Checkin::query()->firstOrFail();
 
         $this->withSession([
             'auth' => [
@@ -66,23 +61,17 @@ class CashierQrCheckinTest extends TestCase
         ])->post(route('cashier.checkins.verify', $checkin))
             ->assertRedirect(route('cashier.checkins'));
 
-        $this->assertDatabaseHas('gym_checkins', [
+        $this->assertDatabaseHas('checkins', [
             'id' => $checkin->id,
             'verification_status' => 'verified',
-            'verified_by' => 'cashier',
         ]);
     }
 
     public function test_cashier_can_assist_member_checkin_without_hp(): void
     {
-        $member = GymMember::query()->create([
+        $member = Member::query()->create([
             'full_name' => 'Rina Kusuma',
             'phone' => '082212345678',
-            'member_status' => 'member',
-            'membership_plan' => 'Bulanan',
-            'package_status' => 'active',
-            'payment_method' => 'cash',
-            'payment_amount' => 75000,
             'joined_at' => now()->subDays(10),
             'expires_at' => now()->addDays(20),
             'checkin_code' => 'AGM-SELFTEST02',
@@ -94,11 +83,11 @@ class CashierQrCheckinTest extends TestCase
                 'login' => 'cashier',
             ],
         ])->post(route('cashier.checkins.store'), [
-            'gym_member_id' => $member->id,
+            'member_id' => $member->id,
         ])->assertRedirect(route('cashier.checkins'));
 
-        $this->assertDatabaseHas('gym_checkins', [
-            'gym_member_id' => $member->id,
+        $this->assertDatabaseHas('checkins', [
+            'member_id' => $member->id,
             'checkin_method' => 'cashier',
             'verification_status' => 'verified',
         ]);

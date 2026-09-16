@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -49,8 +48,13 @@ class User extends Authenticatable
         ];
     }
 
+    public function member(): HasOne
+    {
+        return $this->hasOne(Member::class, 'user_id');
+    }
+
     public function gymMember(): HasOne
     {
-        return $this->hasOne(GymMember::class, 'user_id');
+        return $this->member();
     }
 }

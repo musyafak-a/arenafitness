@@ -12,7 +12,7 @@ class ProfilePhotoChangeRequest extends Model
 
     protected $fillable = [
         'user_id',
-        'gym_member_id',
+        'member_id',
         'requested_photo_path',
         'status',
         'reviewed_at',
@@ -28,6 +28,11 @@ class ProfilePhotoChangeRequest extends Model
 
     public function member(): BelongsTo
     {
-        return $this->belongsTo(GymMember::class, 'gym_member_id');
+        return $this->belongsTo(Member::class, 'member_id');
+    }
+
+    public function reviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'reviewed_by');
     }
 }

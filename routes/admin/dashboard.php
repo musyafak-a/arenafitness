@@ -1,14 +1,13 @@
 <?php
 
 use App\Helpers\RouteHelpers;
-use App\Models\GymCheckin;
-use App\Models\GymMember;
+use App\Models\Checkin;
 use App\Models\DailyGuest;
-use App\Models\CashierTransaction;
 use App\Models\ExpenseRecord;
+use App\Models\Member;
+use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Schema;
 
 Route::get('/', function () {
     if ($redirect = RouteHelpers::ensureAdmin()) {
@@ -19,15 +18,11 @@ Route::get('/', function () {
     $endOfToday   = now()->endOfDay();
 
     // 1. Statistik
-    $activeMembersCount = GymMember::where('status', 'member')
-        ->where('expires_at', '>=', now())
-        ->count();
+    $activeMembersCount = Member::where('expires_at', '>=', now())->count();
 
-    $totalPemasukanHariIni = CashierTransaction::whereBetween('transaction_at', [$startOfToday, $endOfToday])
+    $totalPemasukanHariIni = Transaction::whereBetween('transaction_at', [$startOfToday, $endOfToday])
         ->where('payment_status', 'verified')
-        ->sum('amount')
-        + DailyGuest::whereBetween('created_at', [$startOfToday, $endOfToday])
-        ->sum('payment_amount');
+        ->sum('amount');
 
     $totalPengeluaranHariIni = ExpenseRecord::whereBetween('expense_date', [$startOfToday, $endOfToday])
         ->sum('amount');
@@ -35,23 +30,14 @@ Route::get('/', function () {
     $labaBersihHariIni = $totalPemasukanHariIni - $totalPengeluaranHariIni;
 
     // 2. Member Baru - 3 Data Terbaru
-    $recentMembersQuery = GymMember::query();
-
-    if (Schema::hasColumn('gym_members', 'member_status')) {
-        $recentMembersQuery->where('member_status', 'member');
-    } else {
-        $recentMembersQuery->whereNotNull('expires_at');
-    }
-
-    $recentMembers = $recentMembersQuery
-        ->latest()
+    $recentMembers = Member::latest()
         ->take(3)
         ->get()
         ->map(function ($member) {
             return (object) [
                 'full_name'  => $member->full_name,
                 'phone'      => $member->phone ?? '-',
-                'created_at' => $member->created_at->translatedFormat('d M Y'),
+                'created_at' => $member->created_at ? $member->created_at->translatedFormat('d M Y') : '-',
                 'expires_at' => $member->expires_at
                     ? $member->expires_at->translatedFormat('d M Y')
                     : '-',
@@ -59,17 +45,10 @@ Route::get('/', function () {
         });
 
     // 3. Member yang perlu pengingat perpanjangan
-    $expiringMembersQuery = GymMember::query()
-        ->where('status', 'member')
+    $expiringMembers = Member::query()
         ->whereNotNull('expires_at')
         ->whereDate('expires_at', '>=', now())
-        ->whereDate('expires_at', '<=', now()->addDays(7));
-
-    if (Schema::hasColumn('gym_members', 'member_status')) {
-        $expiringMembersQuery->where('member_status', 'member');
-    }
-
-    $expiringMembers = $expiringMembersQuery
+        ->whereDate('expires_at', '<=', now()->addDays(7))
         ->orderBy('expires_at')
         ->orderBy('full_name')
         ->get()
@@ -96,19 +75,16 @@ Route::get('/', function () {
                 'expires_at' => $member->expires_at->translatedFormat('d M Y'),
                 'days_left' => $daysLeft,
                 'last_reminder' => $member->last_membership_reminder_at
-                    ? $member->last_membership_reminder_at->translatedFormat('d M Y, H:i')
+                    ? Carbon::parse($member->last_membership_reminder_at)->translatedFormat('d M Y, H:i')
                     : 'Belum',
             ];
         });
 
     // 4. Alert & Meta
-    $expiringCount = GymMember::where('status', 'member')
-        ->whereBetween('expires_at', [now(), now()->addDays(7)])
-        ->count();
+    $expiringCount = Member::whereBetween('expires_at', [now(), now()->addDays(7)])->count();
 
     // 5. Data untuk modal Aksi Cepat
-    $memberOptions   = GymMember::where('status', 'member')
-        ->where('expires_at', '>=', now())
+    $memberOptions   = Member::where('expires_at', '>=', now())
         ->orderBy('full_name')
         ->get(['id', 'full_name', 'checkin_code']);
 
@@ -140,8 +116,7 @@ Route::get('/', function () {
         'heroSummary' => [
             [
                 'label' => 'Aktivitas Hari Ini',
-                'value' => GymCheckin::whereBetween('checked_in_at', [$startOfToday, $endOfToday])->count()
-                         + DailyGuest::whereBetween('created_at', [$startOfToday, $endOfToday])->count(),
+                'value' => Checkin::whereBetween('checked_in_at', [$startOfToday, $endOfToday])->count(),
                 'note'  => 'Kunjungan',
             ],
             [
