@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>IRON ELITE | Aktivasi Member</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&family=Hanken+Grotesk:wght@400;600&display=swap" rel="stylesheet"/>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ asset('js/tailwind.min.js') }}"></script>
 </head>
 <body class="bg-[#131313] text-[#e2e2e2] min-h-screen">
     <main class="w-full max-w-6xl mx-auto px-4 py-8 lg:py-12 grid gap-6 lg:grid-cols-[minmax(320px,420px)_1fr] items-start">

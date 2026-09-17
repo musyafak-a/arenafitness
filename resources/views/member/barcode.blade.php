@@ -4,7 +4,9 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>QR Code Presensi | Arena Fitness</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ asset('js/tailwind.min.js') }}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
         tailwind.config = {
@@ -72,7 +74,7 @@
         }
         .bg-industrial-grain {
             background-color: #131313;
-            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            background-image: url("{{ asset('images/dark-matter.png') }}");
         }
         .neon-border {
             box-shadow: 0 0 10px rgba(255, 85, 64, 0.2), inset 0 0 10px rgba(255, 85, 64, 0.1);
@@ -213,7 +215,7 @@
     </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="{{ asset('js/qrcode.min.js') }}"></script>
 <script>
     const checkinCode = @json($checkinCode);
 

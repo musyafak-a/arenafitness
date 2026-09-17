@@ -4,7 +4,9 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Arena Fitness | DOMINASI SETIAP LIMIT</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ asset('js/tailwind.min.js') }}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&family=Hanken+Grotesk:wght@400;600&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
@@ -246,7 +248,7 @@
             $remainingDays = $expiresAt ? max(0, now()->startOfDay()->diffInDays($expiresAt->copy()->startOfDay(), false)) : null;
         @endphp
         <div class="absolute inset-0 z-0">
-            <img alt="Arena Fitness training floor" class="w-full h-full object-cover grayscale brightness-[0.42] contrast-125" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85"/>
+            <img alt="Arena Fitness training floor" class="w-full h-full object-cover grayscale brightness-[0.42] contrast-125" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" decoding="async"/>
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <div class="relative z-10 w-full max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-16">
@@ -438,7 +440,7 @@
                     ['Dip Machine', 'Triceps & Chest Power', 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80'],
                 ] as [$title, $desc, $image])
                     <div class="group relative overflow-hidden aspect-square border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,.28)]">
-                        <img alt="{{ $title }}" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700" onerror="this.style.display='none'" src="{{ $image }}"/>
+                        <img alt="{{ $title }}" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700" onerror="this.style.display='none'" src="{{ $image }}" loading="lazy" decoding="async"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
                         <div class="absolute top-4 left-4 inline-flex h-9 w-9 items-center justify-center bg-brand-red text-black opacity-0 group-hover:opacity-100 transition-opacity">
                             <span class="material-symbols-outlined text-[20px]">fitness_center</span>

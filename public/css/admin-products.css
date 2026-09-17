@@ -1,0 +1,239 @@
+    .dashboard-page {
+        padding: 1rem 2rem;
+    }
+
+    .dashboard-heading {
+        border-bottom: 1px solid rgba(255,255,255,.06);
+        padding-bottom: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .dashboard-subtitle {
+        font-size: .75rem;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,.4);
+        margin-bottom: .7rem;
+        font-weight: 600;
+    }
+
+    .dashboard-title {
+        font-size: clamp(1.7rem, 3vw, 2.4rem);
+        font-weight: 700;
+        color: #fff;
+        margin: 0;
+    }
+
+    .dashboard-description {
+        color: rgba(255,255,255,.55);
+        margin-top: .6rem;
+        max-width: 760px;
+        line-height: 1.7;
+        font-size: .95rem;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .stats-card {
+        background: rgba(255,255,255,.03);
+        border: 1px solid rgba(255,255,255,.06);
+        border-radius: 1rem;
+        padding: 1rem 1.2rem;
+    }
+
+    .stats-label {
+        font-size: .7rem;
+        text-transform: uppercase;
+        color: #9ca3af;
+        letter-spacing: .12em;
+        margin-bottom: .45rem;
+    }
+
+    .stats-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .form-card,
+    .table-card {
+        background: rgba(255,255,255,.025);
+        border: 1px solid rgba(255,255,255,.06);
+        border-radius: 1.3rem;
+    }
+
+    .section-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: .2rem;
+    }
+
+    .section-subtitle {
+        color: rgba(255,255,255,.55);
+        font-size: .9rem;
+    }
+
+    .form-label {
+        color: rgba(255,255,255,.72);
+        font-size: .88rem;
+        font-weight: 600;
+    }
+
+    .form-control,
+    .form-select {
+        background: rgba(255,255,255,.05);
+        border: 1px solid rgba(255,255,255,.08);
+        color: #fff;
+        border-radius: .8rem;
+        padding: .8rem 1rem;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        background: rgba(255,255,255,.08);
+        color: #fff;
+        border-color: #ef4444;
+        box-shadow: none;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255,255,255,.35);
+    }
+
+    .product-table-wrap {
+        overflow-x: auto;
+    }
+
+    .product-table {
+        width: 100%;
+        min-width: 1100px;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .product-table thead th {
+        background: rgba(255,255,255,.04);
+        color: rgba(255,255,255,.75);
+        font-size: .72rem;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255,255,255,.06);
+        white-space: nowrap;
+    }
+
+    .product-table tbody tr {
+        transition: .2s ease;
+        border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+
+    .product-table tbody tr:hover {
+        background: rgba(255,255,255,.025);
+    }
+
+    .product-table td {
+        padding: 1rem;
+        color: rgba(255,255,255,.9);
+        vertical-align: middle;
+    }
+
+    .product-name {
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .product-small {
+        color: rgba(255,255,255,.45);
+        font-size: .82rem;
+        margin-top: .2rem;
+    }
+
+    .table-price {
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .badge-soft {
+        display: inline-flex;
+        align-items: center;
+        padding: .45rem .8rem;
+        border-radius: 999px;
+        font-size: .72rem;
+        font-weight: 700;
+    }
+
+    .badge-suplemen {
+        background: rgba(59,130,246,.15);
+        color: #60a5fa;
+    }
+
+    .badge-vitamin {
+        background: rgba(245,158,11,.15);
+        color: #fbbf24;
+    }
+
+    .badge-other-cat {
+        background: rgba(16,185,129,.15);
+        color: #34d399;
+    }
+
+    .badge-active {
+        background: rgba(34,197,94,.15);
+        color: #4ade80;
+    }
+
+    .badge-inactive {
+        background: rgba(107,114,128,.18);
+        color: #d1d5db;
+    }
+
+    .action-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: .5rem;
+    }
+
+    .btn-action {
+        border: none;
+        border-radius: 999px;
+        padding: .45rem 1rem;
+        font-size: .78rem;
+        font-weight: 600;
+        transition: .2s ease;
+    }
+
+    .btn-edit {
+        background: rgba(245,158,11,.15);
+        color: #fbbf24;
+    }
+
+    .btn-edit:hover {
+        background: #f59e0b;
+        color: #fff;
+    }
+
+    .btn-delete {
+        background: rgba(239,68,68,.15);
+        color: #f87171;
+    }
+
+    .btn-delete:hover {
+        background: #ef4444;
+        color: #fff;
+    }
+
+    @media (max-width: 992px) {
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .product-table {
+            min-width: 1000px;
+        }
+    }

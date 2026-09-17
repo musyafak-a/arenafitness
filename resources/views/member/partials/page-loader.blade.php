@@ -12,7 +12,7 @@
         -webkit-backdrop-filter: blur(18px);
         opacity: 0;
         pointer-events: none;
-        transition: opacity .22s ease;
+        transition: opacity .18s ease;
     }
     .page-loader.is-visible { opacity: 1; pointer-events: auto; }
     .page-loader-card {
@@ -39,7 +39,7 @@
     @keyframes page-loader-pulse { 0%, 100% { transform: scale(.96); opacity: .55; } 50% { transform: scale(1.08); opacity: 1; } }
 </style>
 
-<div class="page-loader is-visible" id="pageLoader" aria-live="polite" aria-label="Memuat halaman">
+<div class="page-loader" id="pageLoader" aria-live="polite" aria-label="Memuat halaman">
     <div class="page-loader-card">
         <div class="page-loader-brand">
             <span class="page-loader-mark"><img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="page-loader-logo"></span>
@@ -62,9 +62,31 @@
             if (pageLoaderText) pageLoaderText.textContent = message;
             pageLoader?.classList.add('is-visible');
         };
-        window.addEventListener('load', () => window.setTimeout(hidePageLoader, 380));
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', hidePageLoader);
+        } else {
+            hidePageLoader();
+        }
         window.addEventListener('pageshow', hidePageLoader);
-        window.addEventListener('beforeunload', () => showPageLoader('Memuat halaman...'));
-        window.addEventListener('pagehide', () => showPageLoader('Memuat halaman...'));
+        window.addEventListener('load', hidePageLoader);
+
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a[href]');
+            if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+            const href = link.getAttribute('href') || '';
+            if (href.startsWith('#') || href.startsWith('javascript:') || href === '') return;
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+            try {
+                const url = new URL(link.href, window.location.href);
+                if (url.origin !== window.location.origin) return;
+            } catch (_) { return; }
+            showPageLoader('Membuka halaman...');
+        });
+
+        document.addEventListener('submit', (e) => {
+            if (e.defaultPrevented) return;
+            showPageLoader('Memproses data...');
+        });
     })();
 </script>

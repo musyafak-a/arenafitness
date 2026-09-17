@@ -1,11 +1,7 @@
 <?php
 
-use App\Models\DailyGuest;
-use App\Models\Transaction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Admin\DailyPassController;
 use Illuminate\Support\Facades\Route;
-use App\Helpers\RouteHelpers;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,72 +9,6 @@ use App\Helpers\RouteHelpers;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/daily-passes', function (Request $request) {
-    if ($redirect = RouteHelpers::ensureAdmin()) {
-        return $redirect;
-    }
-
-    $search = trim($request->string('q')->value());
-
-    $query = DailyGuest::query()->with('transactions')->latest('visit_at');
-
-    if ($search !== '') {
-        $query->where('full_name', 'like', '%' . $search . '%')
-              ->orWhere('phone', 'like', '%' . $search . '%');
-    }
-
-    $dailyPasses = $query->paginate(10);
-
-    return view('admin.daily_passes', array_merge(RouteHelpers::pageMeta('daily-passes'), [
-        'dailyPasses' => $dailyPasses,
-        'search' => $search,
-    ]));
-})->name('daily-passes');
-
-Route::post('/daily-passes', function (Request $request) {
-    if ($redirect = RouteHelpers::ensureAdmin()) {
-        return $redirect;
-    }
-
-    $validated = $request->validate([
-        'full_name'      => ['required', 'string', 'max:255'],
-        'phone'          => ['nullable', 'string', 'max:30'],
-        'payment_method' => ['required', 'string', 'max:30'],
-        'payment_amount' => ['nullable', 'integer', 'min:1'],
-        'notes'          => ['nullable', 'string'],
-    ]);
-
-    DB::transaction(function () use ($validated) {
-        $guest = DailyGuest::query()->create([
-            'full_name'  => $validated['full_name'],
-            'phone'      => $validated['phone'] ?? null,
-            'visit_type' => 'daily_pass',
-            'visit_at'   => now(),
-        ]);
-
-        Transaction::query()->create([
-            'invoice'          => 'INV-' . time() . '-' . rand(100, 999),
-            'daily_guest_id'   => $guest->id,
-            'type'             => 'daily_pass',
-            'amount'           => (int) ($validated['payment_amount'] ?? 30000),
-            'paid_amount'      => (int) ($validated['payment_amount'] ?? 30000),
-            'payment_method'   => $validated['payment_method'],
-            'payment_status'   => 'verified',
-            'transaction_at'   => now(),
-            'cashier_user_id'  => RouteHelpers::authUserId(),
-        ]);
-    });
-
-    return redirect()->route('admin.daily-passes')->with('status', 'Data kunjungan daily pass berhasil ditambahkan.');
-})->name('daily-passes.store');
-
-Route::delete('/daily-passes/{dailyPass}', function (DailyGuest $dailyPass) {
-    if ($redirect = RouteHelpers::ensureAdmin()) {
-        return $redirect;
-    }
-
-    $dailyPass->delete();
-
-    return redirect()->route('admin.daily-passes')->with('status', 'Data kunjungan daily pass berhasil dihapus.');
-})->name('daily-passes.destroy');
-
+Route::get('/daily-passes', [DailyPassController::class, 'index'])->name('daily-passes');
+Route::post('/daily-passes', [DailyPassController::class, 'store'])->name('daily-passes.store');
+Route::delete('/daily-passes/{dailyPass}', [DailyPassController::class, 'destroy'])->name('daily-passes.destroy');

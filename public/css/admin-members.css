@@ -1,0 +1,400 @@
+        .dashboard-page {
+            padding: 1rem 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+        }
+
+        .member-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.7rem;
+        }
+
+        .member-summary-card {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: 1rem;
+            padding: 0.85rem 1.1rem;
+        }
+
+        .summary-label {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #fff;
+            opacity: 1;
+        }
+
+        .summary-note {
+            font-size: .7rem;
+            font-weight: 400;
+            color: #ffffffc9;
+            opacity: 0.8;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .panel-card {
+            background: rgba(255, 255, 255, .025);
+            border: 1px solid rgba(255, 255, 255, .05);
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+        }
+
+        .member-table thead th {
+            font-size: .7rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .member-table tbody td {
+            color: #ffffff !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .member-photo {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .member-photo-placeholder {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ef4444, #991b1b);
+            color: white;
+            font-size: .8rem;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: none;
+            transition: 0.2s;
+        }
+
+        .btn-action-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        .btn-action-info {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .btn-action-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+
+        .btn-action-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .btn-action-reminder-pending {
+            background: rgba(239, 68, 68, 0.22);
+            color: #f87171;
+        }
+
+        .btn-action-reminder-sent {
+            background: rgba(34, 197, 94, 0.22);
+            color: #4ade80;
+        }
+
+        .member-row-warning {
+            background: rgba(245, 158, 11, 0.08);
+        }
+
+        .member-expiry-warning {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(245, 158, 11, 0.16);
+            border: 1px solid rgba(245, 158, 11, 0.28);
+            color: #fbbf24;
+            border-radius: 999px;
+            padding: 0.18rem 0.55rem;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 0.25rem;
+        }
+
+        .ds-section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: .3rem;
+        }
+
+        /* =============================================
+                                                           SEARCH INPUT
+                                                           ============================================= */
+        .member-search-wrap {
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .member-search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 13px;
+            pointer-events: none;
+        }
+
+        .member-search-input {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: #fff;
+            font-size: 13px;
+            padding: 0.42rem 1rem 0.42rem 2.1rem;
+            width: 230px;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .member-search-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .member-search-input:focus {
+            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        #memberNoResult {
+            display: none;
+        }
+
+        .custom-pagination .pagination {
+            margin-bottom: 0;
+            gap: 5px;
+        }
+
+        .custom-pagination .page-link {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 8px !important;
+            padding: 0.5rem 0.9rem;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .custom-pagination .page-item.active .page-link {
+            background: #ef4444 !important;
+            /* Warna Merah Arena */
+            border-color: #ef4444 !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .custom-pagination .page-link:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .custom-pagination .page-item.disabled .page-link {
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Menyembunyikan teks bawaan pagination laravel */
+        .custom-pagination nav .flex.items-center.justify-between .hidden.sm-flex-1 {
+            display: none !important;
+        }
+
+        /* Jika menggunakan Bootstrap 5 default, gunakan ini */
+        .custom-pagination .small.text-muted {
+            display: none !important;
+        }
+
+        /* Menghilangkan wrapper teks showing yang duplikat */
+        .custom-pagination nav p {
+            display: none !important;
+        }
+
+        /* =============================================
+                                                           RESPONSIVE — Tablet (max-width: 1024px)
+                                                           ============================================= */
+        @media (max-width: 1024px) {
+            .dashboard-page {
+                padding: 1rem 1.2rem;
+            }
+
+            .dashboard-title {
+                font-size: 1.8rem;
+            }
+
+            .member-summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .panel-card {
+                padding: 1.2rem;
+            }
+        }
+
+        /* =============================================
+                                                           RESPONSIVE — Mobile (max-width: 640px)
+                                                           ============================================= */
+        @media (max-width: 640px) {
+            .dashboard-page {
+                padding: 0.75rem 0.85rem 1.5rem;
+            }
+
+            .dashboard-title {
+                font-size: 1.5rem;
+            }
+
+            .ds-section-label {
+                font-size: 10px;
+            }
+
+            .d-flex.justify-content-between.align-items-end.mb-4 {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 0.85rem;
+            }
+
+            .d-flex.justify-content-between.align-items-end.mb-4 .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .member-summary-grid {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .member-summary-card {
+                padding: 0.75rem 1rem;
+            }
+
+            .summary-value {
+                font-size: 1.3rem;
+            }
+
+            .panel-card {
+                padding: 1rem 0.85rem;
+                border-radius: 1rem;
+            }
+
+            /* Tab + search: stack vertically on mobile */
+            .panel-tabs-row {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0.65rem !important;
+            }
+
+            .panel-tabs-row .btn {
+                font-size: 12px;
+                padding: 0.4rem 1rem;
+            }
+
+            .member-search-wrap {
+                width: 100%;
+            }
+
+            .member-search-input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Table: hide less-important columns */
+            .member-table thead th:nth-child(3),
+            .member-table tbody td:nth-child(3),
+            .member-table thead th:nth-child(4),
+            .member-table tbody td:nth-child(4),
+            .member-table thead th:nth-child(5),
+            .member-table tbody td:nth-child(5) {
+                display: none;
+            }
+
+            .member-table thead th {
+                font-size: .65rem;
+                padding: 0.75rem 0.6rem;
+            }
+
+            .member-table tbody td {
+                font-size: 12px;
+                padding: 0.75rem 0.6rem;
+            }
+
+            .member-photo,
+            .member-photo-placeholder {
+                width: 34px;
+                height: 34px;
+                font-size: .7rem;
+            }
+
+            .btn-action {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
+
+            .member-table thead th:first-child,
+            .member-table tbody td:first-child {
+                width: 46px;
+            }
+        }
+
+        /* =============================================
+                                                           RESPONSIVE — Very small (max-width: 380px)
+                                                           ============================================= */
+        @media (max-width: 380px) {
+            .dashboard-title {
+                font-size: 1.3rem;
+            }
+
+            .member-summary-grid {
+                gap: 0.5rem;
+            }
+
+            .summary-value {
+                font-size: 1.15rem;
+            }
+
+            .btn-action {
+                width: 28px;
+                height: 28px;
+                font-size: 11px;
+            }
+
+            .d-flex.justify-content-end.gap-2 {
+                gap: 4px !important;
+            }
+        }
