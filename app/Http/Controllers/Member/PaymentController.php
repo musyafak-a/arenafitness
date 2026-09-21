@@ -187,6 +187,57 @@ class PaymentController extends Controller
     {
         $transaction = Transaction::where('invoice', $invoice)->firstOrFail();
         
+        // If status is still pending, check Midtrans directly
+        if ($transaction->payment_status === 'pending') {
+            try {
+                $statusResponse = \Midtrans\Transaction::status($invoice);
+                
+                $transactionStatus = $statusResponse->transaction_status;
+                $paymentType = $statusResponse->payment_type ?? null;
+                
+                if (in_array($transactionStatus, ['capture', 'settlement'])) {
+                    $transaction->payment_status = 'verified';
+                    $transaction->payment_method = $paymentType;
+                    $transaction->save();
+                    
+                    if ($transaction->type === Transaction::TYPE_MEMBERSHIP) {
+                        $subscription = MembershipSubscription::where('member_id', $transaction->member_id)
+                            ->where('status', 'pending')
+                            ->latest()
+                            ->first();
+                        
+                        if ($subscription) {
+                            $subscription->status = 'active';
+                            $subscription->payment_method = $paymentType;
+                            $subscription->save();
+
+                            $member = $transaction->member;
+                            if ($member) {
+                                $member->membership_status = 'active';
+                                $member->membership_plan = $subscription->plan->name ?? 'Membership';
+                                if (!$member->joined_at) {
+                                    $member->joined_at = $subscription->start_date;
+                                }
+                                $member->expires_at = $subscription->end_date;
+                                $member->save();
+                            }
+                        }
+                    }
+                } elseif (in_array($transactionStatus, ['cancel', 'deny', 'expire'])) {
+                    $transaction->payment_status = 'cancelled';
+                    $transaction->save();
+                    
+                    if ($transaction->type === Transaction::TYPE_MEMBERSHIP) {
+                        MembershipSubscription::where('member_id', $transaction->member_id)
+                            ->where('status', 'pending')
+                            ->update(['status' => 'cancelled']);
+                    }
+                }
+            } catch (\Exception $e) {
+                // Ignore if not found on Midtrans
+            }
+        }
+        
         return view('member.transaction.invoice', compact('transaction'));
     }
 }
