@@ -83,11 +83,25 @@ graph TD
 
 ---
 
-## 4. Rincian Modul Baru: Workout Routine & Repetition Tracker
+## 4. Aturan Bisnis Masa Aktif & Perpanjangan (*Membership Stacking Logic*)
+
+Untuk memberikan pengalaman pengguna yang adil dan konsisten bagi member Arena Fitness, sistem menerapkan logika **Acuan Tanggal Kalender** dengan metode **Bertumpuk (Stacking)**:
+
+1. **Acuan Tanggal Kalender (Calendar Month):**
+   - Penambahan durasi menggunakan bulan kalender penuh (bukan fix 30 hari).
+   - Jika member membeli paket 1 bulan pada tanggal 15 Januari, maka masa aktif berakhir pada 15 Februari (tanpa mempedulikan jumlah hari di bulan tersebut). Siklus ini lebih natural dan mudah diingat oleh member.
+2. **Sistem Bertumpuk (Stacking / Akumulatif):**
+   - Jika member memperpanjang paket saat **masa aktif masih berjalan**, maka paket baru akan disambung (ditambahkan) mulai dari **tanggal kedaluwarsa terakhir**.
+   - Contoh: Masa aktif habis 25 November. Hari ini (21 September) member membeli paket 3 bulan. Sistem tidak menghitung dari 21 September, melainkan memperpanjang dari 25 November menjadi **25 Februari**. Durasi lama member dipastikan aman dan tidak hangus.
+   - Jika member sudah **hangus (expired)**, masa aktif dihitung mulai dari hari / tanggal pembayaran dilakukan.
+
+---
+
+## 5. Rincian Modul Baru: Workout Routine & Repetition Tracker
 
 Modul ini dirancang berdasarkan konsep aplikasi pencatat latihan modern (seperti *Hevy / Strong App*):
 
-### 4.1. Layar Utama Workout (*Workout Hub*)
+### 5.1. Layar Utama Workout (*Workout Hub*)
 1. **Tombol Aksi Utama: `+ Start Empty Workout`**
    - Member dapat langsung memulai sesi latihan tanpa harus membuat jadwal terlebih dahulu.
    - Member dapat menambahkan latihan secara dinamis di gym (*Add Exercise*).
@@ -101,7 +115,7 @@ Modul ini dirancang berdasarkan konsep aplikasi pencatat latihan modern (seperti
 3. **Bagian `Recent Workouts`:**
    - Menampilkan catatan riwayat latihan terakhir (nama routine, tanggal, durasi menit, total repetisi, dan beban total *volume kg*).
 
-### 4.2. Layar Sesi Latihan Berjalan (*Live Workout Logger*)
+### 5.2. Layar Sesi Latihan Berjalan (*Live Workout Logger*)
 Saat member menekan *Start Workout*, aplikasi masuk ke mode latihan aktif:
 - **Tabel Pencatatan Real-Time Per Gerakan:**
   | Set | Beban Sebelumnya | Beban Saat Ini (kg) | Repetisi (Reps) | Selesai |
@@ -119,7 +133,7 @@ Saat member menekan *Start Workout*, aplikasi masuk ke mode latihan aktif:
 
 ---
 
-## 5. Perancangan Skema Database Modul Workout
+## 6. Perancangan Skema Database Modul Workout
 
 Untuk mendukung fitur jadwal dan pencatatan repetisi latihan ini, skema database sistem diperluas dengan tabel-tabel berikut:
 
@@ -183,7 +197,7 @@ erDiagram
 
 ---
 
-## 6. Daftar Kontrak RESTful API (Backend Laravel)
+## 7. Daftar Kontrak RESTful API (Backend Laravel)
 
 Penambahan endpoint khusus untuk modul *Workout Routine & Repetition Tracker*:
 
@@ -203,7 +217,7 @@ Penambahan endpoint khusus untuk modul *Workout Routine & Repetition Tracker*:
 
 ---
 
-## 7. Usulan Judul Laporan Akhir (Tugas Akhir / Skripsi)
+## 8. Usulan Judul Laporan Akhir (Tugas Akhir / Skripsi)
 
 Dengan bergabungnya fitur **Payment Gateway (Midtrans)** dan **Workout Routine & Repetition Tracker**, topik tugas akhir Anda menjadi sangat komprehensif, memiliki bobot akademik tinggi, dan memenuhi standar proyek D-III Manajemen Informatika / Teknik Informatika:
 
@@ -218,7 +232,7 @@ Dengan bergabungnya fitur **Payment Gateway (Midtrans)** dan **Workout Routine &
 
 ---
 
-## 8. Rencana Pengujian (*Verification Plan*)
+## 9. Rencana Pengujian (*Verification Plan*)
 
 1. **Uji Validasi Log Latihan:**
    - Memastikan pencatatan set, beban, dan repetisi tersimpan akurat ke database secara real-time.
