@@ -206,11 +206,7 @@
                                 </span>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-3 mb-8">
-                                <div class="glass-tile p-4">
-                                    <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ebbbb4]">Sisa Aktif</p>
-                                    <p class="font-display text-5xl text-brand-red mt-1">{{ $daysLabel }}<span class="text-base text-white">H</span></p>
-                                </div>
+                            <div class="grid grid-cols-1 gap-3 mb-8">
                                 <div class="glass-tile p-4">
                                     <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ebbbb4]">Berakhir</p>
                                     <p class="font-display text-2xl text-white mt-3">{{ $expiresAt ? $expiresAt->format('d M Y') : '-' }}</p>
