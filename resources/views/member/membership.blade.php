@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Membership | Arena Fitness</title>
     <script src="{{ asset('js/tailwind.min.js') }}"></script>
+    <script src="{{ config('services.midtrans.is_production') ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('services.midtrans.client_key') }}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
@@ -227,8 +229,20 @@
                         </div>
 
                         <div class="mt-8 border-t border-white/10 pt-5">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ebbbb4] mb-2">Perpanjangan</p>
-                            <p class="text-sm text-[#ebbbb4] leading-relaxed">Silakan datang ke kasir untuk memperpanjang masa aktif membership.</p>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ebbbb4] mb-4">Perpanjangan Mandiri</p>
+                            
+                            <form id="checkout-form" class="flex flex-col gap-3">
+                                <select id="plan-select" class="bg-black/50 border border-white/10 text-white text-sm focus:border-brand-red focus:ring-0 p-3 w-full outline-none">
+                                    <option value="">Pilih Paket Membership</option>
+                                    @foreach($plans as $plan)
+                                        <option value="{{ $plan->id }}">{{ $plan->name }} - IDR {{ number_format($plan->price, 0, ',', '.') }} ({{ $plan->duration_months }} Bulan)</option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" id="pay-button" class="btn-primary w-full disabled:opacity-50" disabled>
+                                    <span class="material-symbols-outlined text-[18px]">payments</span>
+                                    Bayar Sekarang
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -304,6 +318,7 @@
                             <th class="px-6 py-4 font-mono text-[#ebbbb4] uppercase text-[10px] tracking-[0.16em]">Paket</th>
                             <th class="px-6 py-4 font-mono text-[#ebbbb4] uppercase text-[10px] tracking-[0.16em]">Jumlah</th>
                             <th class="px-6 py-4 font-mono text-[#ebbbb4] uppercase text-[10px] tracking-[0.16em] text-center">Status</th>
+                            <th class="px-6 py-4 font-mono text-[#ebbbb4] uppercase text-[10px] tracking-[0.16em] text-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-white/10">
@@ -311,6 +326,8 @@
                             @php
                                 $status = strtolower($payment->payment_status ?? 'verified');
                                 $isSuccess = in_array($status, ['verified', 'paid', 'success', 'berhasil'], true);
+                                $isPending = $status === 'pending';
+                                $isCancelled = $status === 'cancelled';
                             @endphp
                             <tr class="hover:bg-white/5 transition-colors">
                                 <td class="px-6 py-5 font-mono text-white text-xs">{{ $payment->invoice ?? '#TRX-' . $payment->id }}</td>
@@ -318,14 +335,33 @@
                                 <td class="px-6 py-5 text-white">{{ $payment->transaction_type ?? $payment->type ?? $payment->description ?? 'Membership' }}</td>
                                 <td class="px-6 py-5 text-white">IDR {{ number_format((int) $payment->amount, 0, ',', '.') }}</td>
                                 <td class="px-6 py-5 text-center">
-                                    <span class="{{ $isSuccess ? 'bg-green-500/10 text-green-300 border-green-500/20' : 'bg-red-500/10 text-red-300 border-red-500/20' }} border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em]">
-                                        {{ $isSuccess ? 'Berhasil' : ucfirst($status) }}
-                                    </span>
+                                    @if($isSuccess)
+                                        <span class="bg-green-500/10 text-green-300 border-green-500/20 border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em]">Berhasil</span>
+                                    @elseif($isPending)
+                                        <span class="bg-yellow-500/10 text-yellow-300 border-yellow-500/20 border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em]">Pending</span>
+                                    @elseif($isCancelled)
+                                        <span class="bg-gray-500/10 text-gray-400 border-gray-500/20 border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em]">Dibatalkan</span>
+                                    @else
+                                        <span class="bg-red-500/10 text-red-300 border-red-500/20 border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em]">{{ ucfirst($status) }}</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-5 text-center">
+                                    @if($isPending)
+                                        <form action="{{ route('member.transaction.cancel', $payment->invoice) }}" method="POST" onsubmit="return confirm('Yakin ingin membatalkan transaksi {{ $payment->invoice }}?')">
+                                            @csrf
+                                            <button type="submit" class="bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors flex items-center gap-1.5 mx-auto">
+                                                <span class="material-symbols-outlined text-[14px]">cancel</span>
+                                                Batalkan
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="text-[#ebbbb4]/30">—</span>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-12 text-center text-[#ebbbb4]">
+                                <td colspan="6" class="px-6 py-12 text-center text-[#ebbbb4]">
                                     Belum ada riwayat pembayaran membership.
                                 </td>
                             </tr>
@@ -344,5 +380,86 @@
         <p class="font-mono text-[10px] text-[#ebbbb4]/60 tracking-[0.18em] uppercase">&copy; 2024 Arena Fitness. All rights reserved.</p>
     </div>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('checkout-form');
+        const planSelect = document.getElementById('plan-select');
+        const payButton = document.getElementById('pay-button');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        planSelect.addEventListener('change', function () {
+            payButton.disabled = !this.value;
+        });
+
+        // Helper: commit transaction to DB after member selects payment
+        function commitTransaction(invoice) {
+            return fetch('{{ route("member.checkout.commit") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({ invoice: invoice })
+            }).then(r => r.json());
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const planId = planSelect.value;
+            if (!planId) return;
+
+            payButton.disabled = true;
+            payButton.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span> Memproses...';
+
+            fetch('{{ route("member.checkout") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({ membership_plan_id: planId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                payButton.disabled = false;
+                payButton.innerHTML = '<span class="material-symbols-outlined text-[18px]">payments</span> Bayar Sekarang';
+                
+                if (data.snap_token) {
+                    window.snap.pay(data.snap_token, {
+                        onSuccess: function (result) {
+                            // Member paid → save to DB, then go to invoice
+                            commitTransaction(data.invoice).then(() => {
+                                window.location.href = '/member/transaction/' + data.invoice;
+                            });
+                        },
+                        onPending: function (result) {
+                            // Member selected payment method → save to DB, then go to invoice
+                            commitTransaction(data.invoice).then(() => {
+                                window.location.href = '/member/transaction/' + data.invoice;
+                            });
+                        },
+                        onError: function (result) {
+                            alert('Pembayaran gagal!');
+                            console.error(result);
+                        },
+                        onClose: function () {
+                            // Member closed popup without paying → nothing saved to DB
+                            console.log('Popup ditutup, transaksi tidak disimpan.');
+                        }
+                    });
+                } else {
+                    alert(data.error || 'Terjadi kesalahan sistem.');
+                }
+            })
+            .catch(error => {
+                payButton.disabled = false;
+                payButton.innerHTML = '<span class="material-symbols-outlined text-[18px]">payments</span> Bayar Sekarang';
+                alert('Gagal menghubungi server.');
+                console.error(error);
+            });
+        });
+    });
+</script>
 </body>
 </html>

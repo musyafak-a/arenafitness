@@ -59,3 +59,5 @@ Route::prefix('cashier')->name('cashier.')->group(function () {
     require __DIR__.'/cashier/transactions.php';
     require __DIR__.'/cashier/receipts.php';
 });
+
+Route::post('/api/midtrans/webhook', [\App\Http\Controllers\Webhook\MidtransController::class, 'handle'])->name('midtrans.webhook');

@@ -43,5 +43,10 @@ return [
         'timeout' => env('WHATSAPP_TIMEOUT', 15),
         'channel_url' => env('WHATSAPP_CHANNEL_URL', 'https://whatsapp.com/channel/0029Vb7ysaX30LKV0mIDbu2t'),
     ],
+    'midtrans' => [
+    'server_key' => env('MIDTRANS_SERVER_KEY'),
+    'client_key' => env('MIDTRANS_CLIENT_KEY'),
+    'is_production' => env('MIDTRANS_IS_PRODUCTION', false),
+],
 
 ];

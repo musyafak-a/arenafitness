@@ -56,10 +56,6 @@ class MemberPortalController extends Controller
         }
 
         $member = $user->member;
-        if (! $this->isMemberMembershipActive($member)) {
-            $request->session()->forget(['auth', 'show_whatsapp_channel_prompt']);
-            return ['redirect' => $this->inactiveMembershipRedirect()];
-        }
 
         return ['user' => $user, 'member' => $member];
     }
@@ -116,9 +112,7 @@ class MemberPortalController extends Controller
                 ->withInput();
         }
 
-        if (! $this->isMemberMembershipActive($user->member)) {
-            return $this->inactiveMembershipRedirect()->withInput($request->only('email'));
-        }
+
 
         $request->session()->regenerate();
         $request->session()->put('auth', [
@@ -544,6 +538,7 @@ class MemberPortalController extends Controller
         $user = $session['user'];
         $member = $session['member'];
         $membershipStatus = 'member';
+        $plans = \App\Models\MembershipPlan::where('is_active', true)->get();
 
         $joinedAt = $member?->joined_at;
         $expiresAt = $member?->expires_at;
@@ -573,6 +568,7 @@ class MemberPortalController extends Controller
             'progressPercent'  => $progressPercent,
             'paymentHistory'   => $paymentHistory,
             'latestPayment'    => $latestPayment,
+            'plans'            => $plans,
         ]);
     }
 

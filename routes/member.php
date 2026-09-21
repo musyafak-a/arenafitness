@@ -87,4 +87,9 @@ Route::prefix('member')->name('member.')->group(function () {
 
     Route::post('/feedback', [MemberPortalController::class, 'submitFeedback'])->name('feedback.submit');
     Route::post('/logout', [MemberPortalController::class, 'logout'])->name('logout');
+
+    Route::post('/checkout', [\App\Http\Controllers\Member\PaymentController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/commit', [\App\Http\Controllers\Member\PaymentController::class, 'commitTransaction'])->name('checkout.commit');
+    Route::post('/transaction/{invoice}/cancel', [\App\Http\Controllers\Member\PaymentController::class, 'cancelTransaction'])->name('transaction.cancel');
+    Route::get('/transaction/{invoice}', [\App\Http\Controllers\Member\PaymentController::class, 'invoice'])->name('transaction.invoice');
 });
