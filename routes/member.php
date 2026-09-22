@@ -72,10 +72,11 @@ Route::post('/forgot-password', [MemberPortalController::class, 'sendResetLink']
 Route::get('/reset-password/{token}', [MemberPortalController::class, 'showResetPassword'])->name('password.reset');
 Route::post('/reset-password', [MemberPortalController::class, 'updatePassword'])->name('password.update');
 
+Route::get('/company-profile', [MemberPortalController::class, 'companyProfile'])->name('member.company-profile');
+
 // ─── Authenticated Member Pages ─────────────────────────────────────────────
 Route::prefix('member')->name('member.')->group(function () {
     Route::get('/dashboard', [MemberPortalController::class, 'dashboard'])->name('dashboard');
-    Route::get('/company-profile', [MemberPortalController::class, 'companyProfile'])->name('company-profile');
     Route::get('/statistics', [MemberPortalController::class, 'statistics'])->name('statistics');
     Route::get('/messages', [MemberPortalController::class, 'messages'])->name('messages');
     Route::get('/history', [MemberPortalController::class, 'history'])->name('history');
