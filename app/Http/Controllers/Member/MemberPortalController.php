@@ -23,6 +23,34 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class MemberPortalController extends Controller
 {
     /**
+     * Display member company profile page.
+     */
+    public function companyProfile(Request $request): View|RedirectResponse
+    {
+        $session = $this->getActiveMemberSession($request);
+        if (isset($session['redirect'])) {
+            return $session['redirect'];
+        }
+
+        $user = $session['user'];
+        $member = $session['member'];
+        $announcements = collect();
+        
+        if ($member) {
+            $announcements = Announcement::query()
+                ->where('status', '!=', 'archived')
+                ->where('body', 'like', "[TARGET_MEMBER_ID:{$member->id}]%")
+                ->latest('publish_at')
+                ->get();
+        }
+
+        return view('member.company-profile', [
+            'user'          => $user,
+            'member'        => $member,
+            'announcements' => $announcements,
+        ]);
+    }
+    /**
      * Check if a member's membership is still active.
      */
     protected function isMemberMembershipActive(?Member $member): bool
