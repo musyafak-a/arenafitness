@@ -150,8 +150,10 @@
                     <span class="font-label-caps text-xs text-brand-red uppercase tracking-widest">Kualitas Terjamin</span>
                 </div>
                 
-                <h1 class="font-display-xl text-[50px] md:text-[70px] lg:text-[80px] uppercase font-bold leading-[1.1] mb-6 text-white drop-shadow-lg">
-                    Dari Rancangan <span class="text-brand-red">hingga</span><br/> Produk Jadi
+                <h1 class="font-display-xl text-[60px] md:text-[80px] lg:text-[100px] uppercase italic font-bold tracking-tighter leading-[1] mb-6 text-white drop-shadow-lg">
+                    DARI RANCANGAN<br/>
+                    <span class="text-brand-red">HINGGA</span><br/>
+                    PRODUK JADI
                 </h1>
                 
                 <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
