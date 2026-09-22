@@ -27,21 +27,21 @@ class MemberPortalController extends Controller
      */
     public function companyProfile(Request $request): View|RedirectResponse
     {
-        $session = $this->getActiveMemberSession($request);
-        if (isset($session['redirect'])) {
-            return $session['redirect'];
-        }
-
-        $user = $session['user'];
-        $member = $session['member'];
+        $user = null;
+        $member = null;
         $announcements = collect();
-        
-        if ($member) {
-            $announcements = Announcement::query()
-                ->where('status', '!=', 'archived')
-                ->where('body', 'like', "[TARGET_MEMBER_ID:{$member->id}]%")
-                ->latest('publish_at')
-                ->get();
+
+        if (session('auth.role') === 'member') {
+            $user = User::query()->where('id', session('auth.id'))->where('role', 'member')->first();
+            $member = $user?->member;
+            
+            if ($member) {
+                $announcements = Announcement::query()
+                    ->where('status', '!=', 'archived')
+                    ->where('body', 'like', "[TARGET_MEMBER_ID:{$member->id}]%")
+                    ->latest('publish_at')
+                    ->get();
+            }
         }
 
         return view('member.company-profile', [
