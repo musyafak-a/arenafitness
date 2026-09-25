@@ -126,7 +126,7 @@
 <main class="pt-20">
     <!-- Carousel / Hero Section -->
     <section class="relative min-h-[600px] flex items-center overflow-hidden metal-grid" x-data="{ currentSlide: 0 }" x-init="setInterval(() => { currentSlide = (currentSlide + 1) % 3 }, 5000)">
-        <!-- Slide 1 -->
+        <!-- Slide 1 cihuy -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 0 ? 'opacity-100' : 'opacity-0'">
             <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" />
             <div class="absolute inset-0 hero-vignette"></div>
