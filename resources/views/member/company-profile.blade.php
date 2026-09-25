@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Company Profile | Arena Fitness</title>
+    <title>Company Profile | Fitness</title>
     <script src="{{ asset('js/tailwind.min.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,8 +63,7 @@
 <header class="fixed top-0 w-full z-50 bg-black/95 shadow-2xl border-b border-white/10">
     <div class="flex items-center justify-between h-20 px-6 md:px-16 w-full max-w-screen-2xl mx-auto">
         <a class="flex items-center gap-3" href="{{ route('member.dashboard') }}">
-            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" style="width:3.8rem;height:3rem;object-fit:contain;border-radius:1rem;background:rgba(255,255,255,.04);">
-            <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">Arena <span class="text-brand-red">Fitness</span></span>
+            <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">s <span class="text-brand-red">Fitness</span></span>
         </a>
         
         <nav class="hidden lg:flex items-center justify-center gap-8 h-full">
@@ -129,17 +128,17 @@
     <section class="relative min-h-[600px] flex items-center overflow-hidden metal-grid" x-data="{ currentSlide: 0 }" x-init="setInterval(() => { currentSlide = (currentSlide + 1) % 3 }, 5000)">
         <!-- Slide 1 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 0 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover grayscale brightness-[0.4] contrast-125" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" />
+            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <!-- Slide 2 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 1 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover grayscale brightness-[0.4] contrast-125" src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1920&q=80" />
+            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1920&q=80" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <!-- Slide 3 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 2 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover grayscale brightness-[0.4] contrast-125" src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=1920&q=80" />
+            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=1920&q=80" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
 
@@ -241,11 +240,11 @@
                         </div>
                     </div>
                     <p class="font-body-md text-on-surface-variant italic mb-8 leading-relaxed">
-                        "Nge-gym di Arena Fitness sangat menyenangkan, rasanya seperti family-space banget. Personal Trainer dan staff di sini seru-seru. Alat-alatnya lengkap dan fasilitas lengkap."
+                        "Nge-gym di Fitness sangat menyenangkan, rasanya seperti family-space banget. Personal Trainer dan staff di sini seru-seru. Alat-alatnya lengkap dan fasilitas lengkap."
                     </p>
                     <div>
                         <h4 class="font-headline-md text-xl text-white">Marion Jola</h4>
-                        <p class="font-label-caps text-[11px] text-on-surface-variant/60 uppercase tracking-widest mt-1">Member Arena Kediri - Artis & Penyanyi</p>
+                        <p class="font-label-caps text-[11px] text-on-surface-variant/60 uppercase tracking-widest mt-1">Member Kediri - Artis & Penyanyi</p>
                     </div>
                 </div>
 
@@ -258,11 +257,11 @@
                         </div>
                     </div>
                     <p class="font-body-md text-on-surface-variant italic mb-8 leading-relaxed">
-                        "Arena Fitness Kediri jadi tempat gym yang paling asik, dingin, dan Personal Trainer-nya juga very helpful."
+                        " Fitness Kediri jadi tempat gym yang paling asik, dingin, dan Personal Trainer-nya juga very helpful."
                     </p>
                     <div>
                         <h4 class="font-headline-md text-xl text-white">Dennis Talakua</h4>
-                        <p class="font-label-caps text-[11px] text-on-surface-variant/60 uppercase tracking-widest mt-1">Member Arena Kediri - Atlet Sepakbola</p>
+                        <p class="font-label-caps text-[11px] text-on-surface-variant/60 uppercase tracking-widest mt-1">Member Kediri - Atlet Sepakbola</p>
                     </div>
                 </div>
 
@@ -278,8 +277,8 @@
                         "Pengalamannya seru, alat-alatnya lengkap, dan Personal Trainer sangat kooperatif menyesuaikan program dengan kebutuhan saya."
                     </p>
                     <div>
-                        <h4 class="font-headline-md text-xl text-white">Arina</h4>
-                        <p class="font-label-caps text-[11px] text-on-surface-variant/60 uppercase tracking-widest mt-1">Member Arena Nganjuk</p>
+                        <h4 class="font-headline-md text-xl text-white">fitness</h4>
+                        <p class="font-label-caps text-[11px] text-on-surface-variant/60 uppercase tracking-widest mt-1">Member  Nganjuk</p>
                     </div>
                 </div>
 
@@ -292,11 +291,11 @@
                         </div>
                     </div>
                     <p class="font-body-md text-on-surface-variant italic mb-8 leading-relaxed">
-                        "Arena Fitness sangat nyaman. Alat gym modern, selalu dijaga kebersihannya. Pelayanan CS dan semua staf juga ramah."
+                        " Fitness sangat nyaman. Alat gym modern, selalu dijaga kebersihannya. Pelayanan CS dan semua staf juga ramah."
                     </p>
                     <div>
                         <h4 class="font-headline-md text-xl text-white">Awanda Sentosa</h4>
-                        <p class="font-label-caps text-[11px] text-on-surface-variant/60 uppercase tracking-widest mt-1">Member Arena Pare</p>
+                        <p class="font-label-caps text-[11px] text-on-surface-variant/60 uppercase tracking-widest mt-1">Member  Pare</p>
                     </div>
                 </div>
             </div>
@@ -316,11 +315,11 @@
                                 <span class="material-symbols-outlined text-brand-red">location_on</span>
                             </div>
                             <div>
-                                <p class="font-headline-md text-xl uppercase text-white mb-2">Arena Fitness</p>
+                                <p class="font-headline-md text-xl uppercase text-white mb-2">WARGYM (WARUNG GYM)</p>
                                 <p class="text-on-surface-variant font-body-md leading-relaxed">
-                                    Jl. Wilis Mukti III No.59, Campurejo,<br/>
-                                    Kec. Mojoroto, Kabupaten Kediri,<br/>
-                                    Jawa Timur 64116, Indonesia
+                                    Sambong Dukuh,<br/>
+                                    Kec. Jombang, Kabupaten Jombang,<br/>
+                                    Jawa Timur, Indonesia
                                 </p>
                             </div>
                         </div>
@@ -335,7 +334,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="mt-10 btn-primary w-full" href="https://maps.app.goo.gl/jQxnQRvTwBfHBtBTA" target="_blank">
+                    <a class="mt-10 btn-primary w-full" href="https://share.google/CjsjDpiT7wWuKf6Oq" target="_blank">
                         <span class="material-symbols-outlined text-[20px] mr-2">near_me</span>
                         Petunjuk Jalan
                     </a>
@@ -345,12 +344,12 @@
                         <div class="relative border border-white/10 overflow-hidden bg-white/5 backdrop-blur-md shadow-[0_24px_80px_rgba(0,0,0,.42)]">
                             <iframe
                                 class="w-full h-[360px] md:h-[520px] transition-all duration-700"
-                                src="https://maps.google.com/maps?q=Arena+Fitness,+Jl.+Wilis+Mukti+III+No.59,+Campurejo,+Kediri&t=&z=17&ie=UTF8&iwloc=&output=embed"
-                                title="Lokasi Arena Fitness"
+                                src="https://maps.google.com/maps?q=WARGYM+(WARUNG+GYM)&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                                title="Lokasi Fitness"
                                 loading="lazy"></iframe>
                             <div class="absolute top-6 left-6 glass-panel p-4 flex items-center gap-4">
                                 <div class="w-3 h-3 bg-brand-red rounded-full animate-pulse shadow-[0_0_10px_#ff5540]"></div>
-                                <span class="font-label-caps text-xs uppercase tracking-[0.2em] text-white">Arena Location</span>
+                                <span class="font-label-caps text-xs uppercase tracking-[0.2em] text-white"> Location</span>
                             </div>
                         </div>
                     </div>
@@ -367,10 +366,10 @@
             <!-- Brand Column -->
             <div class="lg:col-span-1">
                 <a class="flex items-center gap-3 mb-6" href="{{ route('member.dashboard') }}">
-                    <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="w-12 h-12 rounded-xl border border-white/10">
+                    <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none">s <span class="text-brand-red">Fitness</span></span>
                 </a>
                 <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
-                    Temukan lokasi Arena Fitness, pilihan kelas kebugaran, fasilitas latihan, dan personal trainer untuk mendukung perjalanan fitness Anda.
+                    Temukan lokasi Fitness, pilihan kelas kebugaran, fasilitas latihan, dan personal trainer untuk mendukung perjalanan fitness Anda.
                 </p>
                 <div class="flex items-center gap-3">
                     <a href="#" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">photo_camera</span></a>
@@ -409,17 +408,13 @@
                 <a href="#" class="footer-link">Pare</a>
                 <a href="#" class="footer-link font-bold text-white mt-2 inline-block border-b border-brand-red pb-1">Lihat Semua</a>
 
-                <h4 class="font-headline-md text-white tracking-widest text-lg mt-8 mb-4">Download Now</h4>
-                <div class="flex flex-col gap-3">
-                    <a href="#" class="inline-block"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="h-10"></a>
-                    <a href="#" class="inline-block"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" class="h-10"></a>
-                </div>
+
             </div>
         </div>
 
         <div class="flex flex-col md:flex-row justify-between items-center border-t border-white/5 pt-8 text-on-surface-variant/60 font-body-md text-sm">
             <a href="#" class="hover:text-white transition-colors mb-4 md:mb-0">Kebijakan Privasi</a>
-            <p>&copy; 2026 Arena Fitness. All rights reserved.</p>
+            <p>&copy; 2026 Fitness. All rights reserved.</p>
         </div>
     </div>
 </footer>
