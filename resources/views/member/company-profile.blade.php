@@ -60,7 +60,7 @@
 </head>
 <body class="bg-background text-on-background font-body-md selection:bg-brand-red selection:text-white">
 
-<header class="fixed top-0 w-full z-50 bg-black/95 shadow-2xl border-b border-white/10">
+<header x-data="{ mobileMenuOpen: false }" class="fixed top-0 w-full z-50 bg-black/95 shadow-2xl border-b border-white/10">
     <div class="flex items-center justify-between h-20 px-6 md:px-16 w-full max-w-screen-2xl mx-auto">
         <a class="flex items-center gap-3" href="{{ route('member.dashboard') }}">
             <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">s <span class="text-brand-red">Fitness</span></span>
@@ -119,6 +119,88 @@
         
         <div class="flex items-center gap-4">
             <span class="material-symbols-outlined text-white hover:text-brand-red cursor-pointer">search</span>
+            
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = true" class="lg:hidden text-white hover:text-brand-red transition-colors focus:outline-none">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar -->
+    <div x-show="mobileMenuOpen" 
+         class="fixed inset-0 z-[100] lg:hidden" 
+         style="display: none;">
+        
+        <!-- Backdrop -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition-opacity ease-linear duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 bg-black/80 backdrop-blur-sm"
+             @click="mobileMenuOpen = false"></div>
+             
+        <!-- Sidebar Panel -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-in-out duration-300 transform"
+             x-transition:enter-start="translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="transition ease-in-out duration-300 transform"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="translate-x-full"
+             class="fixed inset-y-0 right-0 w-full max-w-sm bg-[#131313] border-l border-brand-red/20 shadow-2xl overflow-y-auto">
+             
+            <div class="flex items-center justify-between p-6 border-b border-white/10">
+                <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none">s <span class="text-brand-red">Fitness</span></span>
+                <button @click="mobileMenuOpen = false" class="text-white hover:text-brand-red transition-colors focus:outline-none">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+            </div>
+            
+            <div class="p-6 flex flex-col gap-6">
+                <!-- Mobile Links -->
+                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
+                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Home</span>
+                    <a href="{{ route('member.dashboard') }}" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Member Dashboard</a>
+                    <a href="{{ route('member.company-profile') }}" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Company Profile</a>
+                </div>
+                
+                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
+                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Our Service</span>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Personal Training</a>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Group Classes</a>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Nutrition Plan</a>
+                </div>
+                
+                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Blogging</a>
+                </div>
+                
+                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
+                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Tutorial</span>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Gym Equipment Guide</a>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Workout Plans</a>
+                </div>
+                
+                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
+                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Portfolio</span>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Transformation Gallery</a>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Facilities Showcase</a>
+                </div>
+                
+                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
+                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Our Team</span>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Master Trainers</a>
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Management</a>
+                </div>
+                
+                <div class="flex flex-col gap-4">
+                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Contact Us</a>
+                </div>
+            </div>
         </div>
     </div>
 </header>
