@@ -60,65 +60,80 @@
 </head>
 <body class="bg-background text-on-background font-body-md selection:bg-brand-red selection:text-white">
 
+@php
+$navItems = [
+    [
+        'title' => 'beranda',
+        'url' => null,
+        'children' => [
+            // ['title' => 'Member Dashboard', 'url' => route('member.dashboard')],
+            ['title' => 'Profile', 'url' => route('member.company-profile')],
+        ]
+    ],
+    [
+        'title' => 'OUR SERVICE',
+        'url' => null,
+        'children' => [
+            ['title' => 'Personal Training', 'url' => '#'],
+            // ['title' => 'Group Classes', 'url' => '#'],
+            // ['title' => 'Nutrition Plan', 'url' => '#'],
+        ]
+    ],
+    [
+        'title' => 'TUTORIAL',
+        'url' => null,
+        'children' => [
+            ['title' => 'Gym Equipment Guide', 'url' => '#'],
+            ['title' => 'Workout Plans', 'url' => '#'],
+        ]
+    ],
+    [
+        'title' => 'fasilitas',
+        'url' => '#',
+    ],
+    [
+        'title' => 'TEAM KITA',
+        'url' => null,
+        'children' => [
+            ['title' => 'Master Trainers', 'url' => '#'],
+            ['title' => 'Management', 'url' => '#'],
+        ]
+    ],
+    [
+        'title' => 'KONTAK',
+        'url' => '#',
+    ]
+];
+@endphp
+
 <header x-data="{ mobileMenuOpen: false }" class="fixed top-0 w-full z-50 bg-black/95 shadow-2xl border-b border-white/10">
     <div class="flex items-center justify-between h-20 px-6 md:px-16 w-full max-w-screen-2xl mx-auto">
         <a class="flex items-center gap-3" href="{{ route('member.dashboard') }}">
-            <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">s <span class="text-brand-red">Fitness</span></span>
+            <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">WAR <span class="text-brand-red">GYM</span></span>
         </a>
         
         <nav class="hidden lg:flex items-center justify-center gap-8 h-full">
-            <div class="dropdown relative h-full flex items-center">
-                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2 cursor-pointer">HOME <span class="material-symbols-outlined text-[14px] align-middle">expand_more</span></a>
-                <div class="dropdown-menu">
-                    <a href="{{ route('member.dashboard') }}">Member Dashboard</a>
-                    <a href="{{ route('member.company-profile') }}">Company Profile</a>
-                </div>
-            </div>
-            
-            <div class="dropdown relative h-full flex items-center">
-                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2 cursor-pointer bg-brand-red/10 text-brand-red px-3">OUR SERVICE <span class="material-symbols-outlined text-[14px] align-middle">expand_more</span></a>
-                <div class="dropdown-menu">
-                    <a href="#">Personal Training</a>
-                    <a href="#">Group Classes</a>
-                    <a href="#">Nutrition Plan</a>
-                </div>
-            </div>
-            
-            <div class="h-full flex items-center">
-                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2" href="#">BLOGGING</a>
-            </div>
-            
-            <div class="dropdown relative h-full flex items-center">
-                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2 cursor-pointer">TUTORIAL <span class="material-symbols-outlined text-[14px] align-middle">expand_more</span></a>
-                <div class="dropdown-menu">
-                    <a href="#">Gym Equipment Guide</a>
-                    <a href="#">Workout Plans</a>
-                </div>
-            </div>
-            
-            <div class="dropdown relative h-full flex items-center">
-                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2 cursor-pointer">PORTFOLIO <span class="material-symbols-outlined text-[14px] align-middle">expand_more</span></a>
-                <div class="dropdown-menu">
-                    <a href="#">Transformation Gallery</a>
-                    <a href="#">Facilities Showcase</a>
-                </div>
-            </div>
-            
-            <div class="dropdown relative h-full flex items-center">
-                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2 cursor-pointer">OUR TEAM <span class="material-symbols-outlined text-[14px] align-middle">expand_more</span></a>
-                <div class="dropdown-menu">
-                    <a href="#">Master Trainers</a>
-                    <a href="#">Management</a>
-                </div>
-            </div>
-            
-            <div class="h-full flex items-center">
-                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2" href="#">CONTACT US</a>
-            </div>
+            @foreach($navItems as $item)
+                @if(isset($item['children']))
+                    <div class="dropdown relative h-full flex items-center">
+                        <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2 cursor-pointer uppercase {{ $item['title'] === 'OUR SERVICE' ? 'bg-brand-red/10 text-brand-red px-3' : '' }}">{{ $item['title'] }} <span class="material-symbols-outlined text-[14px] align-middle">expand_more</span></a>
+                        @if(count($item['children']) > 0)
+                            <div class="dropdown-menu">
+                                @foreach($item['children'] as $child)
+                                    <a href="{{ $child['url'] }}">{{ $child['title'] }}</a>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                @else
+                    <div class="h-full flex items-center">
+                        <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-brand-red transition-colors py-2 uppercase" href="{{ $item['url'] ?? '#' }}">{{ $item['title'] }}</a>
+                    </div>
+                @endif
+            @endforeach
         </nav>
         
         <div class="flex items-center gap-4">
-            <span class="material-symbols-outlined text-white hover:text-brand-red cursor-pointer">search</span>
             
             <!-- Mobile Menu Button -->
             <button @click="mobileMenuOpen = true" class="lg:hidden text-white hover:text-brand-red transition-colors focus:outline-none">
@@ -162,44 +177,18 @@
             
             <div class="p-6 flex flex-col gap-6">
                 <!-- Mobile Links -->
-                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
-                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Home</span>
-                    <a href="{{ route('member.dashboard') }}" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Member Dashboard</a>
-                    <a href="{{ route('member.company-profile') }}" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Company Profile</a>
-                </div>
-                
-                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
-                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Our Service</span>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Personal Training</a>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Group Classes</a>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Nutrition Plan</a>
-                </div>
-                
-                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Blogging</a>
-                </div>
-                
-                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
-                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Tutorial</span>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Gym Equipment Guide</a>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Workout Plans</a>
-                </div>
-                
-                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
-                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Portfolio</span>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Transformation Gallery</a>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Facilities Showcase</a>
-                </div>
-                
-                <div class="flex flex-col gap-4 border-b border-white/10 pb-6">
-                    <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">Our Team</span>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Master Trainers</a>
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Management</a>
-                </div>
-                
-                <div class="flex flex-col gap-4">
-                    <a href="#" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">Contact Us</a>
-                </div>
+                @foreach($navItems as $item)
+                    <div class="flex flex-col gap-4 {{ !$loop->last ? 'border-b border-white/10 pb-6' : '' }}">
+                        @if(isset($item['children']))
+                            <span class="font-label-caps text-brand-red text-xs tracking-widest uppercase">{{ $item['title'] }}</span>
+                            @foreach($item['children'] as $child)
+                                <a href="{{ $child['url'] }}" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">{{ $child['title'] }}</a>
+                            @endforeach
+                        @else
+                            <a href="{{ $item['url'] ?? '#' }}" class="font-headline-md text-white hover:text-brand-red text-xl uppercase transition-colors">{{ $item['title'] }}</a>
+                        @endif
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -210,17 +199,17 @@
     <section class="relative min-h-[600px] flex items-center overflow-hidden metal-grid" x-data="{ currentSlide: 0 }" x-init="setInterval(() => { currentSlide = (currentSlide + 1) % 3 }, 5000)">
         <!-- Slide 1 cihuy -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 0 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" />
+            <img class="w-full h-full object-cover brightness-125" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <!-- Slide 2 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 1 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1920&q=80" />
+            <img class="w-full h-full object-cover brightness-125" src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1920&q=80" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <!-- Slide 3 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 2 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=1920&q=80" />
+            <img class="w-full h-full object-cover brightness-125" src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=1920&q=80" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
 
@@ -292,7 +281,7 @@
                     ['Preacher Curl', 'Fokus Bicep Maksimal', 'https://images.unsplash.com/photo-1584863231364-2edc166de576?auto=format&fit=crop&w=900&q=80'],
                 ] as [$title, $desc, $image])
                     <div class="group relative overflow-hidden aspect-square border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,.28)]">
-                        <img alt="{{ $title }}" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700" src="{{ $image }}" loading="lazy"/>
+                        <img alt="{{ $title }}" class="absolute inset-0 w-full h-full object-cover brightness-125 group-hover:brightness-150 group-hover:scale-110 transition-all duration-700" src="{{ $image }}" loading="lazy"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
                         <div class="absolute bottom-0 left-0 p-5 md:p-6 w-full translate-y-2 group-hover:translate-y-0 transition-transform">
                             <h3 class="font-headline-md text-xl uppercase text-white">{{ $title }}</h3>
