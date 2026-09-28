@@ -471,7 +471,7 @@ $navItems = [
                 <a href="#" class="footer-link">Free Trial</a>
             </div>
 
-            <!-- Cabang & Download Column -->
+            <!-- Cabang & Download Column
             <div class="lg:col-span-1">
                 <h4 class="font-headline-md text-white tracking-widest text-lg mb-6">Cabang</h4>
                 <a href="#" class="footer-link">Kediri</a>
@@ -480,7 +480,7 @@ $navItems = [
                 <a href="#" class="footer-link font-bold text-white mt-2 inline-block border-b border-brand-red pb-1">Lihat Semua</a>
 
 
-            </div>
+            </div> -->
         </div>
 
         <div class="flex flex-col md:flex-row justify-between items-center border-t border-white/5 pt-8 text-on-surface-variant/60 font-body-md text-sm">
