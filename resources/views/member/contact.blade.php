@@ -65,10 +65,7 @@
 $navItems = [
     [
         'title' => 'beranda',
-        'url' => null,
-        'children' => [
-            ['title' => 'Profile', 'url' => route('member.company-profile')],
-        ]
+        'url' => route('member.dashboard'),
     ],
     [
         'title' => 'OUR SERVICE',
@@ -248,9 +245,9 @@ $lng = $contact['coordinates']['lng'] ?? '112.2367804';
                     <h1 class="font-headline-lg text-4xl sm:text-6xl md:text-7xl uppercase italic tracking-tight text-white mb-6 leading-[0.95]">
                         HUBUNGI <span class="text-brand-red">KAMI</span>
                     </h1>
-                    <p class="font-body-md text-on-surface-variant text-base sm:text-lg max-w-2xl leading-relaxed">
+                    <!-- <p class="font-body-md text-on-surface-variant text-base sm:text-lg max-w-2xl leading-relaxed">
                         Pusat layanan komunikasi dan informasi resmi WARGYM Jombang. Terhubung langsung melalui WhatsApp CS, ikuti Instagram & Facebook resmi kami, atau kunjungi langsung gym kami yang buka 24 jam non-stop di Sambong Dukuh.
-                    </p>
+                    </p> -->
                 </div>
                 <div class="lg:col-span-4 flex lg:justify-end">
                     <div class="glass-panel p-5 w-full max-w-md border-l-4 border-l-brand-red">
@@ -298,9 +295,9 @@ $lng = $contact['coordinates']['lng'] ?? '112.2367804';
                         <span class="badge-tag text-on-surface-variant/70 uppercase">Layanan Pelanggan & CS</span>
                         <h3 class="font-headline-md text-2xl uppercase text-white mt-1 mb-2">WHATSAPP OFFICIAL</h3>
                         <p class="font-display-xl text-xl text-brand-red mb-3 tracking-wider">{{ $phone }}</p>
-                        <p class="text-on-surface-variant text-sm font-body-md leading-relaxed mb-6">
+                        <!-- <p class="text-on-surface-variant text-sm font-body-md leading-relaxed mb-6">
                             Konsultasi pendaftaran paket membership, promo bulanan, daily pass, serta booking sesi personal trainer langsung dengan admin kami.
-                        </p>
+                        </p> -->
                     </div>
 
                     <div class="space-y-3 pt-4 border-t border-white/10">
@@ -335,9 +332,9 @@ $lng = $contact['coordinates']['lng'] ?? '112.2367804';
                         <span class="badge-tag text-on-surface-variant/70 uppercase">Galeri & Update Latihan</span>
                         <h3 class="font-headline-md text-2xl uppercase text-white mt-1 mb-2">INSTAGRAM</h3>
                         <p class="font-display-xl text-xl text-brand-red mb-3 tracking-wider">{{ $igHandle }}</p>
-                        <p class="text-on-surface-variant text-sm font-body-md leading-relaxed mb-6">
+                        <!-- <p class="text-on-surface-variant text-sm font-body-md leading-relaxed mb-6">
                             Ikuti highlight latihan member, tutorial penggunaan alat gym, motivasi binaraga harian, dan dokumentasi event internal WARGYM.
-                        </p>
+                        </p> -->
                     </div>
 
                     <div class="pt-4 border-t border-white/10">
@@ -366,9 +363,9 @@ $lng = $contact['coordinates']['lng'] ?? '112.2367804';
                         <span class="badge-tag text-on-surface-variant/70 uppercase">Halaman & Forum Diskusi</span>
                         <h3 class="font-headline-md text-2xl uppercase text-white mt-1 mb-2">FACEBOOK PAGE</h3>
                         <p class="font-display-xl text-xl text-brand-red mb-3 tracking-wider">{{ $fbName }}</p>
-                        <p class="text-on-surface-variant text-sm font-body-md leading-relaxed mb-6">
+                        <!-- <p class="text-on-surface-variant text-sm font-body-md leading-relaxed mb-6">
                             Bergabung dengan komunitas fitness dan angkat beban Jombang. Bagikan pengalaman, diskusi nutrisi suplemen, serta info jadwal kejuaraan lokal.
-                        </p>
+                        </p> -->
                     </div>
 
                     <div class="pt-4 border-t border-white/10">
@@ -384,296 +381,6 @@ $lng = $contact['coordinates']['lng'] ?? '112.2367804';
         </div>
     </section>
 
-    <!-- Interactive WhatsApp Message Dispatcher -->
-    <section class="py-16 md:py-24 bg-[#181818] border-b border-white/10 metal-grid" x-data="{
-        clientName: '',
-        topic: 'Membership Baru',
-        customMsg: '',
-        get generatedWaUrl() {
-            let text = `Halo Admin WARGYM Jombang,\n\nNama: ${this.clientName ? this.clientName : '[Pengunjung]'}\nTopik: ${this.topic}\n\nPesan:\n${this.customMsg ? this.customMsg : 'Saya ingin mendapatkan info lebih detail mengenai membership dan fasilitas WARGYM.'}`;
-            return 'https://wa.me/{{ $waNumber }}?text=' + encodeURIComponent(text);
-        },
-        dispatchWhatsApp() {
-            window.open(this.generatedWaUrl, '_blank');
-        }
-    }">
-        <div class="max-w-screen-2xl mx-auto px-6 md:px-16">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Left Details -->
-                <div class="lg:col-span-5">
-                    <span class="font-label-caps text-brand-red text-xs uppercase tracking-[0.3em] block mb-2">[ 02 // FAST DISPATCH ]</span>
-                    <h2 class="font-headline-lg text-3xl sm:text-4xl md:text-5xl uppercase italic text-white mb-6 leading-tight">
-                        KIRIM PESAN <span class="text-brand-red">CEPAT</span> VIA WHATSAPP
-                    </h2>
-                    <p class="font-body-md text-on-surface-variant text-base leading-relaxed mb-8">
-                        Ingin respon cepat tanpa perlu mengetik ulang? Pilih kebutuhan Anda di formulir ini, dan sistem akan langsung menyusun format pesan resmi untuk diteruskan ke WhatsApp CS WARGYM.
-                    </p>
-
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 p-4 glass-tile">
-                            <span class="material-symbols-outlined text-brand-red mt-0.5">verified_user</span>
-                            <div>
-                                <h4 class="font-headline-md text-white uppercase text-base">Respon Langsung Admin Asli</h4>
-                                <p class="text-xs text-on-surface-variant/80 font-body-md">Bukan bot otomatis kaku, Anda akan dilayani langsung oleh tim admin WARGYM.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4 p-4 glass-tile">
-                            <span class="material-symbols-outlined text-brand-red mt-0.5">bolt</span>
-                            <div>
-                                <h4 class="font-headline-md text-white uppercase text-base">Format Terstandarisasi</h4>
-                                <p class="text-xs text-on-surface-variant/80 font-body-md">Pertanyaan langsung to-the-point sehingga admin dapat langsung memberikan solusi dan rincian harga.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Form Terminal -->
-                <div class="lg:col-span-7">
-                    <div class="glass-panel p-6 sm:p-10 border border-white/20 relative shadow-2xl">
-                        <!-- Terminal Top Header -->
-                        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-                            <div class="flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full bg-brand-red/80"></span>
-                                <span class="w-3 h-3 rounded-full bg-white/30"></span>
-                                <span class="w-3 h-3 rounded-full bg-white/20"></span>
-                                <span class="font-label-caps text-xs text-white/70 ml-2">TERMINAL_DISPATCH // WA-GATEWAY</span>
-                            </div>
-                            <span class="badge-tag text-brand-red font-mono text-[10px]">DIRECT LINK</span>
-                        </div>
-
-                        <form @submit.prevent="dispatchWhatsApp" class="space-y-6">
-                            <div>
-                                <label class="block font-label-caps text-xs uppercase text-white mb-2 tracking-wider">Nama Anda (Opsional / Panggilan)</label>
-                                <input type="text" 
-                                       x-model="clientName"
-                                       placeholder="Contoh: Budi Pratama"
-                                       class="w-full bg-[#131313] border border-white/20 px-4 py-3 text-white placeholder-white/30 font-body-md focus:outline-none focus:border-brand-red transition-colors text-sm">
-                            </div>
-
-                            <div>
-                                <label class="block font-label-caps text-xs uppercase text-white mb-2 tracking-wider">Topik Keperluan</label>
-                                <select x-model="topic"
-                                        class="w-full bg-[#131313] border border-white/20 px-4 py-3 text-white font-body-md focus:outline-none focus:border-brand-red transition-colors text-sm">
-                                    <option value="Informasi Paket Membership Baru">Informasi Paket Membership Baru</option>
-                                    <option value="Tiket Harian (Daily Pass) & Jam Buka">Tiket Harian (Daily Pass) & Jam Buka</option>
-                                    <option value="Konsultasi Personal Trainer & Program Latihan">Konsultasi Personal Trainer & Program Latihan</option>
-                                    <option value="Konfirmasi Pembayaran / Perpanjangan Member">Konfirmasi Pembayaran / Perpanjangan Member</option>
-                                    <option value="Kritik, Saran & Informasi Fasilitas">Kritik, Saran & Informasi Fasilitas</option>
-                                    <option value="Pertanyaan Umum Lainnya">Pertanyaan Umum Lainnya</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block font-label-caps text-xs uppercase text-white mb-2 tracking-wider">Pesan atau Pertanyaan Khusus</label>
-                                <textarea x-model="customMsg"
-                                          rows="3"
-                                          placeholder="Tuliskan pertanyaan Anda secara singkat..."
-                                          class="w-full bg-[#131313] border border-white/20 px-4 py-3 text-white placeholder-white/30 font-body-md focus:outline-none focus:border-brand-red transition-colors text-sm"></textarea>
-                            </div>
-
-                            <!-- Live Message Preview Box -->
-                            <div class="bg-black/60 border border-white/10 p-4 font-label-caps text-xs">
-                                <div class="flex items-center justify-between text-on-surface-variant/60 mb-2 border-b border-white/5 pb-1">
-                                    <span>PRATINJAU FORMAT PESAN:</span>
-                                    <span class="text-emerald-400">READY</span>
-                                </div>
-                                <div class="text-white/90 whitespace-pre-line text-[11px] leading-relaxed select-none">
-Halo Admin WARGYM Jombang,
-
-Nama: <span class="text-brand-red" x-text="clientName ? clientName : '[Pengunjung]'"></span>
-Topik: <span class="text-brand-red" x-text="topic"></span>
-
-Pesan:
-<span class="text-white/80" x-text="customMsg ? customMsg : 'Saya ingin mendapatkan info lebih detail mengenai membership dan fasilitas WARGYM.'"></span>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn-primary w-full text-base py-4 shadow-xl">
-                                <span class="material-symbols-outlined text-[20px] mr-2">send</span>
-                                Buka Pesan di WhatsApp Sekarang
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Location & Google Maps Section -->
-    <section class="py-16 md:py-24 bg-[#131313] border-b border-white/10" id="lokasi" x-data="{
-        copied: false,
-        copyAddress() {
-            navigator.clipboard.writeText('{{ $address }}');
-            this.copied = true;
-            setTimeout(() => this.copied = false, 3000);
-        }
-    }">
-        <div class="max-w-screen-2xl mx-auto px-6 md:px-16">
-            <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-12">
-                <div>
-                    <span class="font-label-caps text-brand-red text-xs uppercase tracking-[0.3em] block mb-1">[ 03 // LOCATION BASE ]</span>
-                    <h2 class="font-headline-md text-2xl md:text-3xl uppercase tracking-wider text-white">LOKASI & PETUNJUK JALAN</h2>
-                </div>
-                <div class="hidden sm:flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-brand-red animate-ping"></span>
-                    <span class="font-label-caps text-xs text-brand-red uppercase">GEO-LOCATED</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
-                <!-- Location Info Card -->
-                <div class="lg:col-span-5 glass-panel p-8 md:p-10 flex flex-col justify-between border border-white/15">
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-red/10 border border-brand-red/30 text-brand-red font-label-caps text-xs uppercase tracking-widest mb-6">
-                            <span class="material-symbols-outlined text-[16px]">location_on</span>
-                            <span>BASE OPERATIONS // JOMBANG</span>
-                        </div>
-
-                        <h3 class="font-headline-lg text-3xl md:text-4xl uppercase text-white mb-6 leading-tight">
-                            WARGYM <span class="text-brand-red">(WARUNG GYM)</span>
-                        </h3>
-
-                        <div class="space-y-6 mb-8">
-                            <div class="flex gap-4">
-                                <div class="bg-brand-red/10 p-3 h-fit border border-brand-red/30 text-brand-red shrink-0">
-                                    <span class="material-symbols-outlined text-brand-red">pin_drop</span>
-                                </div>
-                                <div>
-                                    <p class="font-label-caps text-xs text-on-surface-variant uppercase mb-1">Alamat Lengkap</p>
-                                    <p class="text-white font-body-md text-base leading-relaxed">
-                                        {{ $address }}
-                                    </p>
-                                    <p class="text-xs font-label-caps text-brand-red mt-1">Koordinat: {{ $lat }}, {{ $lng }}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-4">
-                                <div class="bg-brand-red/10 p-3 h-fit border border-brand-red/30 text-brand-red shrink-0">
-                                    <span class="material-symbols-outlined text-brand-red">schedule</span>
-                                </div>
-                                <div>
-                                    <p class="font-label-caps text-xs text-on-surface-variant uppercase mb-1">Jam Operasional</p>
-                                    <p class="text-white font-headline-md text-xl uppercase tracking-wider">
-                                        {{ $hours }}
-                                    </p>
-                                    <p class="text-xs text-on-surface-variant/70 font-body-md mt-0.5">Akses barcode mandiri aktif 24 jam untuk seluruh member aktif.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-4">
-                                <div class="bg-brand-red/10 p-3 h-fit border border-brand-red/30 text-brand-red shrink-0">
-                                    <span class="material-symbols-outlined text-brand-red">local_parking</span>
-                                </div>
-                                <div>
-                                    <p class="font-label-caps text-xs text-on-surface-variant uppercase mb-1">Fasilitas Area</p>
-                                    <p class="text-white font-body-md text-sm leading-relaxed">
-                                        Area parkir motor & mobil luas, loker penyimpanan barang aman, toilet & kamar bilas, serta drinking water spot.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 pt-6 border-t border-white/10">
-                        <a href="{{ $mapsDirection }}" 
-                           target="_blank" 
-                           class="btn-primary w-full text-center text-sm py-3.5">
-                            <span class="material-symbols-outlined text-[20px] mr-2">directions</span>
-                            Buka di Google Maps
-                        </a>
-
-                        <button @click="copyAddress" 
-                                type="button" 
-                                class="btn-secondary w-full text-xs py-2.5">
-                            <span class="material-symbols-outlined text-[16px] mr-2" x-text="copied ? 'check' : 'content_copy'"></span>
-                            <span x-text="copied ? 'ALAMAT TERSALIN KE CLIPBOARD!' : 'SALIN ALAMAT LENGKAP'"></span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Google Maps Interactive Frame -->
-                <div class="lg:col-span-7">
-                    <div class="relative h-full min-h-[420px] lg:min-h-[560px] border border-white/15 overflow-hidden bg-white/5 backdrop-blur-md shadow-2xl">
-                        <!-- Top Radar HUD -->
-                        <div class="absolute top-4 left-4 z-10 glass-panel px-4 py-2 flex items-center gap-3 border border-white/20">
-                            <div class="w-3 h-3 bg-brand-red rounded-full animate-ping"></div>
-                            <span class="font-label-caps text-xs uppercase tracking-widest text-white">WARGYM GPS RADAR</span>
-                        </div>
-
-                        <div class="absolute top-4 right-4 z-10 glass-panel px-3 py-1 text-xs font-label-caps text-white/80 border border-white/20">
-                            24/7 OPEN
-                        </div>
-
-                        <!-- Iframe Embed -->
-                        <iframe
-                            class="w-full h-full min-h-[420px] lg:min-h-[560px] filter contrast-125"
-                            src="{{ $mapsEmbed }}"
-                            title="Lokasi WARGYM Jombang di Google Maps"
-                            loading="lazy"
-                            allowfullscreen></iframe>
-
-                        <!-- Bottom Coordinates Banner -->
-                        <div class="absolute bottom-0 inset-x-0 bg-black/80 backdrop-blur-sm border-t border-white/10 px-6 py-3 flex flex-wrap items-center justify-between text-xs font-label-caps text-white/70">
-                            <span>KEC. JOMBANG, KAB. JOMBANG, JAWA TIMUR</span>
-                            <span class="text-brand-red">TITIK MAPS: WARGYM (WARUNG GYM)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ / Pertanyaan Umum Seputar Kontak & Kunjungan -->
-    <section class="py-16 md:py-24 bg-[#181818] border-b border-white/10">
-        <div class="max-w-screen-2xl mx-auto px-6 md:px-16">
-            <div class="border-b border-white/10 pb-4 mb-12">
-                <span class="font-label-caps text-brand-red text-xs uppercase tracking-[0.3em] block mb-1">[ 04 // VISITOR FAQ ]</span>
-                <h2 class="font-headline-md text-2xl md:text-3xl uppercase tracking-wider text-white">PANDUAN BERKUNJUNG & INFORMASI KONTAK</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass-panel p-6 border border-white/10">
-                    <h3 class="font-headline-md text-lg text-white uppercase mb-2 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-brand-red text-xl">help</span>
-                        Apakah saya bisa langsung datang tanpa mendaftar online?
-                    </h3>
-                    <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                        Tentu saja! Anda bisa langsung datang ke gym untuk mencoba sesi harian (Daily Pass) atau langsung mendaftar membership di kasir kami. Tim resepsionis akan memandu registrasi akun dan cara penggunaan barcode scan.
-                    </p>
-                </div>
-
-                <div class="glass-panel p-6 border border-white/10">
-                    <h3 class="font-headline-md text-lg text-white uppercase mb-2 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-brand-red text-xl">help</span>
-                        Apakah gym benar-benar buka 24 jam setiap hari?
-                    </h3>
-                    <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                        Ya, WARGYM beroperasi 24 jam nonstop 7 hari seminggu termasuk hari libur nasional. Member yang aktif dapat melakukan check-in mandiri menggunakan barcode unik kapan saja.
-                    </p>
-                </div>
-
-                <div class="glass-panel p-6 border border-white/10">
-                    <h3 class="font-headline-md text-lg text-white uppercase mb-2 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-brand-red text-xl">help</span>
-                        Bagaimana cara konsultasi dengan Personal Trainer?
-                    </h3>
-                    <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                        Anda dapat menghubungi kami via WhatsApp terlebih dahulu atau langsung menemui coach yang sedang bertugas di gym untuk mendiskusikan target kebugaran, pola latihan beban, dan nutrisi harian.
-                    </p>
-                </div>
-
-                <div class="glass-panel p-6 border border-white/10">
-                    <h3 class="font-headline-md text-lg text-white uppercase mb-2 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-brand-red text-xl">help</span>
-                        Metode pembayaran apa saja yang diterima?
-                    </h3>
-                    <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                        Kami menerima pembayaran tunai di kasir, QRIS (BCA, Mandiri, BRI, GoPay, OVO, ShopeePay), transfer bank, serta pembayaran online otomatis melalui Midtrans di portal member.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
 </main>
 
 <!-- Footer Section (Detailed brutalist style matching company-profile) -->

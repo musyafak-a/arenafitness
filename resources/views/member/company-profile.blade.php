@@ -64,11 +64,7 @@
 $navItems = [
     [
         'title' => 'beranda',
-        'url' => null,
-        'children' => [
-            // ['title' => 'Member Dashboard', 'url' => route('member.dashboard')],
-            ['title' => 'Profile', 'url' => route('member.company-profile')],
-        ]
+        'url' => route('member.dashboard'),
     ],
     [
         'title' => 'OUR SERVICE',
