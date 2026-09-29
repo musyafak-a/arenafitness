@@ -43,6 +43,8 @@
         .btn-primary:hover { background-color: #fff; color: #ff5540; box-shadow: 0 0 20px rgba(255, 85, 64, 0.4); transform: translateY(-2px); }
         .btn-secondary { background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; text-transform: uppercase; font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: 0.1em; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; padding: 0.875rem 2rem; }
         .btn-secondary:hover { background-color: rgba(255,85,64,0.15); border-color: #ff5540; color: #ff5540; transform: translateY(-2px); }
+        .glass-panel { background: linear-gradient(135deg, rgba(31,31,31,.72), rgba(14,14,14,.48)); border: 1px solid rgba(255,255,255,.14); box-shadow: 0 24px 80px rgba(0,0,0,.48); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+        .metal-grid { background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 48px 48px; }
         .nav-link { position: relative; padding-bottom: 6px; }
         .nav-link::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: #ff5540; transition: width .25s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
@@ -67,7 +69,7 @@ $navItems = [
         'title' => 'OUR SERVICE',
         'url' => null,
         'children' => [
-            ['title' => 'Personal Training', 'url' => route('member.company-profile') . '#service'],
+            ['title' => 'Personal Training', 'url' => route('member.personal-trainer')],
         ]
     ],
     [
@@ -166,42 +168,30 @@ $navItems = [
     </div>
 </header>
 
-<main class="pt-20 bg-white">
-    <!-- Hero Banner -->
-    <div class="relative w-full h-[400px] md:h-[500px]">
-        <img src="{{ asset('images/team1.jpg') }}" alt="Personal Trainer" class="w-full h-full object-cover brightness-[0.85] object-center">
-        <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
-        <div class="absolute bottom-10 left-0 w-full text-center px-6">
-            <h1 class="font-headline-lg text-4xl sm:text-5xl md:text-6xl text-white mb-2 font-bold drop-shadow-md">
-                Personal Trainer
+<main class="pt-20">
+    <section class="py-16 md:py-24 bg-[#131313] relative metal-grid min-h-[calc(100vh-250px)]">
+        <div class="max-w-screen-2xl mx-auto px-6 md:px-16 flex flex-col pt-12">
+            <h1 class="font-headline-lg text-4xl sm:text-5xl md:text-6xl text-center uppercase italic tracking-wider text-white mb-16 drop-shadow-lg">
+                CERITA <span class="text-brand-red">KAMI</span>
             </h1>
-        </div>
-    </div>
-
-    <!-- Personal Trainers Section -->
-    <section class="py-16 bg-white text-center px-6 md:px-12 xl:px-16 max-w-[1400px] mx-auto">
-        <h2 class="font-headline-md text-3xl md:text-5xl mb-4 text-[#1a2b4c] font-bold">Temukan PT sesuai kebutuhanmu!</h2>
-        <p class="font-body-md text-gray-600 text-lg md:text-xl mb-12">Capai tujuan fitness lebih cepat dengan bimbingan personal trainer bersertifikasi internasional</p>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 text-left">
-            @foreach([
-                ['HAPPY', 'Weight Management, Fat Loss, Muscle Building, Nutrition, Functional Training, Freestyle Movement, Postural Alignment.', 'https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&h=300&fit=crop'],
-                ['DIKA', 'Weight Management, Muscle Building, Fat Loss, Endurance, Mobility and Agility, Boxing for Fitness, Postural Alignment, Strength, Functional Training, Nutrition Program.', 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&h=300&fit=crop'],
-                ['IMAM', 'Weight Management, Fat Loss, Muscle Building, Nutrition, Functional Training, Freestyle Movement, Postural Alignment, Strength, Power.', 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=300&h=300&fit=crop'],
-                ['JASEP', 'Weight Management, Muscle Building, Rehab, Postural Alignment, Freestyle Movement.', 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop'],
-                ['INDAH', 'Weight Management, Muscle Building, Core Building, Endurance, Mobility and Agility, Freestyle Movement, Postural Alignment, Strength, Power, Sport Performance.', 'https://images.unsplash.com/photo-1607962837359-5e7e8f566408?w=300&h=300&fit=crop'],
-                ['ABDUL', 'Weight Management, Muscle Building, Fat Loss, Endurance, Mobility and Agility, Boxing for Fitness, Postural Alignment, Strength, Functional Training, Nutrition Program.', 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=300&fit=crop']
-            ] as [$name, $desc, $img])
-            <div class="bg-gray-50/80 rounded-3xl p-5 flex flex-col shadow-sm border border-gray-100 transition-transform hover:-translate-y-2 hover:shadow-xl">
-                <img src="{{ $img }}" alt="{{ $name }}" class="w-full h-48 object-cover rounded-2xl mb-5">
-                <h3 class="font-headline-md text-[22px] text-[#1a2b4c] mb-3 uppercase tracking-wide">{{ $name }}</h3>
-                <p class="font-body-md text-[13px] leading-relaxed text-gray-700 flex-grow mb-6">{{ $desc }}</p>
-                <div class="flex items-start gap-2 pt-4 mt-auto">
-                    <span class="material-symbols-outlined text-gray-800 text-[18px]">fitness_center</span>
-                    <span class="font-headline-md text-xs font-bold text-[#1a2b4c] uppercase tracking-wider">WARGYM JOMBANG</span>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Text Content -->
+                <div class="glass-panel p-8 md:p-12 rounded-lg border border-white/10">
+                    <p class="font-body-md text-on-surface-variant text-lg leading-relaxed mb-6 text-justify">
+                        Lahir di kota Jombang yang penuh energi, WARGYM memelopori standar baru kebugaran dan kini telah hadir sebagai pusat kebugaran elit di wilayah ini. Kami menghadirkan konsep gaya hidup sehat yang segar melalui ruang latihan yang nyaman, memotivasi, dan penuh energi positif untuk membantu setiap individu mencapai tujuan kebugarannya. Dengan konsep mega gym, kami memadukan peralatan modern, fasilitas berkelas, serta pilihan keanggotaan yang terjangkau, sehingga siapa pun dapat menikmati pengalaman latihan terbaik di setiap level.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant text-lg leading-relaxed text-justify">
+                        Di WARGYM, kami berkomitmen untuk memberikan pengalaman kebugaran yang unggul dan sesuai dengan beragam kebutuhan. Setiap anggota mendapatkan dukungan penuh dari instruktur dan Personal Trainer yang berpengalaman, profesional, dan berdedikasi untuk memastikan hasil terbaik. Baik berlatih secara mandiri maupun mengikuti program kelas, instruktur kami selalu menghadirkan sesi yang penuh energi dan berkualitas tinggi untuk memaksimalkan setiap sesi latihan.
+                    </p>
+                </div>
+                
+                <!-- Image Content -->
+                <div class="relative group h-full flex flex-col justify-center">
+                    <div class="absolute inset-0 bg-brand-red/10 blur-3xl -z-10 group-hover:bg-brand-red/20 transition-colors duration-700"></div>
+                    <img src="{{ asset('images/team2.jpg') }}" alt="Cerita Kami - Team WARGYM" class="w-full h-auto max-h-[600px] object-cover rounded-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-700 transform group-hover:scale-[1.02]">
                 </div>
             </div>
-            @endforeach
         </div>
     </section>
 </main>
