@@ -104,8 +104,8 @@ $navItems = [
 $phone = $contact['phone'] ?? '0821-3006-6694';
 $waNumber = $contact['whatsapp_number'] ?? '6282130066694';
 $waChannelUrl = $contact['whatsapp_channel_url'] ?? 'https://whatsapp.com/channel/0029Vb7ysaX30LKV0mIDbu2t';
-$igHandle = $contact['instagram_handle'] ?? '@wargym_jombang';
-$igUrl = $contact['instagram_url'] ?? 'https://instagram.com/wargym_jombang';
+$igHandle = $contact['instagram_handle'] ?? '@wargym_team';
+$igUrl = $contact['instagram_url'] ?? 'https://www.instagram.com/wargym_team?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==';
 $fbName = $contact['facebook_name'] ?? 'WARGYM Jombang';
 $fbUrl = $contact['facebook_url'] ?? 'https://facebook.com/wargym.jombang';
 $address = $contact['address'] ?? 'Sambong Dukuh, Kec. Jombang, Kabupaten Jombang, Jawa Timur, Indonesia';
@@ -249,16 +249,7 @@ $lng = $contact['coordinates']['lng'] ?? '112.2367804';
                         Pusat layanan komunikasi dan informasi resmi WARGYM Jombang. Terhubung langsung melalui WhatsApp CS, ikuti Instagram & Facebook resmi kami, atau kunjungi langsung gym kami yang buka 24 jam non-stop di Sambong Dukuh.
                     </p> -->
                 </div>
-                <div class="lg:col-span-4 flex lg:justify-end">
-                    <div class="glass-panel p-5 w-full max-w-md border-l-4 border-l-brand-red">
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="font-label-caps text-xs text-white uppercase tracking-wider">Fast Response Hotline</span>
-                            <span class="badge-tag text-brand-red">CS-01</span>
-                        </div>
-                        <p class="font-display-xl text-2xl md:text-3xl text-white tracking-wide mb-2">{{ $phone }}</p>
-                        <p class="text-xs text-on-surface-variant/70 font-body-md">Konsultasi pendaftaran member, personal trainer & sewa loker.</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
