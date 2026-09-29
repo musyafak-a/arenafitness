@@ -535,14 +535,14 @@ $navItems = [
                             </div>
                         </div>
                         <div class="flex gap-5">
-                            <div class="bg-brand-red/10 p-3 h-fit border border-brand-red/30 text-brand-red">
+                            <!-- <div class="bg-brand-red/10 p-3 h-fit border border-brand-red/30 text-brand-red">
                                 <span class="material-symbols-outlined text-brand-red">schedule</span>
-                            </div>
-                            <div>
+                            </div> -->
+                            <!-- <div>
                                 <p class="font-headline-md text-xl uppercase text-white mb-2">Jam Operasional</p>
                                 <p class="text-on-surface-variant font-body-md">Senin - Minggu: <span class="text-brand-red font-bold">24 JAM</span></p>
                                 <p class="text-[10px] font-label-caps text-on-surface-variant/50 mt-1 uppercase italic">Selalu Siap Saat Anda Butuhkan</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <a class="mt-10 btn-primary w-full" href="https://maps.app.goo.gl/SfncoYX75q97MA3p7" target="_blank">
