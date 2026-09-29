@@ -50,6 +50,45 @@ class MemberPortalController extends Controller
             'announcements' => $announcements,
         ]);
     }
+
+    /**
+     * Display contact page with WhatsApp, Instagram, Facebook, and Location.
+     */
+    public function contact(Request $request): View
+    {
+        $user = null;
+        $member = null;
+
+        if (session('auth.role') === 'member') {
+            $user = User::query()->where('id', session('auth.id'))->where('role', 'member')->first();
+            $member = $user?->member;
+        }
+
+        $contactInfo = [
+            'brand_name' => 'WARGYM (WARUNG GYM)',
+            'phone' => '0821-3006-6694',
+            'whatsapp_number' => '6282130066694',
+            'whatsapp_channel_url' => config('services.whatsapp.channel_url', 'https://whatsapp.com/channel/0029Vb7ysaX30LKV0mIDbu2t'),
+            'instagram_handle' => '@wargym_jombang',
+            'instagram_url' => 'https://instagram.com/wargym_jombang',
+            'facebook_name' => 'WARGYM Jombang',
+            'facebook_url' => 'https://facebook.com/wargym.jombang',
+            'address' => 'Sambong Dukuh, Kec. Jombang, Kabupaten Jombang, Jawa Timur, Indonesia',
+            'maps_embed_url' => 'https://maps.google.com/maps?q=-7.5717763,112.2367804+(WARGYM+WARUNG+GYM)&t=&z=17&ie=UTF8&iwloc=&output=embed',
+            'maps_direction_url' => 'https://maps.app.goo.gl/SfncoYX75q97MA3p7',
+            'hours' => '24 JAM (Senin - Minggu)',
+            'coordinates' => [
+                'lat' => '-7.5717763',
+                'lng' => '112.2367804',
+            ],
+        ];
+
+        return view('member.contact', [
+            'user' => $user,
+            'member' => $member,
+            'contact' => $contactInfo,
+        ]);
+    }
     /**
      * Check if a member's membership is still active.
      */

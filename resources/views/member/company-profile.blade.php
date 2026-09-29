@@ -101,7 +101,7 @@ $navItems = [
     ],
     [
         'title' => 'KONTAK',
-        'url' => '#',
+        'url' => route('member.contact'),
     ]
 ];
 @endphp
@@ -169,7 +169,7 @@ $navItems = [
              class="fixed inset-y-0 right-0 w-full max-w-sm bg-[#131313] border-l border-brand-red/20 shadow-2xl overflow-y-auto">
              
             <div class="flex items-center justify-between p-6 border-b border-white/10">
-                <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none">s <span class="text-brand-red">Fitness</span></span>
+                <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none">WAR <span class="text-brand-red">GYM</span></span>
                 <button @click="mobileMenuOpen = false" class="text-white hover:text-brand-red transition-colors focus:outline-none">
                     <span class="material-symbols-outlined text-3xl">close</span>
                 </button>
@@ -250,6 +250,63 @@ $navItems = [
             <div class="absolute right-6 top-1/2 -translate-y-1/2 hidden md:flex cursor-pointer" @click="currentSlide = (currentSlide + 1) % 3">
                 <div class="w-12 h-12 rounded-full border border-white/20 bg-black/40 flex items-center justify-center hover:bg-brand-red hover:text-black transition-all text-white">
                     <span class="material-symbols-outlined">chevron_right</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Umum Section -->
+    <section class="py-16 md:py-24 bg-[#0a0a0a] border-b border-white/5 metal-grid relative z-10">
+        <div class="max-w-screen-2xl mx-auto px-6 md:px-16">
+            <div class="glass-panel border border-white/10 p-8 md:p-12 relative overflow-hidden">
+                <!-- Decorative background elements inside panel -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-red/10 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="absolute -bottom-8 -left-8 text-[120px] font-display-xl text-white/[0.03] leading-none pointer-events-none select-none">HOURS</div>
+                
+                <div class="relative z-10 flex flex-col lg:flex-row gap-12 lg:items-center justify-between">
+                    
+                    <!-- Title Section -->
+                    <div class="lg:w-1/3">
+                        <span class="font-label-caps text-brand-red tracking-[0.3em] uppercase block mb-3 flex items-center gap-2">
+                            <span class="w-8 h-[1px] bg-brand-red"></span>
+                            Waktu Buka
+                        </span>
+                        <h2 class="font-headline-lg text-4xl md:text-5xl uppercase italic text-white mb-4">UMUM</h2>
+                        <p class="font-body-md text-on-surface-variant max-w-sm">
+                            Kunjungi WARGYM pada jam operasional kami. Kami siap melayani rutinitas kebugaran Anda.
+                        </p>
+                    </div>
+                    
+                    <!-- Schedule Cards -->
+                    <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Senin-Sabtu -->
+                        <div class="border border-white/10 bg-white/5 p-6 md:p-8 hover:border-white/20 transition-colors flex flex-col justify-center">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-white/50 text-2xl">calendar_month</span>
+                                <h3 class="font-headline-md text-xl text-white tracking-wide uppercase">Senin - Sabtu</h3>
+                            </div>
+                            <div class="flex items-end gap-3 mt-auto">
+                                <span class="font-display-xl text-4xl md:text-5xl text-brand-red leading-none">07:00</span>
+                                <span class="text-white/30 text-2xl mb-1">-</span>
+                                <span class="font-display-xl text-4xl md:text-5xl text-white leading-none">21:00</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Minggu -->
+                        <div class="border border-brand-red/30 bg-brand-red/[0.05] p-6 md:p-8 hover:border-brand-red/50 transition-colors flex flex-col justify-center relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-l-[40px] border-t-brand-red/40 border-l-transparent"></div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-brand-red/80 text-2xl">event</span>
+                                <h3 class="font-headline-md text-xl text-white tracking-wide uppercase">Minggu</h3>
+                            </div>
+                            <div class="flex items-end gap-3 mt-auto relative z-10">
+                                <span class="font-display-xl text-4xl md:text-5xl text-brand-red leading-none group-hover:scale-105 transition-transform origin-bottom-left">10:00</span>
+                                <span class="text-white/30 text-2xl mb-1">-</span>
+                                <span class="font-display-xl text-4xl md:text-5xl text-white leading-none group-hover:scale-105 transition-transform origin-bottom-left">21:00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -353,7 +410,7 @@ $navItems = [
                             'role' => '2 ulasan · 1 foto',
                             'rating' => 5,
                             'time' => 'Sebulan lalu',
-                            'avatar' => asset('images/reviews/ayunul.png'),
+                            'avatar' => null,
                             'text' => 'Gym terworth it di jombang cuman 5k doang🤩 Sehat ga harus mahal🤗 Buat pemula maupun yg udah advanced, wargym bener² bikin nyaman dan welcoming🫶✨',
                             'link' => 'https://maps.app.goo.gl/DD854AmcPe3CxXWZ7',
                         ],
@@ -362,7 +419,7 @@ $navItems = [
                             'role' => 'Member WARGYM',
                             'rating' => 5,
                             'time' => '3 bulan lalu',
-                            'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+                            'avatar' => null,
                             'text' => 'Tempat gymnya bersih, alat alatnya juga cukup lengkap. Ada PT harian juga. PT nya profesional dan membantu sekali buat Pemula. Yang menarik kalau beres nge gym bisa cangkruk kaya di warung sambil istirahat.',
                             'link' => 'https://maps.app.goo.gl/VnvJkbAYRgqnrp2BA',
                         ],
@@ -371,7 +428,7 @@ $navItems = [
                             'role' => '1 ulasan',
                             'rating' => 5,
                             'time' => '4 bulan lalu',
-                            'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+                            'avatar' => null,
                             'text' => 'Tempat sangat nyaman, komunitas nya friendly banget, cocok buat pemula dan kantong pelajar, harganya murah meriah. cuma 5k per kedatangan. 60k per bulan. josjis pokoknya. gaspol ndangak!',
                             'link' => 'https://maps.app.goo.gl/9GGB3eGPq5Q5PAi6A',
                         ],
@@ -380,7 +437,7 @@ $navItems = [
                             'role' => '7 ulasan · 12 foto',
                             'rating' => 5,
                             'time' => '5 bulan lalu',
-                            'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80',
+                            'avatar' => null,
                             'text' => 'tempat nyaman, alat mendukung sekali, bisa nongkrong bareng teman" dan bisa untuk cari teman. suasananya bagaikan bareng keluarga sendiri 💪😍🤙',
                             'link' => 'https://maps.app.goo.gl/b3hktbtyFkjkwPLf6',
                         ],
@@ -391,10 +448,16 @@ $navItems = [
                     <div class="glass-panel p-8 border border-white/10 hover:border-brand-red/60 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between group">
                         <div>
                             <!-- Reviewer Meta Header -->
-                            <div class="flex items-center justify-between mb-6">
-                                <div class="flex items-center gap-4">
-                                    <div class="relative">
-                                        <img src="{{ $review['avatar'] }}" class="w-14 h-14 rounded-full border-2 border-brand-red object-cover" alt="{{ $review['name'] }}">
+                            <div class="flex items-center justify-between mb-6 gap-2">
+                                <div class="flex items-center gap-4 min-w-0">
+                                    <div class="relative shrink-0">
+                                        @if($review['avatar'])
+                                            <img src="{{ $review['avatar'] }}" class="w-14 h-14 rounded-full object-cover" alt="{{ $review['name'] }}">
+                                        @else
+                                            <div class="w-14 h-14 rounded-full bg-white/10 text-white font-display flex items-center justify-center text-2xl uppercase">
+                                                {{ substr($review['name'], 0, 1) }}
+                                            </div>
+                                        @endif
                                         <!-- Mini Google Icon Badge -->
                                         <div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center shadow-md">
                                             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
@@ -405,21 +468,19 @@ $navItems = [
                                             </svg>
                                         </div>
                                     </div>
-                                    <div>
-                                        <a href="{{ $review['link'] }}" target="_blank" rel="noopener noreferrer" class="font-headline-md text-lg text-white hover:text-brand-red transition-colors flex items-center gap-1.5">
-                                            {{ $review['name'] }}
-                                            <span class="material-symbols-outlined text-brand-red text-base" title="Ulasan Terverifikasi">verified</span>
+                                    <div class="min-w-0">
+                                        <a href="{{ $review['link'] }}" target="_blank" rel="noopener noreferrer" class="font-headline-md text-lg text-white hover:text-brand-red transition-colors flex items-center gap-1.5 flex-wrap">
+                                            <span class="truncate">{{ $review['name'] }}</span>
+                                            <span class="material-symbols-outlined text-brand-red text-base shrink-0" title="Ulasan Terverifikasi">verified</span>
                                         </a>
-                                        <p class="font-label-caps text-[11px] text-on-surface-variant/70 uppercase tracking-wider mt-0.5">{{ $review['role'] }}</p>
+                                        <p class="font-label-caps text-[11px] text-on-surface-variant/70 uppercase tracking-wider mt-0.5 truncate">{{ $review['role'] }}</p>
                                     </div>
                                 </div>
 
                                 <!-- Star Rating -->
-                                <div class="flex flex-col items-end">
-                                    <div class="flex text-[#fbbf24] text-lg tracking-wider">
-                                        @for($i = 0; $i < $review['rating']; $i++)
-                                            ★
-                                        @endfor
+                                <div class="flex flex-col items-end shrink-0">
+                                    <div class="text-[#fbbf24] text-lg tracking-wider whitespace-nowrap">
+                                        @for($i = 0; $i < $review['rating']; $i++)★@endfor
                                     </div>
                                     <span class="text-[10px] font-label-caps text-on-surface-variant/50 uppercase tracking-widest mt-1">{{ $review['time'] }}</span>
                                 </div>
@@ -513,13 +574,6 @@ $navItems = [
                         </div>
                     </div>
                 </div>
-                            <div class="absolute top-6 left-6 glass-panel p-4 flex items-center gap-4">
-                                <div class="w-3 h-3 bg-brand-red rounded-full animate-pulse shadow-[0_0_10px_#ff5540]"></div>
-                                <span class="font-label-caps text-xs uppercase tracking-[0.2em] text-white"> Location</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -532,16 +586,16 @@ $navItems = [
             <!-- Brand Column -->
             <div class="lg:col-span-1">
                 <a class="flex items-center gap-3 mb-6" href="{{ route('member.dashboard') }}">
-                    <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none">s <span class="text-brand-red">Fitness</span></span>
+                    <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none">WAR <span class="text-brand-red">GYM</span></span>
                 </a>
                 <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
-                    Temukan lokasi Fitness, pilihan kelas kebugaran, fasilitas latihan, dan personal trainer untuk mendukung perjalanan fitness Anda.
+                    Temukan lokasi WARGYM, pilihan kelas kebugaran, fasilitas latihan, dan personal trainer untuk mendukung perjalanan fitness Anda.
                 </p>
                 <div class="flex items-center gap-3">
-                    <a href="#" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">photo_camera</span></a>
-                    <a href="#" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">smart_display</span></a>
-                    <a href="#" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">facebook</span></a>
-                    <a href="#" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">music_note</span></a>
+                    <a href="https://instagram.com/wargym_jombang" target="_blank" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors" title="Instagram"><span class="material-symbols-outlined text-[20px]">photo_camera</span></a>
+                    <a href="https://whatsapp.com/channel/0029Vb7ysaX30LKV0mIDbu2t" target="_blank" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors" title="Saluran WhatsApp"><span class="material-symbols-outlined text-[20px]">smart_display</span></a>
+                    <a href="https://facebook.com/wargym.jombang" target="_blank" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors" title="Facebook"><span class="material-symbols-outlined text-[20px]">facebook</span></a>
+                    <a href="https://wa.me/6282130066694" target="_blank" class="w-10 h-10 rounded-md bg-[#1f1f1f] flex items-center justify-center text-white hover:bg-brand-red hover:text-black transition-colors" title="WhatsApp Admin"><span class="material-symbols-outlined text-[20px]">chat</span></a>
                 </div>
             </div>
 
@@ -551,9 +605,9 @@ $navItems = [
             <!-- Perusahaan Column -->
             <div class="lg:col-span-1">
                 <h4 class="font-headline-md text-white tracking-widest text-lg mb-6">Perusahaan</h4>
-                <a href="#" class="footer-link">Tentang Kami</a>
+                <a href="{{ route('member.company-profile') }}" class="footer-link">Tentang Kami</a>
                 <a href="#" class="footer-link">Blog Kesehatan</a>
-                <a href="#" class="footer-link">Hubungi Kami</a>
+                <a href="{{ route('member.contact') }}" class="footer-link">Hubungi Kami</a>
                 <a href="#" class="footer-link">Kemitraan</a>
             </div>
 
