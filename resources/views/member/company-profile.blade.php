@@ -215,17 +215,17 @@ $navItems = [
             <div class="max-w-3xl">
                 <div class="inline-flex items-center gap-2 border border-brand-red/40 bg-brand-red/10 px-4 py-2 rounded-full mb-6">
                     <span class="w-2 h-2 rounded-full bg-brand-red"></span>
-                    <span class="font-label-caps text-xs text-brand-red uppercase tracking-widest">Kualitas Terjamin</span>
+                    <span class="font-label-caps text-xs text-brand-red uppercase tracking-widest">cek jam buka</span>
                 </div>
                 
                 <h1 class="font-display-xl text-[60px] md:text-[80px] lg:text-[100px] uppercase italic font-bold tracking-tighter leading-[1] mb-6 text-white drop-shadow-lg">
-                    DARI RANCANGAN<br/>
+                    BERLATIH<br/>
                     <span class="text-brand-red">HINGGA</span><br/>
-                    PRODUK JADI
+                    LAMPAUI DIRI
                 </h1>
                 
                 <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-                    Kami menangani proses lengkap: perancangan, pengerjaan komponen, perakitan mesin, uji coba, hingga finishing berkualitas tinggi.
+                    Kami menyediakan fasilitas lengkap dan pengalaman yang nyaman untuk anda.
                 </p>
                 
                 <div class="flex flex-wrap gap-4">
@@ -313,7 +313,7 @@ $navItems = [
             <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <span class="font-label-caps text-brand-red tracking-[0.3em] uppercase block mb-4">Premium Gear</span>
-                    <h2 class="font-headline-lg text-4xl md:text-5xl uppercase italic mb-4">FASILITAS ELITE</h2>
+                    <h2 class="font-headline-lg text-4xl md:text-5xl uppercase italic mb-4">LIHAT KITA</h2>
                     <p class="font-body-lg text-on-surface-variant max-w-xl">
                         Peralatan kelas dunia dengan spesifikasi kompetisi, dirancang untuk keamanan maksimal dan hasil yang optimal.
                     </p>
@@ -323,22 +323,18 @@ $navItems = [
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach([
-                    ['Treadmill', 'Kardio Performa Tinggi', 'https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=900&q=80'],
-                    ['Smith Machine', 'Latihan Beban Terpadu', 'https://images.unsplash.com/photo-1534258936925-c58bed479fcb?auto=format&fit=crop&w=900&q=80'],
-                    ['Pec Deck', 'Isolasi Otot Dada', 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80'],
-                    ['Leg Press', 'Power Majemuk Kaki', 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=900&q=80'],
-                    ['Leg Extension', 'Definisi Quadriceps', 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80'],
-                    ['Mesin Sit Up', 'Core & Abs Station', 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80'],
-                    ['Twister Core', 'Stabilitas Rotasi', 'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=900&q=80'],
-                    ['Preacher Curl', 'Fokus Bicep Maksimal', 'https://images.unsplash.com/photo-1584863231364-2edc166de576?auto=format&fit=crop&w=900&q=80'],
+                    ['Treadmill', 'Kardio Performa Tinggi', asset('images/preview1.jpg')],
+                    ['Smith Machine', 'Latihan Beban Terpadu', asset('images/preview2.jpg')],
+                    ['Pec Deck', 'Isolasi Otot Dada', asset('images/preview3.jpg')],
+                    ['Leg Press', 'Power Majemuk Kaki', asset('images/preview4.jpg')],
+                    ['Leg Extension', 'Definisi Quadriceps', asset('images/preview5.jpg')],
+                    ['Mesin Sit Up', 'Core & Abs Station', asset('images/preview6.jpg')],
+                    ['Twister Core', 'Stabilitas Rotasi', asset('images/preview7.jpg')],
+                    ['Preacher Curl', 'Fokus Bicep Maksimal', asset('images/preview8.jpg')],
                 ] as [$title, $desc, $image])
                     <div class="group relative overflow-hidden aspect-square border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,.28)]">
                         <img alt="{{ $title }}" class="absolute inset-0 w-full h-full object-cover brightness-125 group-hover:brightness-150 group-hover:scale-110 transition-all duration-700" src="{{ $image }}" loading="lazy"/>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
-                        <div class="absolute bottom-0 left-0 p-5 md:p-6 w-full translate-y-2 group-hover:translate-y-0 transition-transform">
-                            <h3 class="font-headline-md text-xl uppercase text-white">{{ $title }}</h3>
-                            <p class="text-[10px] font-label-caps text-brand-red opacity-0 group-hover:opacity-100 transition-opacity">{{ $desc }}</p>
-                        </div>
+
                     </div>
                 @endforeach
             </div>
