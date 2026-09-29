@@ -193,19 +193,21 @@ $navItems = [
 <main class="pt-20">
     <!-- Carousel / Hero Section -->
     <section class="relative min-h-[600px] flex items-center overflow-hidden metal-grid" x-data="{ currentSlide: 0 }" x-init="setInterval(() => { currentSlide = (currentSlide + 1) % 3 }, 5000)">
-        <!-- Slide 1 cihuy -->
+        <!-- Slide 1 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 0 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover brightness-125" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" />
+            <video class="w-full h-full object-cover brightness-125" autoplay loop muted playsinline>
+                <source src="{{ asset('videos/wargym-carousel.mp4') }}" type="video/mp4">
+            </video>
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <!-- Slide 2 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 1 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover brightness-125" src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1920&q=80" />
+            <img class="w-full h-full object-cover brightness-125" src="{{ asset('images/carousel2.jpg') }}" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <!-- Slide 3 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 2 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover brightness-125" src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=1920&q=80" />
+            <img class="w-full h-full object-cover brightness-125" src="{{ asset('images/carousel 3.jpg') }}" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
 
@@ -227,10 +229,7 @@ $navItems = [
                 </p>
                 
                 <div class="flex flex-wrap gap-4">
-                    <a href="#" class="btn-primary gap-2">
-                        <span class="material-symbols-outlined text-[20px]">settings</span>
-                        Lihat Proses
-                    </a>
+
                     <a href="#" class="inline-flex items-center gap-2 glass-tile px-6 py-4 font-label-caps text-xs uppercase tracking-widest text-white hover:text-brand-red border-white/20">
                         <span class="material-symbols-outlined text-[20px]">info</span>
                         Tentang Kami
