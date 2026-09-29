@@ -564,7 +564,7 @@ $navItems = [
                         <div class="relative border border-white/10 overflow-hidden bg-white/5 backdrop-blur-md shadow-[0_24px_80px_rgba(0,0,0,.42)]">
                             <iframe
                                 class="w-full h-[360px] md:h-[520px] transition-all duration-700"
-                                src="https://maps.google.com/maps?q=-7.5717763,112.2367804+(WARGYM+WARUNG+GYM)&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                                src="https://maps.google.com/maps?q=WARGYM%20WARUNG%20GYM,%20Jombang&t=&z=17&ie=UTF8&iwloc=B&output=embed"
                                 title="Lokasi Fitness"
                                 loading="lazy"></iframe>
                             <div class="absolute top-6 left-6 glass-panel p-4 flex items-center gap-4">
