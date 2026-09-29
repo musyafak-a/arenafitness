@@ -73,6 +73,8 @@ Route::get('/reset-password/{token}', [MemberPortalController::class, 'showReset
 Route::post('/reset-password', [MemberPortalController::class, 'updatePassword'])->name('password.update');
 
 Route::get('/company-profile', [MemberPortalController::class, 'companyProfile'])->name('member.company-profile');
+Route::get('/team', [MemberPortalController::class, 'team'])->name('member.team');
+Route::get('/personal-trainer', [MemberPortalController::class, 'personalTrainer'])->name('member.personal-trainer');
 Route::get('/contact', [MemberPortalController::class, 'contact'])->name('member.contact');
 Route::get('/kontak', [MemberPortalController::class, 'contact'])->name('member.kontak');
 

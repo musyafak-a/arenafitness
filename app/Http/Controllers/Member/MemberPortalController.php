@@ -859,4 +859,19 @@ class MemberPortalController extends Controller
 
         return response()->file($rootStoragePath);
     }
+    /**
+     * Show member team page.
+     */
+    public function team(Request $request): View
+    {
+        return view('member.team');
+    }
+
+    /**
+     * Show personal trainer page.
+     */
+    public function personalTrainer(Request $request): View
+    {
+        return view('member.personal-trainer');
+    }
 }

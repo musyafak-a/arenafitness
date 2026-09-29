@@ -70,7 +70,7 @@ $navItems = [
         'title' => 'OUR SERVICE',
         'url' => null,
         'children' => [
-            ['title' => 'Personal Training', 'url' => '#'],
+            ['title' => 'Personal Training', 'url' => route('member.personal-trainer')],
             // ['title' => 'Group Classes', 'url' => '#'],
             // ['title' => 'Nutrition Plan', 'url' => '#'],
         ]
@@ -89,11 +89,7 @@ $navItems = [
     ],
     [
         'title' => 'TEAM KITA',
-        'url' => null,
-        'children' => [
-            ['title' => 'Master Trainers', 'url' => '#'],
-            ['title' => 'Management', 'url' => '#'],
-        ]
+        'url' => route('member.team'),
     ],
     [
         'title' => 'KONTAK',
