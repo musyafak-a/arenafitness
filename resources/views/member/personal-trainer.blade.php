@@ -25,7 +25,7 @@
                 <p class="font-body-md text-on-surface-variant text-lg md:text-xl">Capai tujuan fitness lebih cepat dengan bimbingan personal trainer bersertifikasi internasional</p>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+            <div class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-6">
                 @foreach([
                     ['HAPPY', 'Weight Management, Fat Loss, Muscle Building, Nutrition, Functional Training, Freestyle Movement, Postural Alignment.', 'https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&h=300&fit=crop'],
                     ['DIKA', 'Weight Management, Muscle Building, Fat Loss, Endurance, Mobility and Agility, Boxing for Fitness, Postural Alignment, Strength, Functional Training, Nutrition Program.', 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&h=300&fit=crop'],
@@ -34,18 +34,18 @@
                     ['INDAH', 'Weight Management, Muscle Building, Core Building, Endurance, Mobility and Agility, Freestyle Movement, Postural Alignment, Strength, Power, Sport Performance.', 'https://images.unsplash.com/photo-1607962837359-5e7e8f566408?w=300&h=300&fit=crop'],
                     ['ABDUL', 'Weight Management, Muscle Building, Fat Loss, Endurance, Mobility and Agility, Boxing for Fitness, Postural Alignment, Strength, Functional Training, Nutrition Program.', 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=300&fit=crop']
                 ] as [$name, $desc, $img])
-                <div class="glass-panel p-5 flex flex-col border border-white/10 hover:border-brand-red/60 transition-all duration-300 group">
-                    <div class="overflow-hidden mb-5 border border-white/5 bg-white/5 relative">
-                        <img src="{{ $img }}" alt="{{ $name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-all duration-500">
+                <div class="glass-panel p-2 sm:p-5 flex flex-col border border-white/10 hover:border-brand-red/60 transition-all duration-300 group">
+                    <div class="overflow-hidden mb-3 sm:mb-5 border border-white/5 bg-white/5 relative rounded-sm">
+                        <img src="{{ $img }}" alt="{{ $name }}" class="w-full h-24 sm:h-48 object-cover group-hover:scale-105 transition-all duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                        <h3 class="absolute bottom-3 left-4 font-headline-md text-2xl text-white uppercase tracking-wider m-0">{{ $name }}</h3>
+                        <h3 class="absolute bottom-1 sm:bottom-3 left-2 sm:left-4 font-headline-md text-sm sm:text-2xl text-white uppercase tracking-wider m-0">{{ $name }}</h3>
                     </div>
                     
-                    <p class="font-body-md text-[13px] leading-relaxed text-on-surface-variant flex-grow mb-6">{{ $desc }}</p>
+                    <p class="font-body-md text-[9px] sm:text-[13px] leading-snug sm:leading-relaxed text-on-surface-variant flex-grow mb-3 sm:mb-6 line-clamp-4 sm:line-clamp-none">{{ $desc }}</p>
                     
-                    <div class="pt-4 border-t border-white/10 mt-auto flex items-center gap-2">
-                        <span class="material-symbols-outlined text-brand-red text-[16px]">location_on</span>
-                        <span class="font-label-caps text-[10px] font-bold text-white uppercase tracking-widest">WARGYM JOMBANG</span>
+                    <div class="pt-2 sm:pt-4 border-t border-white/10 mt-auto flex items-center gap-1 sm:gap-2">
+                        <span class="material-symbols-outlined text-brand-red text-[12px] sm:text-[16px]">location_on</span>
+                        <span class="font-label-caps text-[7px] sm:text-[10px] font-bold text-white uppercase tracking-widest leading-none">WARGYM<span class="hidden sm:inline"> JOMBANG</span></span>
                     </div>
                 </div>
                 @endforeach

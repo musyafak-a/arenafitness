@@ -63,14 +63,21 @@
         .filter-btn {
             font-family: 'JetBrains Mono', monospace;
             text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 0.1em;
-            padding: 0.5rem 1.5rem;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            padding: 0.35rem 0.75rem;
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 999px;
             color: #fff;
             transition: all 0.3s ease;
             background: rgba(255,255,255,0.05);
+        }
+        @media (min-width: 640px) {
+            .filter-btn {
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                padding: 0.5rem 1.5rem;
+            }
         }
         .filter-btn.active, .filter-btn:hover {
             border-color: #ff5540;

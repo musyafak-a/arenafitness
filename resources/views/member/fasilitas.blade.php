@@ -44,42 +44,42 @@ $facilities = [
             </div>
 
             <!-- Filter Section -->
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-16 max-w-screen-xl mx-auto w-full">
-                <div class="flex flex-wrap justify-center md:justify-start gap-3">
-                    <button @click="currentCategory = 'all'" :class="{ 'active': currentCategory === 'all' }" class="filter-btn">Semua</button>
-                    <button @click="currentCategory = 'cardio'" :class="{ 'active': currentCategory === 'cardio' }" class="filter-btn">Cardio</button>
-                    <button @click="currentCategory = 'strength'" :class="{ 'active': currentCategory === 'strength' }" class="filter-btn">Strength</button>
-                    <button @click="currentCategory = 'lainnya'" :class="{ 'active': currentCategory === 'lainnya' }" class="filter-btn">Lainnya</button>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-16 max-w-screen-xl mx-auto w-full">
+                <div class="flex flex-nowrap sm:flex-wrap justify-center sm:justify-start gap-1 sm:gap-3 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+                    <button @click="currentCategory = 'all'" :class="{ 'active': currentCategory === 'all' }" class="filter-btn shrink-0">Semua</button>
+                    <button @click="currentCategory = 'cardio'" :class="{ 'active': currentCategory === 'cardio' }" class="filter-btn shrink-0">Cardio</button>
+                    <button @click="currentCategory = 'strength'" :class="{ 'active': currentCategory === 'strength' }" class="filter-btn shrink-0">Strength</button>
+                    <button @click="currentCategory = 'lainnya'" :class="{ 'active': currentCategory === 'lainnya' }" class="filter-btn shrink-0">Lainnya</button>
                 </div>
-                <div class="relative w-full md:w-72">
-                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[20px]">search</span>
-                    <input type="text" x-model="searchQuery" placeholder="CARI FASILITAS..." class="w-full bg-[#1f1f1f] border border-white/10 text-white font-label-caps text-xs py-3 pl-12 pr-4 rounded-full focus:outline-none focus:border-brand-red transition-colors placeholder:text-on-surface-variant/30">
+                <div class="relative w-full sm:w-48 shrink-0">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[18px]">search</span>
+                    <input type="text" x-model="searchQuery" placeholder="CARI..." class="w-full bg-[#1f1f1f] border border-white/10 text-white font-label-caps text-[10px] sm:text-xs py-2 sm:py-3 pl-10 pr-4 rounded-full focus:outline-none focus:border-brand-red transition-colors placeholder:text-on-surface-variant/30">
                 </div>
             </div>
             
             <!-- Cards Section -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-6">
                 @foreach($facilities as $facility)
                     <div x-show="(currentCategory === 'all' || currentCategory === '{{ $facility['category'] }}') && ('{{ strtolower($facility['name']) }}'.includes(searchQuery.toLowerCase()))"
                          x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 scale-95"
                          x-transition:enter-end="opacity-100 scale-100"
-                         class="glass-panel rounded-sm flex flex-col group cursor-default relative overflow-hidden h-[360px] border border-white/10 hover:border-brand-red/60 transition-all duration-300 p-0">
+                         class="glass-panel rounded-sm flex flex-col group cursor-default relative overflow-hidden h-36 sm:h-[360px] border border-white/10 hover:border-brand-red/60 transition-all duration-300 p-0">
                         
                         <!-- Top 2/3 Image -->
-                        <div class="h-[240px] w-full relative overflow-hidden bg-black shrink-0">
+                        <div class="h-20 sm:h-[240px] w-full relative overflow-hidden bg-black shrink-0">
                             <img src="{{ $facility['img'] }}" alt="{{ $facility['name'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#131313] via-transparent to-transparent opacity-80"></div>
                         </div>
                          
                         <!-- Bottom 1/3 Text -->
-                        <div class="flex flex-col p-5 flex-grow justify-between relative z-10 bg-[#131313]/50">
-                            <h3 class="font-headline-md text-lg text-white tracking-wide uppercase line-clamp-2 leading-tight">
+                        <div class="flex flex-col p-2 sm:p-5 flex-grow justify-between relative z-10 bg-[#131313]/50">
+                            <h3 class="font-headline-md text-[9px] sm:text-lg text-white tracking-wide uppercase line-clamp-2 leading-tight">
                                 {{ $facility['name'] }}
                             </h3>
                             
-                            <div class="flex items-center justify-between mt-auto pt-3 border-t border-white/10">
-                                <span class="font-label-caps text-xs text-brand-red font-bold tracking-widest">
+                            <div class="flex items-center justify-between mt-auto pt-1 sm:pt-3 border-t border-white/10">
+                                <span class="font-label-caps text-[7px] sm:text-xs text-brand-red font-bold tracking-widest">
                                     {{ $facility['qty'] }}
                                 </span>
                             </div>
