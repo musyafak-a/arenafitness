@@ -102,6 +102,7 @@ $navItems = [
         'id' => 'service',
         'children' => [
             ['title' => 'Personal Training', 'url' => route('member.personal-trainer')],
+            ['title' => 'Informasi', 'url' => route('member.informasi')],
         ]
     ],
     [

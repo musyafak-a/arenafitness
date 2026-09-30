@@ -860,6 +860,14 @@ class MemberPortalController extends Controller
         return response()->file($rootStoragePath);
     }
     /**
+     * Show informasi page.
+     */
+    public function informasi(Request $request): View
+    {
+        return view('member.informasi');
+    }
+
+    /**
      * Show member team page.
      */
     public function team(Request $request): View
