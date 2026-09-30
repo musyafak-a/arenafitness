@@ -82,7 +82,7 @@ $navItems = [
     ],
     [
         'title' => 'fasilitas',
-        'url' => route('member.company-profile') . '#fasilitas',
+        'url' => route('member.fasilitas'),
     ],
     [
         'title' => 'TEAM KITA',

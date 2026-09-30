@@ -45,7 +45,7 @@
         .glass-tile { background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: border-color .25s ease, background .25s ease, transform .25s ease; }
         .glass-tile:hover { background: rgba(255,255,255,.085); border-color: rgba(255,85,64,.52); transform: translateY(-2px); }
         .metal-grid { background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 48px 48px; }
-        .hero-vignette { background: linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.8) 100%); }
+        .hero-vignette { background: linear-gradient(90deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.5) 100%); }
         .nav-link { position: relative; padding-bottom: 6px; }
         .nav-link::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: #ff5540; transition: width .25s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
@@ -85,7 +85,7 @@ $navItems = [
     ],
     [
         'title' => 'fasilitas',
-        'url' => '#',
+        'url' => route('member.fasilitas'),
     ],
     [
         'title' => 'TEAM KITA',

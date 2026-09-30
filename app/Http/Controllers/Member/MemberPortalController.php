@@ -874,4 +874,12 @@ class MemberPortalController extends Controller
     {
         return view('member.personal-trainer');
     }
+
+    /**
+     * Show fasilitas page.
+     */
+    public function fasilitas(Request $request): View
+    {
+        return view('member.fasilitas');
+    }
 }
