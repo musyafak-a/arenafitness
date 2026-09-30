@@ -501,10 +501,7 @@
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                             <a class="absolute inset-0" href="https://maps.app.goo.gl/jQxnQRvTwBfHBtBTA" target="_blank" rel="noopener" aria-label="Buka detail lokasi di Google Maps"></a>
-                            <div class="absolute top-6 left-6 glass-panel p-4 flex items-center gap-4">
-                                <div class="w-3 h-3 bg-brand-red rounded-full animate-pulse shadow-[0_0_10px_#ff5540]"></div>
-                                <span class="font-label-caps text-xs uppercase tracking-[0.2em] text-white">Arena Location</span>
-                            </div>
+
                         </div>
                     </div>
                 </div>

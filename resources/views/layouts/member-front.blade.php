@@ -199,7 +199,7 @@ $activeNav = $activeNav ?? '';
              x-transition:leave="transition ease-in-out duration-300 transform"
              x-transition:leave-start="translate-x-0"
              x-transition:leave-end="translate-x-full"
-             class="fixed inset-y-0 right-0 w-full max-w-sm bg-[#131313] border-l border-brand-red/20 shadow-2xl overflow-y-auto">
+             class="fixed inset-y-0 right-0 w-[260px] sm:w-[320px] bg-[#131313] border-l border-brand-red/20 shadow-2xl overflow-y-auto">
              
             <div class="flex items-center justify-between p-6 border-b border-white/10">
                 <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none">WAR <span class="text-brand-red">GYM</span></span>

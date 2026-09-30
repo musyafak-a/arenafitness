@@ -372,10 +372,7 @@
                                 src="https://maps.google.com/maps?q=WARGYM%20WARUNG%20GYM,%20Jombang&t=&z=17&ie=UTF8&iwloc=B&output=embed"
                                 title="Lokasi Fitness"
                                 loading="lazy"></iframe>
-                            <div class="absolute top-6 left-6 glass-panel p-4 flex items-center gap-4">
-                                <div class="w-3 h-3 bg-brand-red rounded-full animate-pulse shadow-[0_0_10px_#ff5540]"></div>
-                                <span class="font-label-caps text-xs uppercase tracking-[0.2em] text-white"> Location</span>
-                            </div>
+
                         </div>
                     </div>
                 </div>

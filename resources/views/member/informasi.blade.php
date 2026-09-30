@@ -82,7 +82,7 @@ $activeNav = 'service';
                             <span class="font-display-xl text-4xl text-white">30.000</span>
                             <span class="font-body-md text-on-surface-variant text-sm">/hari</span>
                         </div>
-                        <a href="https://wa.me/6289508366293" class="btn-secondary w-full text-center text-sm py-3">Hubungi PT</a>
+                        <a href="https://wa.me/6289508366293" class="btn-secondary w-full text-center text-sm py-3">DAFTAR SEKARANG</a>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@ $activeNav = 'service';
                             <span class="font-display-xl text-4xl text-white">5.000</span>
                             <span class="font-body-md text-on-surface-variant text-sm">/hari</span>
                         </div>
-                        <a href="{{ route('member.contact') }}" class="btn-secondary w-full text-center text-sm py-3">Hubungi Kami</a>
+                        <a href="{{ route('member.contact') }}" class="btn-secondary w-full text-center text-sm py-3">DAFTAR SEKARANG</a>
                     </div>
                 </div>
 
