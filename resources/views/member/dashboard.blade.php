@@ -133,8 +133,8 @@
 
         .hero-vignette {
             background:
-                linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.78) 42%, rgba(0,0,0,.30) 100%),
-                linear-gradient(0deg, #131313 0%, rgba(19,19,19,0) 42%);
+                linear-gradient(90deg, rgba(0,0,0,.70) 0%, rgba(0,0,0,.50) 42%, rgba(0,0,0,.15) 100%),
+                linear-gradient(0deg, rgba(19,19,19,0.8) 0%, rgba(19,19,19,0) 42%);
         }
 
         .nav-link {
