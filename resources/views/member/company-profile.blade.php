@@ -27,10 +27,10 @@
 
         <div class="relative z-10 w-full max-w-screen-2xl mx-auto px-6 md:px-16 py-20">
             <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-2 border border-brand-red/40 bg-brand-red/10 px-4 py-2 rounded-full mb-6">
+                <!-- <div class="inline-flex items-center gap-2 border border-brand-red/40 bg-brand-red/10 px-4 py-2 rounded-full mb-6">
                     <span class="w-2 h-2 rounded-full bg-brand-red"></span>
                     <span class="font-label-caps text-xs text-brand-red uppercase tracking-widest">cek jam buka</span>
-                </div>
+                </div> -->
                 
                 <h1 class="font-display-xl text-[60px] md:text-[80px] lg:text-[100px] uppercase italic font-bold tracking-tighter leading-[1] mb-6 text-white drop-shadow-lg">
                     BERLATIH<br/>
@@ -87,31 +87,31 @@
                     </div>
                     
                     <!-- Schedule Cards -->
-                    <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="lg:w-2/3 grid grid-cols-2 md:grid-cols-2 gap-2 sm:gap-6">
                         <!-- Senin-Sabtu -->
-                        <div class="border border-white/10 bg-white/5 p-6 md:p-8 hover:border-white/20 transition-colors flex flex-col justify-center">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="material-symbols-outlined text-white/50 text-2xl">calendar_month</span>
-                                <h3 class="font-headline-md text-xl text-white tracking-wide uppercase">Senin - Sabtu</h3>
+                        <div class="border border-white/10 bg-white/5 p-3 sm:p-6 md:p-8 hover:border-white/20 transition-colors flex flex-col justify-center">
+                            <div class="flex items-center gap-1.5 sm:gap-3 mb-2 sm:mb-4">
+                                <span class="material-symbols-outlined text-white/50 text-[16px] sm:text-2xl">calendar_month</span>
+                                <h3 class="font-headline-md text-[10px] sm:text-xl text-white tracking-wide uppercase">Senin - Sabtu</h3>
                             </div>
-                            <div class="flex items-end gap-3 mt-auto">
-                                <span class="font-display-xl text-4xl md:text-5xl text-brand-red leading-none">07:00</span>
-                                <span class="text-white/30 text-2xl mb-1">-</span>
-                                <span class="font-display-xl text-4xl md:text-5xl text-white leading-none">21:00</span>
+                            <div class="flex items-end gap-1.5 sm:gap-3 mt-auto">
+                                <span class="font-display-xl text-xl sm:text-4xl md:text-5xl text-brand-red leading-none">07:00</span>
+                                <span class="text-white/30 text-sm sm:text-2xl mb-0 sm:mb-1">-</span>
+                                <span class="font-display-xl text-xl sm:text-4xl md:text-5xl text-white leading-none">21:00</span>
                             </div>
                         </div>
                         
                         <!-- Minggu -->
-                        <div class="border border-brand-red/30 bg-brand-red/[0.05] p-6 md:p-8 hover:border-brand-red/50 transition-colors flex flex-col justify-center relative overflow-hidden group">
-                            <div class="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-l-[40px] border-t-brand-red/40 border-l-transparent"></div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="material-symbols-outlined text-brand-red/80 text-2xl">event</span>
-                                <h3 class="font-headline-md text-xl text-white tracking-wide uppercase">Minggu</h3>
+                        <div class="border border-brand-red/30 bg-brand-red/[0.05] p-3 sm:p-6 md:p-8 hover:border-brand-red/50 transition-colors flex flex-col justify-center relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-0 h-0 border-t-[20px] sm:border-t-[40px] border-l-[20px] sm:border-l-[40px] border-t-brand-red/40 border-l-transparent"></div>
+                            <div class="flex items-center gap-1.5 sm:gap-3 mb-2 sm:mb-4">
+                                <span class="material-symbols-outlined text-brand-red/80 text-[16px] sm:text-2xl">event</span>
+                                <h3 class="font-headline-md text-[10px] sm:text-xl text-white tracking-wide uppercase">Minggu</h3>
                             </div>
-                            <div class="flex items-end gap-3 mt-auto relative z-10">
-                                <span class="font-display-xl text-4xl md:text-5xl text-brand-red leading-none group-hover:scale-105 transition-transform origin-bottom-left">10:00</span>
-                                <span class="text-white/30 text-2xl mb-1">-</span>
-                                <span class="font-display-xl text-4xl md:text-5xl text-white leading-none group-hover:scale-105 transition-transform origin-bottom-left">21:00</span>
+                            <div class="flex items-end gap-1.5 sm:gap-3 mt-auto relative z-10">
+                                <span class="font-display-xl text-xl sm:text-4xl md:text-5xl text-brand-red leading-none group-hover:scale-105 transition-transform origin-bottom-left">10:00</span>
+                                <span class="text-white/30 text-sm sm:text-2xl mb-0 sm:mb-1">-</span>
+                                <span class="font-display-xl text-xl sm:text-4xl md:text-5xl text-white leading-none group-hover:scale-105 transition-transform origin-bottom-left">21:00</span>
                             </div>
                         </div>
                     </div>

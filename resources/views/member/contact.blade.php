@@ -30,10 +30,10 @@ $lng = $contact['coordinates']['lng'] ?? '112.2367804';
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
                 <div class="lg:col-span-8">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-red/10 border border-brand-red/30 text-brand-red font-label-caps text-xs uppercase tracking-widest mb-4">
+                    <!-- <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-red/10 border border-brand-red/30 text-brand-red font-label-caps text-xs uppercase tracking-widest mb-4">
                         <span class="material-symbols-outlined text-[16px]">terminal</span>
                         <span>[ SYS_COMM // OFFICIAL DIRECTORY ]</span>
-                    </div>
+                    </div> -->
                     <h1 class="font-headline-lg text-4xl sm:text-6xl md:text-7xl uppercase italic tracking-tight text-white mb-6 leading-[0.95]">
                         HUBUNGI <span class="text-brand-red">KAMI</span>
                     </h1>
