@@ -8,8 +8,8 @@ $waNumber = $contact['whatsapp_number'] ?? '6282130066694';
 $waChannelUrl = $contact['whatsapp_channel_url'] ?? 'https://whatsapp.com/channel/0029Vb7ysaX30LKV0mIDbu2t';
 $igHandle = $contact['instagram_handle'] ?? '@wargym_team';
 $igUrl = $contact['instagram_url'] ?? 'https://www.instagram.com/wargym_team?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==';
-$fbName = $contact['facebook_name'] ?? 'WARGYM Jombang';
-$fbUrl = $contact['facebook_url'] ?? 'https://facebook.com/wargym.jombang';
+$tiktokName = $contact['tiktok_name'] ?? '@wargym_team';
+$tiktokUrl = $contact['tiktok_url'] ?? 'https://www.tiktok.com/@wargym_team?is_from_webapp=1&sender_device=pc';
 $address = $contact['address'] ?? 'Sambong Dukuh, Kec. Jombang, Kabupaten Jombang, Jawa Timur, Indonesia';
 $mapsEmbed = $contact['maps_embed_url'] ?? 'https://maps.google.com/maps?q=-7.5717763,112.2367804+(WARGYM+WARUNG+GYM)&t=&z=17&ie=UTF8&iwloc=&output=embed';
 $mapsDirection = $contact['maps_direction_url'] ?? 'https://maps.app.goo.gl/SfncoYX75q97MA3p7';
@@ -116,29 +116,29 @@ $lng = $contact['coordinates']['lng'] ?? '112.2367804';
                     </div>
                 </div>
 
-                <!-- 3. FACEBOOK CARD -->
+                <!-- 3. TIKTOK CARD -->
                 <div class="glass-panel p-2 sm:p-8 relative flex flex-col justify-between border border-white/15 hover:border-brand-red/60 transition-all duration-300 group">
                     <div class="text-center">
                         <div class="flex items-center justify-center mb-2 sm:mb-6 mt-3 sm:mt-0">
-                            <div class="w-8 h-8 sm:w-14 sm:h-14 bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
-                                <!-- Facebook SVG -->
+                            <div class="w-8 h-8 sm:w-14 sm:h-14 bg-white/10 border border-white/30 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+                                <!-- TikTok SVG -->
                                 <svg class="w-4 h-4 sm:w-7 sm:h-7 fill-current" viewBox="0 0 24 24">
-                                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.24-2.61 1.25-5.26 3.63-6.35 1.46-.66 3.14-.8 4.68-.45v4.13c-.93-.31-2.03-.38-2.92.1-.9.46-1.48 1.35-1.54 2.37-.09 1.23.83 2.5 2.05 2.71 1.45.26 3.01-.54 3.48-1.93.18-.54.21-1.13.21-1.7V.02z"/>
                                 </svg>
                             </div>
                         </div>
 
-                        <span class="badge-tag text-on-surface-variant/70 uppercase text-[6px] sm:text-xs">Halaman & Forum Diskusi</span>
-                        <h3 class="font-headline-md text-xs sm:text-2xl uppercase text-white mt-1 mb-1 sm:mb-2">FACEBOOK PAGE</h3>
-                        <p class="font-display-xl text-[8px] sm:text-xl text-brand-red mb-2 sm:mb-3 tracking-wider break-words">{{ $fbName }}</p>
+                        <span class="badge-tag text-on-surface-variant/70 uppercase text-[6px] sm:text-xs">Video Singkat & Tips</span>
+                        <h3 class="font-headline-md text-xs sm:text-2xl uppercase text-white mt-1 mb-1 sm:mb-2">TIKTOK</h3>
+                        <p class="font-display-xl text-[8px] sm:text-xl text-brand-red mb-2 sm:mb-3 tracking-wider break-words">{{ $tiktokName }}</p>
                     </div>
 
                     <div class="pt-2 sm:pt-4 border-t border-white/10 mt-auto">
-                        <a href="{{ $fbUrl }}" 
+                        <a href="{{ $tiktokUrl }}" 
                            target="_blank" 
                            class="btn-primary w-full text-center text-[7px] sm:text-sm py-1.5 sm:py-3 px-1 sm:px-4">
-                            <span class="material-symbols-outlined text-[10px] sm:text-[18px] mr-1 sm:mr-2">group</span>
-                            Kunjungi<span class="hidden sm:inline"> Facebook</span>
+                            <span class="material-symbols-outlined text-[10px] sm:text-[18px] mr-1 sm:mr-2">play_arrow</span>
+                            Kunjungi<span class="hidden sm:inline"> TikTok</span>
                         </a>
                     </div>
                 </div>
