@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>QR Code Presensi | Arena Fitness</title>
+    <title>QR Code Presensi | WARGYM</title>
     <script src="{{ asset('js/tailwind.min.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,9 +112,9 @@
 @include('member.partials.page-loader')
 <header class="fixed top-0 w-full z-50 bg-background border-b border-surface-variant">
     <div class="grid grid-cols-[1fr_auto_1fr] items-center h-20 px-margin-mobile md:px-margin-desktop w-full max-w-screen-2xl mx-auto">
-        <a class="justify-self-start inline-flex items-center gap-3" href="{{ route('member.dashboard') }}" aria-label="Arena Fitness Home">
-            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" style="display:block;width:3.8rem;max-width:3.8rem;height:3rem;max-height:3rem;object-fit:contain;border-radius:1rem;box-shadow:0 18px 32px rgba(255,59,59,.18);background:rgba(255,255,255,.04);flex:0 0 auto;">
-            <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">Arena <span class="text-brand-red">Fitness</span></span>
+        <a class="justify-self-start inline-flex items-center gap-3" href="{{ route('member.dashboard') }}" aria-label="WARGYM Home">
+            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" style="display:block;width:3.8rem;max-width:3.8rem;height:3rem;max-height:3rem;object-fit:contain;border-radius:1rem;box-shadow:0 18px 32px rgba(255,59,59,.18);background:rgba(255,255,255,.04);flex:0 0 auto;">
+            <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">WAR<span class="text-brand-red">GYM</span></span>
         </a>
         <nav class="hidden lg:flex items-center justify-center gap-10 justify-self-center">
             <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="{{ route('member.dashboard') }}">Home</a>
@@ -202,7 +202,7 @@
 
 <footer class="bg-surface border-t border-surface-variant flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-12 gap-gutter w-full">
     <div class="font-headline-md text-headline-md text-on-surface">
-        Arena Fitness
+        WARGYM
     </div>
     <div class="flex flex-wrap justify-center gap-gutter">
         <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors" href="#">PRIVACY</a>
@@ -211,7 +211,7 @@
         <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors" href="#">SUPPORT</a>
     </div>
     <div class="font-label-caps text-label-caps text-on-surface-variant/60">
-        &copy; 2024 Arena Fitness. NO EXCUSES.
+        &copy; 2024 WARGYM. NO EXCUSES.
     </div>
 </footer>
 

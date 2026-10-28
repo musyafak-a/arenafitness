@@ -460,7 +460,7 @@
 
         <main class="page">
             <section class="auth-shell">
-                <div class="visual" aria-label="Arena Fitness">
+                <div class="visual" aria-label="WARGYM">
                     <div class="visual-copy">
                         <span>{{ $roleLabel }}</span>
                         <h1>Login ke akun Anda</h1>
@@ -480,8 +480,8 @@
                     <div class="login-card">
                         <div class="card-head">
                             <div class="card-brand">
-                                <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="brand-logo">
-                                <span>ARENA FITNESS</span>
+                                <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="brand-logo">
+                                <span>WARGYM</span>
                             </div>
                             <h2>Login</h2>
                             <p>Masukkan username dan password untuk masuk ke sistem.</p>

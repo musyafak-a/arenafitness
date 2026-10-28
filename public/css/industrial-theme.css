@@ -131,6 +131,20 @@
                 --toggle-border: #050505;
             }
 
+            body.admin-layout {
+                --body-gradient: #121212;
+                --app-bg: #121212;
+                --surface: #121212;
+                --surface-soft: #1a1a1a;
+                --border: #333333;
+                --border-strong: #E61919;
+                --text-main: #EAEAEA;
+                --text-muted: #888888;
+                background: #121212 !important;
+                background-color: #121212 !important;
+                color: #EAEAEA !important;
+            }
+
             body {
                 font-family: 'Inter', sans-serif;
                 background: var(--body-gradient);

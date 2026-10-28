@@ -3,13 +3,13 @@
 @php 
 $activeNav = 'contact'; 
 
-$phone = $contact['phone'] ?? '0821-3006-6694';
-$waNumber = $contact['whatsapp_number'] ?? '6282130066694';
-$waChannelUrl = $contact['whatsapp_channel_url'] ?? 'https://whatsapp.com/channel/0029Vb7ysaX30LKV0mIDbu2t';
+$phone = $contact['phone'] ?? '0895-0836-6293';
+$waNumber = $contact['whatsapp_number'] ?? '6289508366293';
+$waChannelUrl = $contact['whatsapp_channel_url'] ?? 'https://whatsapp.com/channel/0029Vb8PvuFLo4hlrtXHgX2j';
 $igHandle = $contact['instagram_handle'] ?? '@wargym_team';
-$igUrl = $contact['instagram_url'] ?? 'https://www.instagram.com/wargym_team?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==';
+$igUrl = $contact['instagram_url'] ?? 'https://www.instagram.com/wargym_team';
 $tiktokName = $contact['tiktok_name'] ?? '@wargym_team';
-$tiktokUrl = $contact['tiktok_url'] ?? 'https://www.tiktok.com/@wargym_team?is_from_webapp=1&sender_device=pc';
+$tiktokUrl = $contact['tiktok_url'] ?? 'https://www.tiktok.com/@wargym_team';
 $address = $contact['address'] ?? 'Sambong Dukuh, Kec. Jombang, Kabupaten Jombang, Jawa Timur, Indonesia';
 $mapsEmbed = $contact['maps_embed_url'] ?? 'https://maps.google.com/maps?q=-7.5717763,112.2367804+(WARGYM+WARUNG+GYM)&t=&z=17&ie=UTF8&iwloc=&output=embed';
 $mapsDirection = $contact['maps_direction_url'] ?? 'https://maps.app.goo.gl/SfncoYX75q97MA3p7';

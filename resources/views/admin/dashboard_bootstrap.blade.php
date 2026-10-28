@@ -194,9 +194,9 @@
                 <aside class="col-12 col-lg-3 col-xl-2">
                     <div class="sidebar p-3 p-lg-4">
                         <div class="d-flex align-items-center gap-3 mb-4">
-                            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="brand-logo">
+                            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="brand-logo">
                             <div>
-                                <div class="fw-bold">Arena Fitness</div>
+                                <div class="fw-bold">WARGYM</div>
                                 <div class="small text-white-50">Admin Dashboard</div>
                             </div>
                         </div>

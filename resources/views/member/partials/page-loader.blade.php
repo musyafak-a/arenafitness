@@ -42,10 +42,10 @@
 <div class="page-loader" id="pageLoader" aria-live="polite" aria-label="Memuat halaman">
     <div class="page-loader-card">
         <div class="page-loader-brand">
-            <span class="page-loader-mark"><img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="page-loader-logo"></span>
+            <span class="page-loader-mark"><img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="page-loader-logo"></span>
             <div>
                 <div class="page-loader-wordmark">Loading</div>
-                <div class="page-loader-title">Arena Fitness</div>
+                <div class="page-loader-title">WARGYM</div>
                 <div class="page-loader-subtitle" id="pageLoaderText">Menyiapkan halaman member...</div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Invoice {{ $transaction->invoice }} | Arena Fitness</title>
+    <title>Invoice {{ $transaction->invoice }} | WARGYM</title>
     <script src="{{ asset('js/tailwind.min.js') }}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -46,9 +46,9 @@
     <div class="max-w-3xl mx-auto glass-panel p-8 md:p-12">
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-12 border-b border-white/10 pb-8">
             <div class="flex items-center gap-4">
-                <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="h-12 rounded-lg">
+                <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="h-12 rounded-lg">
                 <div>
-                    <h1 class="font-display text-3xl uppercase italic text-white leading-none">Arena <span class="text-brand-red">Fitness</span></h1>
+                    <h1 class="font-display text-3xl uppercase italic text-white leading-none">WAR<span class="text-brand-red">GYM</span></h1>
                     <p class="font-mono text-[10px] text-[#ebbbb4] uppercase tracking-widest mt-1">Official Receipt</p>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div>
                 <p class="font-mono text-xs text-[#ebbbb4] mb-2 uppercase">Ditagihkan Kepada</p>
                 <p class="text-lg text-white font-semibold">{{ $transaction->customer_name }}</p>
-                <p class="text-sm text-[#ebbbb4] mt-1">Member Arena Fitness</p>
+                <p class="text-sm text-[#ebbbb4] mt-1">Member WARGYM</p>
             </div>
             <div class="md:text-right">
                 <p class="font-mono text-xs text-[#ebbbb4] mb-2 uppercase">Tanggal Transaksi</p>

@@ -12,7 +12,7 @@
 @include('member.partials.page-loader')
 <header class="border-b border-white/10 bg-[#131313]">
     <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="{{ route('member.dashboard') }}" class="font-bold uppercase tracking-widest text-[#ff5540]">Arena Fitness</a>
+        <a href="{{ route('member.dashboard') }}" class="font-bold uppercase tracking-widest text-[#ff5540]">WARGYM</a>
         <div class="flex items-center gap-3">
             @include('member.partials.notifications')
             <form method="POST" action="{{ route('member.logout') }}">

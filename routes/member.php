@@ -75,10 +75,12 @@ Route::post('/reset-password', [MemberPortalController::class, 'updatePassword']
 Route::get('/company-profile', [MemberPortalController::class, 'companyProfile'])->name('member.company-profile');
 Route::get('/informasi', [MemberPortalController::class, 'informasi'])->name('member.informasi');
 Route::get('/team', [MemberPortalController::class, 'team'])->name('member.team');
+Route::get('/tentang-kami', [MemberPortalController::class, 'team'])->name('member.tentang-kami');
 Route::get('/personal-trainer', [MemberPortalController::class, 'personalTrainer'])->name('member.personal-trainer');
 Route::get('/fasilitas', [MemberPortalController::class, 'fasilitas'])->name('member.fasilitas');
 Route::get('/contact', [MemberPortalController::class, 'contact'])->name('member.contact');
 Route::get('/kontak', [MemberPortalController::class, 'contact'])->name('member.kontak');
+Route::get('/tutorial', [MemberPortalController::class, 'tutorial'])->name('member.tutorial');
 
 // ─── Authenticated Member Pages ─────────────────────────────────────────────
 Route::prefix('member')->name('member.')->group(function () {

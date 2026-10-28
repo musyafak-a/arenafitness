@@ -157,7 +157,7 @@
             <div class="row g-4 align-items-center">
                 <div class="col-12 col-xl-8">
                     <div class="d-flex align-items-center gap-3">
-                        <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="brand-logo">
+                        <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="brand-logo">
                         <div>
                             <div class="section-label">Laporan Admin</div>
                             <h1 class="h2 fw-bold mt-2 mb-2">Ringkasan laporan gym</h1>

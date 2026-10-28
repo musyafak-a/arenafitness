@@ -1,0 +1,666 @@
+=== JOURNAL 1: Design and Implementation of FitSphere as an Android Application for Gym Membership Management at Chain Gym.pdf ===
+   --- Page 1 ---
+   282
+   J-INTECH (Journal of Information and Technology)
+   Accredited Sinta 4 Ministry of Higher Education, Science and Technology
+   Republic of Indonesia SK No. 10/C/C3/DT.05.00/2025
+   E-ISSN: 2580-720X || P-ISSN: 2303-1425
+   Design and Implementation of FitSphere as an Android Application for Gym
+   Membership Management at Chain Gym
+   Aria Anggit Purnawan1*, Sulistyo Dwi Sancoko 2
+   1,2Universitas  Teknologi  Yogyakarta, Fakultas  Sains  &  Teknologi, Jl. Siliwangi, Sendangadi, Kec. Mlati, Kab.
+   Sleman, Daerah Istimewa Yogyakarta, Indonesia
+   Keywords Abstract
+   Firebase; FitSphere; Kotlin; Membership
+   Management; Mobile Application;
+   Operational Efficiency.
+   The advancement of information technology in the digital era
+   has driven transformation across various sectors, including the
+   fitness industry. Chain Gym, located in Klaten, faces challenges
+   in managing data and membership services that are still
+   handled ma nually and separately, causing inefficiencies in
+   class registration, fitness tracking, and member information
+   management. To address these issues, this study developed an
+   Android application called FitSphere, built using the Kotlin
+   programming language and Firebase as the backend, to create
+   an integrated membership management system.The
+   development process adopted the Rapid Application
+   Development (RAD) methodology, consisting of requirements
+   planning, system design using UML, construction, and a
+   cutover ph ase involving testing and deployment. FitSphere
+   offers key features such as member registration, gym news,
+   membership subscription, consultation, workout history, class
+   registration, and BMI calculation.The results of Black Box
+   Testing showed a 100% succes s rate, indicating that all
+   features functioned properly. The application improves
+
+--- LAST PART ---
+   Business and Management: An International Journal, vol. 6, no. 3, hlm. 360–382, 2016.
+   [10] Y. Huang dan D. Kim, “How does service quality improve consumer loyalty in sports fitness centers? The
+   moderating role of sport involvement,” Sustainability, vol. 15, no. 17, hlm. 12840, 2023.
+   [11] F. A. Adut dan V. P. Ramadhan, “Pengaruh Kualitas Layanan terhadap Kepuasan dan Loyalitas Pengguna
+   Brimo Menggunakan Model E-Service Quality,” J-INTECH, vol. 12, no. 02, hlm. 219–227, 2024.
+   [12] D. Setiawan, “Perancangan Sistem Informasi Pada JJ Gym Menggunakan Metode Waterfall,” Jurnal
+   SANTI-Sistem Informasi dan Teknik Informasi, vol. 3, no. 3, hlm. 144–152, 2023.
+   [13] G. ferdinand Bahari dan N. L. W. S. Telagawathi, “Pengaruh Kualitas Pelayanan dan Citra Merek terhadap
+   Kepuasan Pelanggan Victory Gym Singaraja.,” Bisma: Jurnal Manajemen , vol. 11, no. 2, hlm. 845 –851,
+   2025.
+   [14] F. Amrullah, M. Andarwati, G. Swalaganata, dan H. E. Rosyadi, “Pengembangan aplikasi android MVTE
+   dengan metode RAD,” Jurnal Teknologi Dan Manajemen Informatika, vol. 7, no. 2, hlm. 122–130, 2021.
+   [15] E. R. Subhiyakto, F. Agustina, dan C. V. Reswara, “Pengembangan Aplikasi Evaluasi Kegiatan Berbasis
+   Android menggunakan Metode RAD (Rapid Application Development),” Jurnal Ilmiah Intech:
+   Information Technology Journal of UMUS, vol. 5, no. 1, hlm. 49–59, 2023.
+   [16] S. Sondang, “Penerapan Metode RAD Dalam Pengembangan Sistem Informasi Pemesanan Jasa
+   Percetakan Berbasis Web pada Percetakan Karya Sehati Jaya,” Remik: Riset dan E -Jurnal Manajemen
+   Informatika Komputer, vol. 8, no. 3, hlm. 871–881, 2024.
+   [17] M. Fadli, “Analisis Perancangan Berbasis Uml Pada Sistem Web Profil Video Animasi 2D Dan Man’Qosit
+   Syariah,” JUSIM (Jurnal Sistem Informasi Musirawas), vol. 7, no. 1, hlm. 37–46, 2022.
+   [18] M. F. Huwaidy, “Pemanfaatan UML dalam Perancangan Website Sistem Informasi Alumni Pesantren La
+   Tansa Angkatan Tenacious,” Jurnal Informatika dan Teknik Elektro Terapan, vol. 13, no. 3, 2025.
+   [19] S. H. Hasibuan, M. I. P. Nasution, dan S. S. A. Sundari, “Development Of Payment Gateway Digitalization
+   Using Midtrans In The Use Of Halodoc,” Management, vol. 1, no. 2, hlm. 3, 2023.
+   [20] M. Zen dan M. D. P. Ananda, “Implementasi dan Pengujian Menggunakan Metode BlackBox Testing Pada
+   Sistem Informasi Tracer Study,” Bulletin of Computer Science Research, vol. 4, no. 4, hlm. 327–340, 2024.
+   [21] C. A. Figueroa, L. Gomez -Pathak, I. Khan, J. J. Williams, C. R. Lyles, dan A. Aguilera, “Ratings and
+   experiences in using a mobile application to increase physical activity among university students:
+   implications for future design,” Univers Access Inf Soc, vol. 23, no. 2, hlm. 821–830, 2024.
+   [22] S. Paganini dkk., “Quality of physical activity apps: systematic search in app stores and content analysis,”
+   JMIR Mhealth Uhealth, vol. 9, no. 6, hlm. e22587, 2021.
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 2: Model Aplikasi Sistem Pelayanan Pada Gym.pdf ===
+   --- Page 1 ---
+   ◼    883
+   Jutisi: Jurnal Ilmiah Teknik Informatika dan Sistem Informasi
+   Jl. Ahmad Yani, K.M. 33,5 - Kampus STMIK Banjarbaru
+   Loktabat – Banjarbaru (Tlp. 0511 4782881), e-mail: puslit.stmikbjb@gmail.com
+   e-ISSN: 2685-0893
+   p-ISSN: 2089-3787
+   Model Aplikasi Sistem Pelayanan pada Gym (Eka Chandra Kirana)
+   Model Aplikasi Sistem Pelayanan Pada Gym
+   Eka Chandra Kirana1, Siti Abidah2*, Ripaidi3
+   Program Studi Sistem Informasi, STMIK Banjarbaru
+   Jl. Ahmad Yani KM 33,5 Loktabat Banjarbaru, Telp (0511) 4782881
+   *email corresponding author: abi.bjb@gmail.com
+   Abstract
+   Services for recording member data, determining packages, fitness schedules, and determining
+   trainers still use books, so this is less efficient in searching for data, and in making reports every
+   month it is nec essary to recalculate from the records that have been made. To overcome the
+   existing problems, an application is needed that can manage existing services. The system
+   development method uses a prototyping model, involving system users in all aspects of the
+   design from the initial stage to the final s tage. The design and design of this system uses UML
+   (Unified Modeling Language), with a MySQL database and testing using Whitebox and
+   Blackbox. The service system application model at the gym is a solution that h elps the process
+   of recording member data, d etermining packages, fitness schedules, and determining coaches.
+   As well as facilitating members to find out the schedule because the website is connected to the
+   internet network.
+   Keywords: training, member; registration; package; web
+   Abstrak
+   Pelayanan pencatatan data member, penentuan paket, jadwal fitness, dan penentuan pelatih
+   masih menggunakan buku, sehingga hal tersebut kurang efisien dalam pencarian data, dan
+   dalam pembuatan laporan setiap bulannya perluny a melakukan perhitungan kembali dari
+   pencatatan y ang dilakukan . Untuk mengatasi permasalahan yang ada dibutuhkan se buah
+   aplikasi yang dapat mengelola pelayanan yang ada. Metode pengembangan sistem
+   menggunakan prototyping model, dengan melibatkan pengguna s istem dalam segala aspek
+   perancangan mulai dari t ahap awal hingga tahap akhir.  Adapun perancangan dan desain
+
+--- LAST PART ---
+   [6] Denty Monila Salesm, Rachmansyah, S.Kom. (2014). Sistem Informasi dan
+   PematauanPostandu Berbasis Web di  Kota Palembang. Jurnal Ilmiah Informatika dan
+   Komputer , 95-97.
+   [7] Simargolang, Muhammad Yasin, and Nurmala Nasution. "Aplikasi Pelayanan Jasa Laundr y
+   Berbasis WEB (Studi Kasus: Pelangi Laundry Kisaran)."  (JurTI) Jurnal Teknologi
+   Informasi 2.1 (2018): 9-14.
+   [8] Amanah, Nur, Ahmad Khambali, and Edy Subowo. "Sistem Informasi Pengingat Jadwal
+   Imunisasi pada Puskesmas Karanganyar Berbasis Web dan Android."  Jurnal Surya
+   Informatika: Membangun Informasi dan Profesionalisme 9.1 (2020): 42-54.
+   [9] Al, M., Irwansy ah, F., & Gata, G. (2019). Sistem Informasi Administrasi Dan Membership
+   Pada King ’ S Gym. 384–389.
+   [10]   Adriawan, R., & Sutrisno, J. (2018). Pemodelan Sistem Informasi Fitnes Pada Jim ’ S
+   Gym. 16–22.
+   [11] Hasugian, H., Renca, D., Rosandi, I., & Irvan, M . (2019). Sistem Informasi Administrasi
+   Membership Pada Pusat Kebugaran Gorilla Gym Jakarta.  Prosiding Seminar Nasional
+   Riset Information Science (SENARIS), 1(September), 47.
+   [12] Anita, Komang, Agung Deni Wahyudi, and Erliyan Redy Susanto. "Aplikasi Lowon gan
+   Pekerjaan Berbasis Web Pada Smk Cahaya Kartika."  Jurnal Teknologi Dan Sistem
+   Informasi 1.1 (2020): 75-80.
+   [13] Kinaswara, Titus Aditya. "Rancang Ba ngun Aplikasi Inventaris Berbasis Website pada
+   Kelurahan Bantengan."  Prosiding Seminar Nasional Teknologi  Informasi dan Komunikasi
+   (SENATIK). Vol. 2. No. 1. 2019.
+   [14] Rahayu, Sri, Ade Setiadi, and Alim Muryanto. "Perancangan Sistem Pendaftaran Siswa
+   Baru Secara Online Pada SMK Miftahul Jannah Cikupa."  Technomedia Journal  5.2
+   Februari (2021): 235-247.
+   [15] S. Sefrika, "Sistem Pendukung Keputusan Pemberian Program Bantuan Stimulan
+   Perumahan Swadaya (BSPS) KemenPUPR",  IJCIT (Indonesian Journal on Computer an d
+   Information Technology), vol. 4, no. 2, pp. 116-121, 2019.
+   [16] E.H. Desi, "Perancangan Sistem Informas i Pelayanan Administrasi Kelurahan
+   Karangklesem Dengan Metode Prototyping ", SEMNASTEKNOMEDIA ONLINE , vol. 6, no.
+   1, pp. 2-10, 2018.
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 3: PENGEMBANGAN APLIKASI WORKOUT BERBASIS ANDROID DENGAN FITUR PERSONALISASI PROGRAM LATIHAN DAN MONITORING KESEHATAN MENGGUNAKAN METODE HIGH INTENSITY INTERVAL TRAINING (HIIT).pdf ===
+   --- Page 1 ---
+   JORAPI : Journal of Research and Publication Innovation
+   Vol. 3, No. 1, januari 2025 ISSN : 2985-4768
+   Halaman : 2515-2523
+   https://jurnal.portalpublikasi.id/index.php/JORAPI/index 2515
+   PENGEMBANGAN APLIKASI WORKOUT BERBASIS ANDROID
+   DENGAN FITUR PERSONALISASI PROGRAM LATIHAN DAN
+   MONITORING KESEHATAN MENGGUNAKAN METODE HIGH
+   INTENSITY INTERVAL TRAINING (HIIT)
+   Ilham Balit Luxfanza1, Niki Ratama2
+   1Universitas Pamulang, Jl. Raya Puspitek, Buaran, Kec. Pamulang, Kota Tangerang Selatan, Banten , Indonesia,
+   15310
+   e-mail: 1ilhamluxfanzaa@gmail.com, 2dosen00853@unpam.ac.id
+   Abstract
+   This research aims to develop an Android -based workout application with personalized exercise program
+   features and health monitoring using the high intensity interval training (HIIT) method. The research method used is
+   the Multimedia Development Life Cycle  (MDLC) method, which includes the stages of concept, design, material
+   collection, manufacturing, testing, distribution. Data was collected through interviews with Arum Gym owners and
+   field observations to understand system requirements. The research resul ts show that the developed workout
+   application can facilitate gym members at Arum Gym with features such as personalized exercise programs and health
+   monitoring. This workout application can also help gym members who experience difficulties during training at Arum
+   Gym. Workout applications designed using the Multimedia Development Life Cycle (MDLC) method are effective in
+   increasing efficiency in training. It is hoped that the implementation of this workout application can increase the
+   motivation of gym mem bers in training and help gym members who have difficulty when practicing workouts. The
+   results of the analysis show that the majority of respondents gave positive responses, with an average score of 91%
+   which shows a high level of satisfaction with the workout application being developed.
+   Keywords : Development, Application, Workout, Arum Gym, High Intensity Interval Training (HIIT)
+   Abstrak
+
+--- LAST PART ---
+   Conference on Engineering and Information
+   Technology for Sustainable Indusry, pp. 1-6, 2020.
+   [
+   12]
+   L. A. Budiman, "Perancangan Sistem Informasi
+   Nilai Siswa Berbasis Website," JATIMIKA :
+   Jurnal Kreativitas Mahasiswa Informatika, 2(1),
+   vol. 2(1), 2022.
+   [
+   13]
+   D. D. Hutagalung and F. & Arif, "Rancang Bangun
+   Sistem Informasi Perpustakaan Berbasis," Jurnal
+   Rekayasa Informasi, vol. 7, p. 17, 2018.
+   [
+   14]
+   M. Tabrani and H. Priyandaru, " Application of the
+   Rapid Application Development Method to the
+   BAZNAS Zakat Receipt Information System in
+   Karawang," Jurnal Teknologi Dan Open Source,
+   vol. 4(1), pp. 78-84, 2021.
+   [
+   15]
+   Rusmawan and Uus., " Teknik penulisan tugas
+   akhir dan skripsi pemrograman," Elex media
+   komputindo, 2019.
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 4: PENGEMBANGAN SISTEM INFORMASI PENGELOLAAN MEMBERSHIP GYM KING FITNESS BERBASIS WEB MENGGUNAKAN METODE USDP.pdf ===
+   --- Page 1 ---
+   Jurnal Rekayasa Sistem Informasi dan Teknologi
+   Volume 3, No 3 –  Februari 2026
+   e-ISSN : 3025-888X
+   Hal. 481
+   PENGEMBANGAN SISTEM INFORMASI PENGELOLAAN MEMBERSHIP GYM
+   KING FITNESS BERBASIS WEB MENGGUNAKAN METODE USDP
+   Hanna Paulina1, Dea Zahari2, Anita Meliyanti3, Kusuma Hati4
+   1,2,4Program Studi Sistem Informasi, STMIK Antar Bangsa
+   3Program Studi Teknik Informatika, STMIK Antar Bangsa
+   hannapapau@gmail.com1, deazahari35@gmail.com2
+   anitamlynt23@gmail.com3,kusumahati@antarbangsa.ac.id4
+   Received: 12-12-2025 Revised: 14-01-2026 Approved: 21-02-2026
+   ABSTRAK
+   Penelitian ini bertujuan untuk mengembangkan sistem informasi pengelolaan membership berbasis web pada
+   King Fitness guna meningkatkan efisiensi administrasi, akurasi data, serta kualitas pelayanan anggota.
+   Permasalahan yang dihadapi adalah proses pendaftaran dan pengelolaan member yang masih dilakukan secara
+   manual sehingga sering menimbulkan keterlambatan, kesalahan pencatatan, serta kesulitan dalam pelacakan
+   data. Metode pengembangan yang digunakan adalah Unified Software Development Process (USDP)  yang
+   meliputi empat tahap utama: Inception untuk identifikasi kebutuhan, Elaboration untuk perancangan sistem,
+   Construction untuk pembangunan fitur, dan Transition untuk pengujian serta implementasi. Sistem dibangun
+   menggunakan framework Laravel dengan fitur uta ma berupa pendaftaran member, pengelolaan paket,
+   verifikasi pembayaran, pencetakan barcode/QR Code keanggotaan, serta pencatatan kehadiran anggota. Hasil
+   penelitian menunjukkan bahwa sistem yang dikembangkan telah diuji menggunakan metode black box  dan
+   seluruh fitur berjalan sesuai spesifikasi. Sistem ini mampu menurunkan tingkat kesalahan input, mempercepat
+   proses administrasi, memudahkan pencarian data, serta meningkatkan efisiensi kerja admin dalam pengelolaan
+   membership. Dengan demikian, sistem informasi berbasis web ini efektif sebagai solusi digital untuk mendukung
+   aktivitas operasional King Fitness.
+   Kata kunci: fitness, gym, membership, pengembangan, USDP
+   PENDAHULUAN
+
+--- LAST PART ---
+   --- Page 12 ---
+   Jurnal Rekayasa Sistem Informasi dan Teknologi
+   Volume 3, No 3 –  Februari 2026
+   e-ISSN : 3025-888X
+   Hal. 492
+   [14] S. W. Ramdany, S. A. Kaidar, B.  Aguchino, C. Amelia, and A. Putri, “Penerapan UML
+   Class Diagram dalam Perancangan Sistem Informasi Perpustakaan Berbasis Web,”
+   vol. 5, no. 1.
+   [15] P. Studi, S. Informasi, F. Teknologi, and U. Battuta, “Pemodelan Sistem Penerimaan
+   Anggota Baru dengan Unifi ed Modeling Language ( UML ) ( Studi Kasus :
+   Programmer Association of Battuta ),” vol. 12, pp. 1514–1521, 2023.
+   [16] T. Arianti, A. Fa, S. Adam, and M. Wulandari, “PERANCANGAN SISTEM INFORMASI
+   PERPUSTAKAAN MENGGUNAKAN DIAGRAM UML ( UNIFIED MODELLING
+   LANGUAGE ) LIBRARY APPLICATION SYSTEM DESIGN USING UNIFIED MODELLING
+   LANGUAGE ( UML ),” vol. 1, no. 1, pp. 19–25, 2022.
+   [17] L. Setiyani, “Desain Sistem : Use Case Diagram Pendahuluan,” no. September, pp.
+   246–260, 2021.
+   [18] A. GUSTYAR, “No Title,” 2024, [Onlin e]. Available:
+   https://repository.usni.ac.id/repository/4fb56a6f912a96f26cf39dc2d428871c.pdf?
+   utm_source=chatgpt.com
+   [19] S. Pranoto, S. Sutiono, and D. Nasution, “Penerapan UML Dalam Perancangan Sistem
+   Informasi Pelaporan Dan Evaluasi Pembangunan Pada Bagi an Administrasi
+   Pembangunan Sekretariat Daerah Kota Tebing Tinggi,” vol. 2, pp. 384–401, 2024.
+   [20] Wilianti Aliman, “PERANCANGAN PERANGKAT LUNAK UNTUK MENGGAMBAR
+   DIAGRAM BERBASIS ANDROID,” Syntax Lit. J. Ilm. Indones. p –ISSN 2541-0849 e-ISSN
+   2548-1398 Vol. 6, No. 6, Juni 2021, vol. 6, no. 6, 2021.
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 5: PERANCANGAN APLIKASI WORKOUT TANPA ALAT BANTU.pdf ===
+   --- Page 1 ---
+   Jurnal InTekSis Vol 10 No 2
+   Hal 12
+   PERANCANGAN APLIKASI WORKOUT TANPA
+   ALAT BANTU
+   Kristina1, Kartono2, Harimukti Wicaksana3
+   1,2,3 Informatika Fakultas Teknologi Informasi Universitas Widya Dharma Pontianak
+   e-mail: 1kristina@widyadharma.ac.id, 2kartono1102@gmail.com, 3harimuktiwijaksana@gmail.com
+   Abstract
+   The development of an android-based workout application without tools is an application that was built to
+   be used by beginners and can be used anytime and anywhere with the features needed in exercising, such as video
+   tutorials, Body Mass Index (BMI) calculations. Calories per day needed by the user, exercise history reports in
+   the form of calendars and weight loss graphic reports. The method for developing an android-based workout
+   application without tools is to use a descriptive method. With this application, users can find out the correct way
+   to exercise to avoid the risk of injury. Users can find out Basal Metabolic Rate (BMR), Body Mass Index (BMI),
+   calorie needs, and protein needs for the workout process. The conclusion that the author got is that this application
+   can display the correct way to do a workout and can display calculations of Basal Metabolic Rate (BMR) Body
+   Mass Index (BMI), calorie needs, and protein needs. This application implements the waterfall algorithm which
+   functions for the development stages following the flow from analysis, design, code, and testing.
+   Keywords - Workout, Waterfall, BMR, BMI, Protein Needs, Calorie Needs
+   Abstrak
+   Pembangunan aplikasi workout tanpa alat bantu berbasis android adalah aplikasi yang dibangun untuk dapat
+   digunakan oleh para pemula dan bisa digunakan  kapan saja dan d imana saja dengan fitur-fitur yang dibutuhkan
+   dalam melakukan latihan olahraga, seperti video tutorial, perhi tungan Body Mass Index (BMI), kebutuhan kalori
+   perhari yang dibutuhkan penguna, laporan riwayat latihan berupa  kalender dan laporan grafik penurunan berat
+   badan. Metode untuk pembangunan aplikasi workout tanpa alat bantu berbasis android adalah dengan
+   menggunakan metode deskriftif. Dengan adanya aplikasi ini pengguna dapat mengetahui cara olahraga yang benar
+   untuk menghindari resiko cidera. Pengguna dapat mengetahui Basal metabolic rate  ( BMR ), Body Mass Index
+   (BMI), kebutuhan kalori, dan kebutuhan protein untuk proses workout. Kesimpulan yang didapat oleh peneliti
+   adalah aplikasi ini dapat menampilkan cara yang benar untuk mel akukan workout dan dapat menampilkan
+   perhitungan Basal metabolic rate  ( B M R )  Body Mass Index  (BMI), kebutuhan kalori, dan kebutuhan protein.
+   Aplikasi ini menerapkan algoritma waterfall yang berfungsi untuk tahapan pembangunan mengikuti alur dari
+
+--- LAST PART ---
+   DAFTAR PUSTAKA
+   [1] Agustin, H. (2019). Sistem Informasi Manajemen menurut prespektif Islam. Deepublis. Riau
+   [2] Muslihudin, Muhamad dan Oktafianto (2019). Analisis dan Perancangan Sistem Informasi Menggunakan
+   Model Tersrtuktur dan UML. ANDI OFFSET.  Yogyakarta.
+   [3] Setiyowati, dan Siswanti, S. (2019). Perancangan Basis Data dan Pengenalan SQL Server Managemen
+   Studio. Deepublis. Semarang.
+   [4] Supriyono, dan Muslimah, E. (2019). Perancangan Sistem Informasi Manajemen Kas Berbasis Web Studi
+   Kasus: RS dr.Etty Asharto Batu
+   [5] Maharani, M.M., dan Candra, F. (2019). Aplikasi Smartdiet Menggunakan Logika Fuzzy Berbasis Android.
+   Deepublis. Universitas Riau.
+   [6] Sari, A.A.K. (2019). Perbedaan Healthy Aging Sebelum Dan Sesudah Penggunaan Herbalife Pada
+   Penderita Obesitas.Deepublis. Fakultas Ekonomi dan Bisnis Universitas Maarif  Hasyim Latif.
+   [7] Gianto, P., dan Tony, W. (2020). Gor grogol sebagai ruang ketiga kota.
+   [8] Salahudin (2020) . Olahraga Menurut Pandangan Agama Islam. Deepublish. Nusa Tengara Barat
+   [9] Harumy, T.H.F., Sitorus, J., dan Lubis, M. (2019). Sistem Informasi Absensi Pada Pt. Cospar Sentosa Jaya
+   Menggunakan Bahasa Pemprograman Java. Deepublis . Universitas Pembangunan Panca Budi Medan
+   [10] Oktaviani, A. (2019). Perancangan aplikasi penjualan dengan metode waterfal pada koperasi karyawan
+   RSUD pasar rebo. Deepublis. Jakarta. RSUD pasar Rebo.
+   [11] Maiyana, E. (2019). Pemanfaatan android dalam perancangan aplikasi kumpulan doa . Deepublis.
+   Managemen Informatika, AMIK Boekittinggi.
+   [12] Abilovani, Z.B., Yahya, W., dan Bakhtiar, F.A. (2019). Implementasi Protokol MQTT Untuk Sistem
+   Monitoring Perangkat IoT . Deepublis. Universitas Brawijaya.
+   [13] Maarif, V. (2019). Aplikasi pembelajaran ilmu tajwid berbasis a ndroid . Deepublis. STMIK Nusa Mandiri
+   Jakarta.
+   [14] Satyaputra dan Aritonang (2019). Let`S Build Your Android Apps Wit Android Studio . Deepublis. PT. Elex
+   Media Komputerindo. Jakarta
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 6: PERANCANGAN SISTEM INFORMASI MEMBERSHIP FITNESS PADA FR FITNESS CILEUNGSI BERBASIS JAVA NETBEANS.pdf ===
+   --- Page 1 ---
+   Jurnal Riset dan Aplikasi Mahasiswa Informatika (JRAMI)
+   Vol 04 No 01 Tahun 2023  e-ISSN : 2715-8756
+   32
+   PERANCANGAN SISTEM INFORMASI MEMBERSHIP FITNESS
+   PADA FR FITNESS CILEUNGSI BERBASIS JAVA NETBEANS
+   Aprijal Muhaemin
+   Program Studi TeknikInformatika, Fakultas Teknik dan Ilmu Komputer,
+   Universitas Indraprasta PGRI
+   Jalan Raya Tengah No 80, Kelurahan Gedong, Pasar Rebo, Jakarta Timur
+   aprijalmuhaemin199@gmail.com
+   Abstrak
+   Penelitian ini bertujuan untuk merancang sistem informasi  keanggotaan fitness pada FR Fitness Cileungsi
+   yang lebih aman dan  efisien untuk di gunakan oleh admin fitness dan anggotanya. Manfaat penelitian ini
+   dapat mempermudah admin dan member dalam melakukan proses pendaftaran, perpanjang member, transaksi
+   penjualan hingga pembuatan laporan yang ada di FR Fitness. Metode penelitian yang digunaka n yaitu
+   metode penelitian deskriptif dengan teknik pengumpulan data studi pustaka, wawancara, dan observasi
+   melalui pemilik dan anggota FR Fitness. Program sistem informasi membership fitness ini dibuat dengan
+   menggunakan java sebagai bahasa pemorgraman dan MySQL untuk penyimpanan basis data. Hasil penelitian
+   berupa aplikasi sistem informasi membership fitness di harapkan aplikasi berbasis java ini dapat
+   memperbaiki kekurangan yang terdapat pada sistem berjalan saat ini pada FR Fitness Cielungsi.
+   Kata Kunci: Fitness, Member, Sistem Informasi, Java
+   Abstract
+   This study aims to design a fitness membership information system at FR Fitness Cileungsi that is safer and
+   more efficient for use by  fitness admins and their members. The benefits of this research can make it easier
+   for admins and  members to carry out the registration process, extend members, sales transactions to make
+   reports at FR Fitness. The research method used is a descriptive research method with data collection
+   techniques for litera ture studies, interviews, and observations through the owners and members of FR
+   Fitness. This fitness membership information system program was created using java as a programming
+   language and MySQL for database storage. The results of the research in the form of a fitness membership
+   information system application are expected to be able to correct the shortcomings contained in the current
+   running system at FR Fitness Cileungsi.
+
+--- LAST PART ---
+   1) Sistem informasi membership fitness yang dibangun  ini dapat mempermudah admin fi tness
+   dalam melakukan pekerjaan karna sistem sudah terkomputerisasi sehingga dapat menunjang
+   efektifitas dan keakuratan dalam pengolahan data.
+   2) Sistem informasi memberhisp fitness yang dibangun ini dapat mempermudah member dalam
+   melakukan pendaftaran  member dan melakukan perpanjang member  sehingga dapat
+   meningkatkan kepuasan member.
+   3) Dapat menghemat waktu dalam melakukan pemrosesan, pencarian data serta membuat laporan
+   – laporan data yang ada.
+   4) Meminimalisir kesalahan dalam melakukan proses memasukan data dan pengolahan data.
+   5) Sistem informasi yang telah dibuat ini dapat menampilkan seluruh data member dan
+   pendapatan perhari maupun perbulan yang ada di FR Fitness Cileungsi.
+   DAFTAR PUSTAKA
+   Al-Bahra Bin Ladjamudin. (2013). Analisis dan Desain Sistem Informasi. Yogyakarta: Graha Ilmu.
+   Erwanto, H., & Monalisa, S. (2016). Rancang Bangun Sistem Informasi Fitness Berbasis Web dan SMS Gateway pada
+   Rajawali Fitness Pekanbaru. J. sains, Teknologi dan Ind. sains, Teknologi dan Ind, 14(1), 72-78.
+   Feri Hari Utami & Asnawati. (2015). Rekayasa Perangkat Lunak Terstruktur Dan Berorientasi Objek . Yogyakarta:
+   Deepublish.
+   Hutahean, J. (2015). Konsep Sistem Informasi -Jeperson Hutahaean -Google Buku.  Yogyakarta: CV Budi
+   Utama.Hariyanto.
+   Krismaji. (2015). Sistem Informasi Akuntansi edisi ketiga. Yogyakarta: unitpenerbit & Sekolah Tinggi Ilmu YKPN.
+   Moleong, L. (2014). Metodologi Penelitian Kualitatif. Edisi Revisi. Bandung: PT Remaja Rosdakarya.
+   Rinaldi, O., & Heru Supriyono, S. T. M. (2020). Perancangan Sistem Informasi Membership Berbasis Web di Arm
+   Fitness Center Boyolali (Doctoral dissertation, Universitas Muhammadiyah Surakarta).
+   Sugiyono. (2017) Metode Penelitian Kuantitaif, Kualitatif, dan R&D. Bandung: Alfabeta.
+   Wiarto, G. (2015). Panduan Berolahraga Untuk Kesehatan dan Kebugaran (Pertama). Yogyakarta: Graha Ilmu.
+   Widodo, A. (2015). Perancangan Sistem Informasi Membership PT.Gold Gym. Insan Pembangunan Sistem Informasi
+   dan Komputer (IPSIKOM), 3(1).
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 7: PERANCANGAN SISTEM INFORMASI PELAYANAN MEMBERSHIP GYM BERBASIS WEB PADA AB8 GYM BAKUNG JAYA KOTA JAMBI.pdf ===
+   --- Page 1 ---
+   Jurnal Studi Multidisipliner
+   Vol 10 No. 4 April 2026
+   eISSN: 2118-7453
+   297
+   PERANCANGAN SISTEM INFORMASI PELAYANAN
+   MEMBERSHIP GYM BERBASIS WEB PADA AB8 GYM BAKUNG
+   JAYA KOTA JAMBI
+   Puja Budesri1, Mutamassikin2
+   pujabudesri@gmail.com1, mutamassikin@uinjambi.ac.id2
+   UIN Sultan Thaha Saifuddin Jambi
+   ABSTRAK
+   Perancangan sistem informasi pelayanan membership gym berbasis web pada AB8 Gym Bakung
+   Jaya Kota Jambi dilakukan untuk menjawab permasalahan administrasi manual yang masih
+   diterapkan oleh pihak gym, yang berisiko menimbulkan kesalahan, keterlambatan layana n, serta
+   ketidakefisienan operasional. Sistem ini dikembangkan menggunakan metode prototyping agar
+   pengembangan lebih responsif terhadap kebutuhan pengguna. Proses perancangan menggunakan
+   pemodelan UML, sedangkan implementasinya dibangun dengan framework L aravel dan database
+   MySQL. Sistem yang dihasilkan mampu mengelola pendaftaran member, pembayaran,
+   pengelolaan jadwal, absensi, dan laporan secara digital dan real -time. Pengujian dilakukan melalui
+   metode Black Box Testing dan User Acceptance Testing (UAT),  dengan hasil rata -rata tingkat
+   kelayakan sistem mencapai 82%, yang tergolong dalam kategori “sangat layak”. Hal ini
+   menunjukkan bahwa sistem diterima dengan baik oleh pengguna dan dinilai mampu meningkatkan
+   efisiensi operasional serta kualitas pelayanan AB8 Gym.
+   Kata Kunci: Sistem Informasi, Membership Gym, Web, Prototyping, Laravel, Mysql.
+   ABSTRACT
+   The design of a web -based gym membership information system at AB8 Gym Bakung Jaya Kota
+   Jambi aims to address the issues of manual administrative processes, which are prone to errors,
+   delays, and inefficiency. The system was developed using the prototyping  method to allow iterative
+   improvements based on user feedback. System design was modeled using UML, while
+   implementation utilized the Laravel framework and MySQL database. The resulting system can
+   manage member registration, payments, schedule management,  attendance tracking, and generate
+
+--- LAST PART ---
+   perancangan sistem baru, bukan pengembangan dari sistem yang telah ada, mengingat
+   sebelumnya proses pelayanan dan administrasi membership masih dilakukan secara
+   manual.
+   Sistem yang telah selesai dirancang kemudian diimplementasikan menggunakan
+   framework Laravel dan database MySQL, serta telah dilakukan proses hosting sehingga
+   dapat diakses secara daring oleh pengguna. Pengujian sistem dilakukan menggunakan
+   metode Black Box Testing, yang menunjukkan bahwa seluruh fungsi berjalan dengan baik
+   sesuai dengan kebutuhan. Selain itu, dilakukan pula pengujian User Acceptance Testing
+   (UAT) kepada 10 responden, dengan hasil rata -rata nilai kelayakan sebesar 82%, yang
+   berada pada kategori sangat layak.
+   Berdasarkan hasil implementasi yang telah dilakukan, sistem informasi pelayanan
+   membership gym berbasis web pada AB8 Gym Bakung Jaya Kota Jambi tidak hanya
+   berhasil dibangun dan diuji secara lokal, tetapi juga telah berhasil dihosting sehingga dapat
+   diakses secara daring oleh pengguna melalui jaringan internet. Den gan demikian, sistem
+   ini mampu memberikan kemudahan akses baik bagi admin maupun member tanpa terbatas
+   waktu dan tempat. Selain itu, sistem ini telah dilengkapi dengan fitur notifikasi otomatis
+   melalui email yang berfungsi untuk mengingatkan member terkait  masa aktif
+   keanggotaannya, khususnya menjelang tanggal kedaluwarsa. Fitur ini diharapkan dapat
+   meningkatkan kesadaran dan kepatuhan member dalam memperpanjang keanggotaan,
+   serta mendukung kelancaran operasional administrasi gym secara menyeluruh. Dengan
+   adanya implementasi sistem ini, dapat disimpulkan bahwa sistem telah berjalan  sesuai
+   dengan tujuan awal penelitian dan mampu menjawab permasalahan administratif yang
+   sebelumnya dilakukan secara manual.
+   DAFTAR PUSTAKA
+   I. L. Nissa, “Rancang Bangun Sistem Inf ormasi Inventaris Barang Berbasis Web pada KUA
+   Kecamatan Cigasong,” vol. 1, no. 1, pp. 288–292, 2023.
+   I. P. Sari and F. Alfarisi, “Perancangan Sistem Aplikasi Pendataan Membership Gym
+   Menggunakan Metode Unified Software Development Process ( USDP ) Berbasi s Web,”
+   2024.
+   R. Malfiany, R. Gunawan, and R. Helmi, “Perancangan Sistem Penyewaan Lapangan Badminton
+   Pada Gor Dewi Sport Hall Berbasis Web,” vol. 16, no. 62, pp. 18–29, 2021.
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 8: Perancangan Aplikasi Membership Gym Berbasis Web untuk Optimalisasi Layanan Pelanggan.pdf ===
+   --- Page 1 ---
+   p-ISSN: 2962-3022 | e-ISSN: 2963-7104
+   Volume 4 No 2 September 2025
+   Hal: 1121-1132
+   http://ejurnal.lkpkaryaprima.id/index.php/juktisi
+   DOI: https://doi.org/10.62712/juktisi.v4i2.605
+   Copyright © 2025 Author(s), Page 1121
+   This Journal is licensed under a Creative Commons Attribution 4.0 International License.
+   Perancangan Aplikasi Membership Gym Berbasis Web untuk Optimalisasi
+   Layanan Pelanggan
+   Nafis Sururi1,*, Imam Thoib2, Danang Satya Nugraha3, Fendy Bayu F4, M. Sabil Shah P5
+   1,2,3,4,5 Sistem Informasi, Institut Teknologi Mojosari, Nganjuk, Indonesia
+   Email: 1,*nafissururi@itmnganjuk.ac.id, 2ithob@itmnganjuk.ac.id, 3danangstayn@itmnganjuk.ac.id,
+   4fendy@itmnganjuk.ac.id, 5msabilshahputra@gmail.com
+   (* Email Corresponding Author: nafissururi@itmnganjuk.ac.id)
+   Received: 9 September 2025 | Revision: 13 September 2025 | Accepted: 13 September 2025
+   Abstrak
+   Perkembangan gaya hidup sehat mendorong meningkatnya jumlah anggota gym, sehingga pengelola perlu menyediakan layanan yang
+   efektif, cepat, dan terstruktur. Namun, sebagian besar gym masih menghadapi kendala dalam pengelolaan membership, termasuk
+   pencatatan manual yang rawan kesalahan, keterlambatan pada proses pendaftaran dan perpanjangan, serta keterbatasan dalam
+   penyampaian informasi kepada anggota. Kondisi tersebut dapat menurunkan kepuasan dan loyalitas pelanggan. Penelitian ini bertujuan
+   untuk merancang aplikasi membership gym berbasis web sebagai solusi digital dalam optimalisasi layanan pelanggan. Metode yang
+   digunakan mencakup analisis kebutuhan sistem, perancangan antarmuka dengan pendekatan user-centered design, serta pengembangan
+   prototipe aplikasi. Aplikasi dirancang dengan fitur utama berupa pendaftaran dan perpanjangan online, pengelolaan data anggot a,
+   integrasi pembayaran, serta penyajian informasi jadwal latihan dan promosi secara real -time. Hasil perancangan menunjukkan bahwa
+   aplikasi mampu m eningkatkan efisiensi administrasi, mempercepat akses informasi, dan memberikan kemudahan layanan bagi
+   anggota. Dengan demikian, sistem ini diharapkan dapat mendukung peningkatan kualitas pelayanan, kepuasan, serta loyalitas
+   pelanggan terhadap gym.
+   Kata Kunci: Perancangan, membership, gym, aplikasi, optimalisasi
+   Abstract
+   The growing trend of a healthy lifestyle has led to an increase in the number of gym members, requiring management to provide
+   services that are effective, fast, and well-structured. However, many gyms still face challenges in membership management, including
+   manual record-keeping that is prone to errors, delays in registration and renewal processes, and limited dissemination of information
+   to members. These issues may reduce customer satisfaction and loyalty. This study aims to design a web -based gym member ship
+
+--- LAST PART ---
+   Malang,” J. Sci. Res. Educ. Technol., vol. 3, no. 4, pp. 1724–1733, 2024, doi: 10.58526/jsret.v3i4.584.
+   --- Page 12 ---
+   p-ISSN: 2962-3022 | e-ISSN: 2963-7104
+   Volume 4 No 2 September 2025
+   Hal: 1121-1132
+   http://ejurnal.lkpkaryaprima.id/index.php/juktisi
+   DOI: https://doi.org/10.62712/juktisi.v4i2.605
+   Copyright © 2025 Author(s), Page 1132
+   This Journal is licensed under a Creative Commons Attribution 4.0 International License.
+   [8] D. M. Putra and T. Sutabri, “Analisis Kebutuhan Pengguna Dan Desain Antarmuka Pengguna Pada Sistem Informasi
+   Perpustakaan Berbasis Web,” Sci. (Jurnal Ilmu Sains dan Teknol., vol. 2, pp. 98–102, 2024.
+   [9] M. W. P. Dananjaya, G. H. Prathama, and K. Darmaastawan, “User-Centered Design Approach in Developing User
+   Interface and User Experience of Sculptify Mobile Application,” J. Comput. Networks, Archit. High Perform. Comput., vol.
+   6, no. 3, pp. 1089–1097, 2024, doi: 10.47709/cnahpc.v6i3.4206.
+   [10] R. SEMBIRING, UC Mariance, and Irwan, “Design Of A Web-Based Membership Data Processing System At Vizta Gym
+   Using A Prototype Method,” Int. J. Comput. Sci. Math. Eng., vol. 2, no. 2, pp. 254–261, 2023, doi:
+   10.61306/ijecom.v2i2.32.
+   [11] M. F. Londjo, “Implementasi White Box Testing Dengan Teknik Basis Path Pada Pengujian Form Login,” J. Siliwaangi,
+   vol. 7, no. 2, pp. 35–40, 2021.
+   [12] M. Ridwan and Z. Halim, “Perancangan Sistem Informasi Fasilitas Fitness Gym Berbasis Website Menggunakan
+   Codeigniter,” Media Online), vol. 4, no. 1, pp. 601–609, 2023, doi: 10.30865/klik.v4i1.1039.
+   [13] N. Normah and F. Sihaloho, “Perancangan User Interface (UI) dan User Experince (UX) Aplikasi pendistribution alat-alat
+   kesehatan pada perusahaan PT. Rekamileniumindo Selaras Jakarta Barat,” Indones. J. Softw. Eng., vol. 9, no. 1, pp. 33–38,
+   2023, doi: 10.31294/ijse.v9i1.15467.
+   [14] S. Ansori, P. Hendradi, and S. Nugroho, “Penerapan Metode Design Thinking dalam Perancangan UI/UX Aplikasi Mobile
+   SIPROPMAWA,” J. Inf. Syst. Res., vol. 4, no. 4, pp. 1072–1081, 2023, doi: 10.47065/josh.v4i4.3648.
+   [15] R. Anggoro and E. R. Susanto, “Design of a Wordpress Based E-Commerce Website and Integration of Cryptocurrency
+   Payment Gateway,” J. Tek. Inform., vol. 5, no. 4, pp. 85–93, 2024, doi: 10.52436/1.jutif.2024.5.4.2067.
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 9: Perancangan Sistem Aplikasi Pendataan Membership Gym Menggunakan Metode Unified Software Development Process (USDP) Berbasis Web.pdf ===
+   --- Page 1 ---
+   https://doi.org/10.56211/helloworld.v3i1.523  Attribution-ShareAlike 4.0 International Some rights reserved
+   Sistem Informasi
+   Perancangan Sistem Aplikasi Pendataan Membership Gym Menggunakan
+   Metode Unified Software Development Process (USDP) Berbasis W eb
+   Indah Purnama Sari, Faisal Alfarisi
+   Fakultas Ilmu Komputer dan Teknologi Informasi, Teknologi Informasi, Universitas Muhammadiyah Sumatera Utara, Medan, Indonesia
+   INFORMASI ARTIKEL  A B S T R A K
+   Diterima Redaksi: 28 Mei 2024
+   Revisi Akhir: 13 Juni 2024
+   Diterbitkan Online: 14 Juni 2024
+   Gym dan fitness merupakan suatu kebutuhan sangat penting akhir-akhir ini. Apalagi
+   di masa sekarang ini, dimana olahraga sangat penting meningkatkan daya tahan
+   tubuh. One - R Gym merupakan pusat Kebugaran yang terletak di jalan Perhubungan
+   No.101, Tembung, Kec. Percut Sei Tuan, Kabupaten Deli Serdang, Sumatera Utara.
+   Saat ini One - R Gym sudah memiliki banyak member, namun sistem penyimpanan
+   ataupun pendataan data member masih dilakukan dengan cara manual menggunakan
+   kertas ataupun catatan tertulis, sehingga tidak efisien untuk mencatat informasi
+   keanggotaan, rentan terhadap kerusakan dan kehilangan. Mengetahui kelemahan
+   pada lokasi tersebut, maka peneliti berencana untuk mengembangkan sistem
+   pendataan yang terkomputerisasi dengan menggunakan database MySQLi, PHP
+   sebagai bahasa pemrogramannya dan men ggunakan bantuan framework bootstrap
+   untuk perancangan websitenya. Penelitian ini bertujuan untuk membantu proses
+   pendaftaran anggota, mempermudah penyimpanan data ke dalam sistem, serta
+   mengkomputerisasi sistem pencatatan pembayaran, paket program, dan bi snis agar
+   berkembang dan dapat banyak diketahui masyarakat sehingga website ini bisa
+   dijadikan bahan untuk promosi. Dalam perancangan sistem aplikasi berbasis web ini,
+   penulis menggunakan metode Unified Software Development Process (USDP).
+   Dimana metode in i merupakan metode pengembangan perangkat lunak terutama
+   perangkat lunak berorientasikan objek. Diharapkan dengan sistem yang dirancang
+
+--- LAST PART ---
+   INDAH PURNAMA SARI / HELLO WORLD JURNAL ILMU KOMPUTER - VOL. 3 NO. 1 (2024) EDISI APRIL ISSN: 2829-8616 (ONLINE)
+   Indah Purnama Sari  https://doi.org/10.56211/helloworld.v3i1.523  48
+   [21] Sari, I.P., Ramadhani, F., & Al -Khowarizmi, A. (2021). User Interface Prototype Using User Centered System
+   Design Method in Motorvice Information System. 2021 International Conference on Computer Science and
+   Engineering (IC2SE) 1, 1-6
+   [22] Ramadhani, F., Satria, A., & Sari, I.P. (2022). Aplikasi Internet Berbasis Website sebagai E-Commerce Penjualan
+   Komponen Sport Car. Blend Sains Jurnal Teknik 1 (2), 69-75
+   [23] Sari, I.P., Sulaiman, O.K., Al -Khowarizmi, A., & Azhari, M. (2023). Perancangan Sistem Informasi Pelayanan
+   Masyarakat pada Kelurahan Sipagimbar dengan Metode Prototype Berbasis Web. Blend Sains Jurnal Teknik 2
+   (2), 125-134
+   [24] Sari, I.P., Hariani, P.P., Satria, A., & Manurung, A.A. (2023). Rancang Bangun Sistem Informasi Pengelolaan
+   Arsip Materi Ajar Berbasis Web untuk Guru MAS Darul Falah. Wahana Jurnal Pengabdian kepada Masyarakat 2
+   (2), 59-65
+   [25] Ramadhani, F., Sari, I.P., & Satria, A. (2024). Perancangan UI/UX Surat Keterangan Waris dalam Pengembalian
+   Dana Haji Berbasis Web. Blend Sains Jurnal Teknik 2 (3), 198-203
+   [26] Sari, I.P., Sulaiman, O.K., Ramadhani, F., & Satria, A. (2023). Perancangan Sistem Manajemen Surat Berbasis
+   Web Pada Kantor Camat Tano Tombangan Angkola. INCODING: Journal of Informatics and Computer Science
+   Engineering 3 (2), 61-76
+   [27] Batubara, I.H., Famella, A., Yossa, N.A., Yamin, M., Ramadhani, K., & Sari., I.P. (2021). THE INFLUENCE OF
+   PROJECT-BASED LEARNING MODEL ON STUDENT LEARNING OUTCOMES IN SYLLABUS
+   DEVELOPMENT, 429-434
+   [28] Guntur, S., Ichsan, A., & Sari, I.P. (2024). Designing a Web -Based Mail Management System at the Beringin
+   Helvetia Sub-district Office. Altafani: Jurnal Pengabdian Masyarakat 1 (1)
+   [29] Sari, I.P., Al-Khowarizmi, A., Sulaiman, O.K., & Apdilah, D. (2024). System Design for Ordering and Digitizing
+   Website-Based Bus Tickets. Journal of Computer Science, Information Technology and Telecommunication
+   Engineering 5 (1), 543-549
+   [30] Sari, I.P., Al -Khowarizmi, A., Jannah, A., Meuraxa, A.M., & Tanjung, M.I. (2023). Web -Based Offline Game
+   Suit Design: A Model Overview. Journal of Computer Science, Information Technology and Telecommunication
+   Engineering 4 (2), 389-394
+   [31] Ramadhani, F., Satria, A., & Sari, I.P. (2022).  Aplikasi internet berbasis website sebagai E-Commerce penjualan
+   komponen sport car. Blend Sains Jurnal Teknik 1 (2), 1-7
+   ======================================================================
+
+======================================================================
+
+=== JOURNAL 10: Web-Based Gym Membership System with Semi-AutomatedQRIS Verification Developed Through Agile-Scrum.pdf ===
+   --- Page 1 ---
+   Nusantara Journal of Artificial Intelligence and Information Systems
+   Vol. 2, No. 1, June 2026, pp 17-26  Journal Homepage: https://journal.unusia.ac.id/nuai
+   Research Article ISSN: 3090-8302 DOI: 10.47776/nuai.v1i2.1904
+   © 2026 The Author(s). Published by Faculty of Enginee ring and Computer Science, Universitas Nahdlatul Ul ama Indonesia. This is an
+   open access article under the CC BY-NC-ND license, which permits use and distribution in any  medium, provided the original work is
+   properly cited, the use is non-commercial, and no m odifications or adaptations are made.
+   17
+   Web-Based Gym Membership System with Semi-Automated
+   QRIS Verification Developed Through Agile-Scrum
+   Ragel Trisudarmo1, Anisa Ramdhani2*, Dila Mardiyanti3, Nabila Anggi Permatasari4
+   1,2,3,4 Department of Information Systems, Universitas Kuni ngan, Indonesia
+   1ragel.trisudarmo@uniku.ac.id, 2anisaramdhani61@gmail.com, 3dillamardiyanti23@gmail.com,  and 4nblaanggi27@gmail.com
+   INFORMATION  ABSTRACT
+   Article history:
+   Received Dec 24, 2025
+   Revised May 10, 2026
+   Accepted May 12, 2026
+   Gym membership administration that depends on manua l processes is
+   correlated with elevated rates of recording inaccuracies, protracted payment
+   verification periods of membership status. This stu dy presents the
+   development and evaluation of a web-based gym membe rship information
+   system at TGW Gym, Indonesia, integrating semi-automated QRIS payment
+   verification through the Agile-Scrum framework. The system was built using
+   Laravel and MySQL across five iterative sprints, en compassing member
+   registration, package selection, QRIS payment proof  upload, administrator
+   verification, and membership renewal modules. Funct ional validation used
+   black-box testing across all modules with eight tes t scenarios spanning the
+   package selection, payment, and renewal pages. Perf ormance metrics were
+   obtained through structured pre and post-implementation observation over 15
+
+--- LAST PART ---
+   Anisa Ramdhani is a student of the Information Systems Study Program, University
+   of Kuningan. Her academic interests include web-bas ed information system
+   development, business process analysis, and data ma nagement. During her higher
+   education, she actively participated in various com petency development activities
+   through the Independent Learning Independent Campus (MBKM) program, including
+   Certified Independent Studies (SIB) and the Student Organization Capacity Building
+   Project (PPK). In addition, she has participated in business proposal competitions that
+   enrich the ability to plan and analyze business ide as. She can be contacted by email:
+   anisaramdhani61@gmail.com.
+   Dila Mardiyanti is a student of the Information Systems Study Progr am, Kuningan
+   University. She has an interest in web application development, system modeling, and
+   information technology implementation in various fields. Dila actively participates in
+   MBKM programs, especially Certified Independent Stu dies (SIB) and PPK, which
+   provides hands-on experience in completing projects in the industrial world. In addition
+   to academic activities, she is also involved in stu dent organizations as a forum for
+   developing leadership skills and teamwork. She can be contacted via email:
+   dillamardiyanti23@gmail.com
+   Nabila Anggi Permatasari is a student of the Information Systems Study Progr am,
+   Kuningan University. Her research interests include information systems, user interface
+   design, and web-based software development. During his studies, she participated in
+   MBKM programs such as Certified Independent Studies  (SIB) and PPK to improve
+   professional competence in the field of information  technology. Her activeness in
+   student organizations also strengthens his communic ation, coordination, and activity
+   management skills. She can be contacted via email: nblaanggi27@gmail.com
+   ======================================================================
+
+======================================================================
+

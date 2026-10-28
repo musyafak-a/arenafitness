@@ -66,13 +66,13 @@ class MemberPortalController extends Controller
 
         $contactInfo = [
             'brand_name' => 'WARGYM (WARUNG GYM)',
-            'phone' => '0821-3006-6694',
-            'whatsapp_number' => '6282130066694',
-            'whatsapp_channel_url' => config('services.whatsapp.channel_url', 'https://whatsapp.com/channel/0029Vb7ysaX30LKV0mIDbu2t'),
+            'phone' => '0895-0836-6293',
+            'whatsapp_number' => '6289508366293',
+            'whatsapp_channel_url' => config('services.whatsapp.channel_url', 'https://whatsapp.com/channel/0029Vb8PvuFLo4hlrtXHgX2j'),
             'instagram_handle' => '@wargym_team',
-            'instagram_url' => 'https://www.instagram.com/wargym_team?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
-            'facebook_name' => 'WARGYM Jombang',
-            'facebook_url' => 'https://facebook.com/wargym.jombang',
+            'instagram_url' => 'https://www.instagram.com/wargym_team',
+            'tiktok_name' => '@wargym_team',
+            'tiktok_url' => 'https://www.tiktok.com/@wargym_team',
             'address' => 'Sambong Dukuh, Kec. Jombang, Kabupaten Jombang, Jawa Timur, Indonesia',
             'maps_embed_url' => 'https://maps.google.com/maps?q=-7.5717763,112.2367804+(WARGYM+WARUNG+GYM)&t=&z=17&ie=UTF8&iwloc=&output=embed',
             'maps_direction_url' => 'https://maps.app.goo.gl/SfncoYX75q97MA3p7',
@@ -288,9 +288,9 @@ class MemberPortalController extends Controller
 
         $resetLink = route('password.reset', ['token' => $token, 'email' => $user->email]);
 
-        Mail::raw("Gunakan link berikut untuk reset password Arena Fitness:\n\n{$resetLink}\n\nLink berlaku 60 menit.", function ($message) use ($user) {
+        Mail::raw("Gunakan link berikut untuk reset password WARGYM:\n\n{$resetLink}\n\nLink berlaku 60 menit.", function ($message) use ($user) {
             $message->to($user->email)
-                ->subject('Reset Password Arena Fitness');
+                ->subject('Reset Password WARGYM');
         });
 
         return back()
@@ -889,5 +889,13 @@ class MemberPortalController extends Controller
     public function fasilitas(Request $request): View
     {
         return view('member.fasilitas');
+    }
+
+    /**
+     * Show tutorial page.
+     */
+    public function tutorial(Request $request): View
+    {
+        return view('member.tutorial');
     }
 }

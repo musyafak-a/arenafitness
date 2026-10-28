@@ -16,12 +16,12 @@
         </div>
         <!-- Slide 2 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 1 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover brightness-125" src="{{ asset('images/carousel2.jpg') }}" />
+            <img class="w-full h-full object-cover brightness-125" src="{{ asset('images/carousel2.jpeg') }}" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <!-- Slide 3 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 2 ? 'opacity-100' : 'opacity-0'">
-            <img class="w-full h-full object-cover brightness-125" src="{{ asset('images/carousel 3.jpg') }}" />
+            <img class="w-full h-full object-cover brightness-125" src="{{ asset('images/carousel3.jpeg') }}" />
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
 
@@ -135,20 +135,17 @@
                 <div class="h-[1px] flex-grow bg-surface-variant mx-8 hidden md:block"></div>
                 <span class="font-label-caps text-brand-red uppercase tracking-widest border border-brand-red/40 bg-brand-red/10 px-4 py-2 shrink-0">Training Floor</span>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                 @foreach([
-                    ['Treadmill', 'Kardio Performa Tinggi', asset('images/preview1.jpg')],
-                    ['Smith Machine', 'Latihan Beban Terpadu', asset('images/preview2.jpg')],
-                    ['Pec Deck', 'Isolasi Otot Dada', asset('images/preview3.jpg')],
-                    ['Leg Press', 'Power Majemuk Kaki', asset('images/preview4.jpg')],
-                    ['Leg Extension', 'Definisi Quadriceps', asset('images/preview5.jpg')],
-                    ['Mesin Sit Up', 'Core & Abs Station', asset('images/preview6.jpg')],
-                    ['Twister Core', 'Stabilitas Rotasi', asset('images/preview7.jpg')],
-                    ['Preacher Curl', 'Fokus Bicep Maksimal', asset('images/preview8.jpg')],
+                    ['Area Gym Utama', 'Kawasan Beban & Mesin', asset('images/preview1.jpeg')],
+                    ['Lorong Mesin & Kardio', 'Peralatan Lengkap Terpadu', asset('images/preview2.jpeg')],
+                    ['Free Weight Zone', 'Dumbbell & Barbell Station', asset('images/preview3.jpeg')],
+                    ['Fasilitas & Area Parkir', 'Tampak Depan & Parkir Luas', asset('images/preview4.jpeg')],
+                    ['Training Floor Hall', 'Suasana Latihan Luas & Terang', asset('images/preview5.jpeg')],
+                    ['Outdoor & Samsak Area', 'Area Tinju & Tempat Santai', asset('images/preview6.jpeg')],
                 ] as [$title, $desc, $image])
                     <div class="group relative overflow-hidden aspect-square border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,.28)]">
                         <img alt="{{ $title }}" class="absolute inset-0 w-full h-full object-cover brightness-125 group-hover:brightness-150 group-hover:scale-110 transition-all duration-700" src="{{ $image }}" loading="lazy"/>
-
                     </div>
                 @endforeach
             </div>

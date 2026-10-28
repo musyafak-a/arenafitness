@@ -1,3 +1,8 @@
+@php
+    $authRole = session('auth.role');
+    $isMasterAdmin = $authRole === 'master_admin';
+    $isCashierArea = str_starts_with(($activePage ?? 'dashboard'), 'cashier');
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="dark">
     <head>
@@ -10,28 +15,26 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script>
             (() => {
-                const savedTheme = localStorage.getItem('arena-gym-theme');
-                const preferredTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-                document.documentElement.setAttribute('data-theme', preferredTheme);
+                @if ($isCashierArea)
+                    const savedTheme = localStorage.getItem('arena-gym-theme') || 'dark';
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                @else
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                @endif
             })();
         </script>
 
         <link rel="stylesheet" href="{{ asset('css/industrial-theme.css') }}">
         @stack('styles')
     </head>
-    @php
-        $authRole = session('auth.role');
-        $isMasterAdmin = $authRole === 'master_admin';
-        $isCashierArea = str_starts_with(($activePage ?? 'dashboard'), 'cashier');
-    @endphp
     <body class="sidebar-hidden {{ $isCashierArea ? 'cashier-layout' : 'admin-layout' }} page-{{ str_replace('.', '-', $activePage ?? 'dashboard') }}">
         <div class="page-loader" id="pageLoader" aria-live="polite" aria-label="Memuat halaman">
             <div class="page-loader-card">
                 <div class="page-loader-brand">
-                    <span class="page-loader-mark"><img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="brand-logo"></span>
+                    <span class="page-loader-mark"><img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="brand-logo"></span>
                     <div>
                         <div class="page-loader-wordmark">Loading</div>
-                        <div class="page-loader-title">Arena Fitness</div>
+                        <div class="page-loader-title">WARGYM</div>
                         <div class="page-loader-subtitle" id="pageLoaderText">Menyiapkan halaman...</div>
                     </div>
                 </div>

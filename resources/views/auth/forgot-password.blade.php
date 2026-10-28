@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Lupa Password | Arena Fitness</title>
+    <title>Lupa Password | WARGYM</title>
     <script src="{{ asset('js/tailwind.min.js') }}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
     <style>
@@ -26,7 +26,7 @@
     <div class="absolute inset-0 bg-black/70"></div>
     <main class="relative z-10 w-full max-w-[520px] auth-container metal-finish p-8 md:p-12 shadow-2xl">
         <div class="flex justify-center mb-10">
-            <a href="{{ route('login') }}" class="text-3xl font-headline-md font-bold text-primary tracking-tighter uppercase">Arena Fitness</a>
+            <a href="{{ route('login') }}" class="text-3xl font-headline-md font-bold text-primary tracking-tighter uppercase">WARGYM</a>
         </div>
         <div class="text-center mb-10">
             <h1 class="font-headline-lg text-4xl md:text-5xl uppercase">Lupa Password</h1>

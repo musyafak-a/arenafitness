@@ -1,4 +1,4 @@
-# Rencana Pengembangan Aplikasi Mobile Member Arena Fitness
+# Rencana Pengembangan Aplikasi Mobile Member WARGYM
 **Framework:** Flutter (Multiplatform: Android & iOS)  
 **Backend:** Laravel 12 RESTful API (Sanctum)  
 **Modul Utama:** Presensi QR Code, Membership & Midtrans, serta **Workout Routine & Repetition Tracker**  
@@ -9,7 +9,7 @@
 
 ## 1. Pendahuluan & Latar Belakang
 
-Sistem Informasi Manajemen Gym **Arena Fitness** saat ini telah memiliki portal web untuk operasional kasir, admin, dan portal member. Berdasarkan arahan dosen pembimbing serta kebutuhan peningkatan nilai fungsional aplikasi member, sistem dikembangkan menjadi **aplikasi mobile multiplatform (Android & iOS)** dengan 3 pilar utama:
+Sistem Informasi Manajemen Gym **WARGYM** saat ini telah memiliki portal web untuk operasional kasir, admin, dan portal member. Berdasarkan arahan dosen pembimbing serta kebutuhan peningkatan nilai fungsional aplikasi member, sistem dikembangkan menjadi **aplikasi mobile multiplatform (Android & iOS)** dengan 3 pilar utama:
 1. **Layanan Mandiri Keanggotaan (*Member Self-Service*):** Presensi digital QR Code mandiri dan pembelian/perpanjangan paket membership online via **Midtrans Payment Gateway**.
 2. **Pelacak & Penjadwal Latihan (*Workout Routine & Repetition Tracker*):** Member dapat membuat jadwal program latihan (*Routines*), memilih template latihan gym, serta mencatat beban (kg) dan repetisi (*sets/reps*) secara langsung saat berolahraga di gym (mengadopsi antarmuka populer seperti aplikasi Hevy / Strong).
 3. **Analisis Progres Latihan:** Menampilkan grafik konsistensi dan volume latihan terintegrasi dengan kehadiran di gym.
@@ -38,7 +38,7 @@ Struktur navigasi bawah (*Bottom Navigation Bar*) disusun intuitif, menempatkan 
 
 ```mermaid
 graph TD
-    Root[Aplikasi Mobile Member Arena Fitness] --> Auth[Modul Autentikasi]
+    Root[Aplikasi Mobile Member WARGYM] --> Auth[Modul Autentikasi]
     Root --> MainNav[Bottom Navigation Bar]
 
     Auth --> A1[1. Login Member]
@@ -85,7 +85,7 @@ graph TD
 
 ## 4. Aturan Bisnis Masa Aktif & Perpanjangan (*Membership Stacking Logic*)
 
-Untuk memberikan pengalaman pengguna yang adil dan konsisten bagi member Arena Fitness, sistem menerapkan logika **Acuan Tanggal Kalender** dengan metode **Bertumpuk (Stacking)**:
+Untuk memberikan pengalaman pengguna yang adil dan konsisten bagi member WARGYM, sistem menerapkan logika **Acuan Tanggal Kalender** dengan metode **Bertumpuk (Stacking)**:
 
 1. **Acuan Tanggal Kalender (Calendar Month):**
    - Penambahan durasi menggunakan bulan kalender penuh (bukan fix 30 hari).
@@ -111,7 +111,7 @@ Modul ini dirancang berdasarkan konsep aplikasi pencatat latihan modern (seperti
      - Menambahkan daftar gerakan target (misal: *Bench Press, Incline Dumbbell Press, Triceps Pushdown*).
      - Menentukan target repetisi dan jumlah set bawaan (*default sets & target reps*).
    - **`Explore Routines` (Koleksi Program Latihan):**
-     - Template siap pakai yang disediakan oleh Arena Fitness (contoh: *"Program Pemula 3 Hari"*, *"Push-Pull-Legs (PPL)"*, *"Upper-Lower Split"*, *"Fat Loss Bodyweight"*).
+     - Template siap pakai yang disediakan oleh WARGYM (contoh: *"Program Pemula 3 Hari"*, *"Push-Pull-Legs (PPL)"*, *"Upper-Lower Split"*, *"Fat Loss Bodyweight"*).
 3. **Bagian `Recent Workouts`:**
    - Menampilkan catatan riwayat latihan terakhir (nama routine, tanggal, durasi menit, total repetisi, dan beban total *volume kg*).
 
@@ -222,13 +222,13 @@ Penambahan endpoint khusus untuk modul *Workout Routine & Repetition Tracker*:
 Dengan bergabungnya fitur **Payment Gateway (Midtrans)** dan **Workout Routine & Repetition Tracker**, topik tugas akhir Anda menjadi sangat komprehensif, memiliki bobot akademik tinggi, dan memenuhi standar proyek D-III Manajemen Informatika / Teknik Informatika:
 
 ### 🏆 Rekomendasi Utama (Paling Seimbang & Nilai Jual Tinggi):
-> **"Rancang Bangun Aplikasi Mobile Member Gym dengan Fitur Workout Tracker dan Pembayaran Online Menggunakan Midtrans (Studi Kasus: Arena Fitness Kediri)"**
+> **"Rancang Bangun Aplikasi Mobile Member Gym dengan Fitur Workout Tracker dan Pembayaran Online Menggunakan Midtrans (Studi Kasus: WARGYM Jombang)"**
 
 ### Opsi 2 (Fokus Sistem Terintegrasi Multiplatform):
-> **"Pengembangan Sistem Informasi Manajemen Gym Berbasis Web dan Mobile Terintegrasi Payment Gateway dan Modul Penjadwalan Latihan pada Arena Fitness"**
+> **"Pengembangan Sistem Informasi Manajemen Gym Berbasis Web dan Mobile Terintegrasi Payment Gateway dan Modul Penjadwalan Latihan pada WARGYM"**
 
 ### Opsi 3 (Fokus Rekayasa Perangkat Lunak Mobile & Pelayanan Member):
-> **"Penerapan Framework Flutter pada Sistem Informasi Keanggotaan Gym dengan Fitur Presensi QR Code, Workout Logger, dan Transaksi Midtrans di Arena Fitness Kediri"**
+> **"Penerapan Framework Flutter pada Sistem Informasi Keanggotaan Gym dengan Fitur Presensi QR Code, Workout Logger, dan Transaksi Midtrans di WARGYM Jombang"**
 
 ---
 

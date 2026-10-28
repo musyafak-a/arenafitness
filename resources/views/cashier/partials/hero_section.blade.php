@@ -3,9 +3,9 @@
                 <div>
                     <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="brand-logo-inline">
+                            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="brand-logo-inline">
                             <div>
-                                <div class="cashier-kicker">Arena Fitness Cashier</div>
+                                <div class="cashier-kicker">WARGYM Cashier</div>
                             </div>
                         </div>
                         <button type="button" class="theme-toggle" data-theme-toggle aria-label="Ganti tema">

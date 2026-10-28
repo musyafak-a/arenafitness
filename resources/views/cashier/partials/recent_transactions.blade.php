@@ -77,7 +77,7 @@
                                             <span class="customer-avatar">{{ $initials }}</span>
                                             <span>
                                                 <span class="customer-name">{{ $customerName }}</span>
-                                                <span class="customer-sub">Arena Fitness</span>
+                                                <span class="customer-sub">WARGYM</span>
                                             </span>
                                         </div>
                                     </td>

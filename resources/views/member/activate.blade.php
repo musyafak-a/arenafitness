@@ -11,7 +11,7 @@
     <main class="w-full max-w-6xl mx-auto px-4 py-8 lg:py-12 grid gap-6 lg:grid-cols-[minmax(320px,420px)_1fr] items-start">
         <div class="w-full p-8 bg-[#1f1f1f] border border-[#353535] rounded-xl">
             <div class="flex justify-center mb-4">
-                <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" style="width: 132px; height: auto; max-width: 100%;">
+                <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" style="width: 132px; height: auto; max-width: 100%;">
             </div>
             <h2 class="text-sm uppercase text-[#ebbbb4] mb-8 text-center" style="font-family: 'JetBrains Mono', monospace;">Aktivasi Akun Member</h2>
 

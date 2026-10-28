@@ -116,7 +116,7 @@
         @elseif($shouldShowChannelPrompt)
             <div class="p-3 border border-[#ff5540]/40 bg-[#ff5540]/10">
                 <p class="text-sm text-white font-semibold">Gabung Saluran WhatsApp</p>
-                <p class="text-xs text-[#ebbbb4] mt-1">Dapatkan informasi umum Arena Fitness lewat saluran resmi.</p>
+                <p class="text-xs text-[#ebbbb4] mt-1">Dapatkan informasi umum WARGYM lewat saluran resmi.</p>
                 <a href="{{ $channelUrl }}" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex items-center gap-2 font-['JetBrains_Mono'] text-[10px] uppercase tracking-[0.18em] text-[#ff5540]">
                     Buka Saluran
                     <span class="material-symbols-outlined text-[14px]">open_in_new</span>

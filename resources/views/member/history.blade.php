@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Riwayat Latihan | Arena Fitness</title>
+    <title>Riwayat Latihan | WARGYM</title>
     <script src="{{ asset('js/tailwind.min.js') }}"></script>
     <script src="{{ asset('js/chart.min.js') }}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&family=Hanken+Grotesk:wght@400;600&display=swap" rel="stylesheet">
@@ -29,9 +29,9 @@
 @include('member.partials.page-loader')
 <header class="fixed top-0 w-full z-50 bg-black/55 backdrop-blur-xl border-b border-white/10">
     <div class="grid grid-cols-[1fr_auto_1fr] items-center h-20 px-5 md:px-16 w-full max-w-screen-2xl mx-auto">
-        <a class="justify-self-start inline-flex items-center gap-3" href="{{ route('member.dashboard') }}" aria-label="Arena Fitness Home">
-            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" style="display:block;width:3.8rem;max-width:3.8rem;height:3rem;max-height:3rem;object-fit:contain;border-radius:1rem;box-shadow:0 18px 32px rgba(255,59,59,.18);background:rgba(255,255,255,.04);flex:0 0 auto;">
-            <span class="font-display text-white uppercase italic text-2xl leading-none hidden sm:inline">Arena <span class="text-brand-red">Fitness</span></span>
+        <a class="justify-self-start inline-flex items-center gap-3" href="{{ route('member.dashboard') }}" aria-label="WARGYM Home">
+            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" style="display:block;width:3.8rem;max-width:3.8rem;height:3rem;max-height:3rem;object-fit:contain;border-radius:1rem;box-shadow:0 18px 32px rgba(255,59,59,.18);background:rgba(255,255,255,.04);flex:0 0 auto;">
+            <span class="font-display text-white uppercase italic text-2xl leading-none hidden sm:inline">WAR<span class="text-brand-red">GYM</span></span>
         </a>
         <nav class="hidden lg:flex items-center justify-center gap-8 justify-self-center font-mono text-sm tracking-[0.1em]">
             <a class="nav-link text-[#ebbbb4] hover:text-brand-red" href="{{ route('member.dashboard') }}">Home</a>
@@ -53,7 +53,7 @@
 <main class="pt-20">
     <section class="relative overflow-hidden metal-grid border-b border-white/10">
         <div class="absolute inset-0">
-            <img alt="Arena Fitness workout history" class="h-full w-full object-cover grayscale brightness-[0.35] contrast-125" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=2200&q=85" onerror="this.style.display='none'"/>
+            <img alt="WARGYM workout history" class="h-full w-full object-cover grayscale brightness-[0.35] contrast-125" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=2200&q=85" onerror="this.style.display='none'"/>
             <div class="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/35"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-[#131313] via-transparent to-transparent"></div>
         </div>
@@ -141,7 +141,7 @@
                     <span class="font-mono text-[10px] uppercase tracking-[0.24em] text-brand-red">Verified Check-In</span>
                     <h2 class="font-display text-3xl uppercase italic text-white mt-2">Log Aktivitas</h2>
                 </div>
-                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ebbbb4]">Arena Fitness Gate</span>
+                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ebbbb4]">WARGYM Gate</span>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full min-w-[760px]">

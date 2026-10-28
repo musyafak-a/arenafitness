@@ -2,7 +2,12 @@
 
 @section('content')
     <style>
-        /* ... (Style tetap sama seperti sebelumnya) ... */
+        body.page-dashboard {
+            background-color: #121212 !important;
+            background: #121212 !important;
+            color: #fff !important;
+        }
+
         body.page-dashboard .container-fluid {
             width: 100%;
             max-width: none;
@@ -497,8 +502,8 @@
     <div class="ds">
         <div class="ds-header">
             <div>
-                <div class="ds-section-label">Arena Gym · Executive Dashboard</div>
-                <h1 class="dashboard-title">Arena Dashboard</h1>
+                <div class="ds-section-label">WARGYM · Executive Dashboard</div>
+                <h1 class="dashboard-title">Dashboard</h1>
             </div>
         </div>
 

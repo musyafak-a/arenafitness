@@ -391,9 +391,9 @@
             <section class="receipt">
                 <header class="receipt-head">
                     <div class="brand">
-                        <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="brand-logo">
+                        <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="brand-logo">
                         <div>
-                            <div class="brand-title">Arena Fitness</div>
+                            <div class="brand-title">WARGYM</div>
                             <h1>Struk Pembayaran</h1>
                         </div>
                     </div>
@@ -447,7 +447,7 @@
 
                     <div class="total-box">
                         <div class="note receipt-note">
-                            Terima kasih telah bertransaksi di Arena Fitness. Simpan struk ini sebagai bukti pembayaran resmi.
+                            Terima kasih telah bertransaksi di WARGYM. Simpan struk ini sebagai bukti pembayaran resmi.
                             @if ($receipt->notes)
                                 <br>Catatan: {{ $receipt->notes }}
                             @endif

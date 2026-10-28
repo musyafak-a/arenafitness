@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Arena Fitness | DOMINASI SETIAP LIMIT</title>
+    <title>WARGYM | DOMINASI SETIAP LIMIT</title>
     <script src="{{ asset('js/tailwind.min.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -209,9 +209,9 @@
 @endphp
 <header class="fixed top-0 w-full z-50 bg-black/55 backdrop-blur-xl border-b border-white/10">
     <div class="grid grid-cols-[1fr_auto_1fr] items-center h-20 px-margin-mobile md:px-margin-desktop w-full max-w-screen-2xl mx-auto">
-        <a class="justify-self-start inline-flex items-center gap-3" href="{{ route('member.dashboard') }}" aria-label="Arena Fitness Home">
-            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" style="display:block;width:3.8rem;max-width:3.8rem;height:3rem;max-height:3rem;object-fit:contain;border-radius:1rem;box-shadow:0 18px 32px rgba(255,59,59,.18);background:rgba(255,255,255,.04);flex:0 0 auto;">
-            <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">Arena <span class="text-brand-red">Fitness</span></span>
+        <a class="justify-self-start inline-flex items-center gap-3" href="{{ route('member.dashboard') }}" aria-label="WARGYM Home">
+            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" style="display:block;width:3.8rem;max-width:3.8rem;height:3rem;max-height:3rem;object-fit:contain;border-radius:1rem;box-shadow:0 18px 32px rgba(255,59,59,.18);background:rgba(255,255,255,.04);flex:0 0 auto;">
+            <span class="font-display-xl text-white uppercase italic text-2xl tracking-tighter leading-none hidden sm:inline">WAR<span class="text-brand-red">GYM</span></span>
         </a>
         <nav class="hidden lg:flex items-center justify-center gap-8 justify-self-center">
             <a class="nav-link active font-label-caps text-label-caps text-brand-red" href="{{ route('member.dashboard') }}">Home</a>
@@ -248,7 +248,7 @@
             $remainingDays = $expiresAt ? max(0, now()->startOfDay()->diffInDays($expiresAt->copy()->startOfDay(), false)) : null;
         @endphp
         <div class="absolute inset-0 z-0">
-            <img alt="Arena Fitness training floor" class="w-full h-full object-cover grayscale brightness-[0.42] contrast-125" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" decoding="async"/>
+            <img alt="WARGYM training floor" class="w-full h-full object-cover grayscale brightness-[0.42] contrast-125" onerror="this.style.display='none'" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=85" decoding="async"/>
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
         <div class="relative z-10 w-full max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-16">
@@ -467,7 +467,7 @@
                                 <span class="material-symbols-outlined text-brand-red">location_on</span>
                             </div>
                             <div>
-                                <p class="font-headline-md text-xl uppercase text-white mb-2">Arena Fitness</p>
+                                <p class="font-headline-md text-xl uppercase text-white mb-2">WARGYM</p>
                                 <p class="text-on-surface-variant font-body-md leading-relaxed">
                                     Jl. Wilis Mukti III No.59, Campurejo,<br/>
                                     Kec. Mojoroto, Kabupaten Kediri,<br/>
@@ -497,7 +497,7 @@
                             <iframe
                                 class="w-full h-[360px] md:h-[520px] transition-all duration-700"
                                 src="https://maps.google.com/maps?q=Arena+Fitness,+Jl.+Wilis+Mukti+III+No.59,+Campurejo,+Kediri&t=&z=17&ie=UTF8&iwloc=&output=embed"
-                                title="Lokasi Arena Fitness"
+                                title="Lokasi WARGYM"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                             <a class="absolute inset-0" href="https://maps.app.goo.gl/jQxnQRvTwBfHBtBTA" target="_blank" rel="noopener" aria-label="Buka detail lokasi di Google Maps"></a>
@@ -516,7 +516,7 @@
                     <span class="font-label-caps text-brand-red tracking-[0.3em] uppercase block mb-4">Feedback Portal</span>
                     <h2 class="font-headline-lg text-headline-lg uppercase italic mb-6 leading-tight">KRITIK &amp; SARAN</h2>
                     <p class="text-on-surface-variant font-body-lg max-w-md mb-8">
-                        Visi kami adalah kesempurnaan. Bantu kami mencapainya dengan memberikan masukan Anda mengenai fasilitas dan layanan Arena Fitness.
+                        Visi kami adalah kesempurnaan. Bantu kami mencapainya dengan memberikan masukan Anda mengenai fasilitas dan layanan WARGYM.
                     </p>
                     <div class="flex gap-8">
                         <div class="flex flex-col">
@@ -559,14 +559,14 @@
 
 <footer class="bg-black border-t border-surface-variant/30 w-full py-20">
     <div class="flex flex-col items-center justify-center gap-10 px-margin-mobile md:px-margin-desktop max-w-screen-2xl mx-auto text-center">
-        <div class="font-display-xl text-brand-red text-4xl uppercase italic tracking-tighter">Arena Fitness</div>
+        <div class="font-display-xl text-brand-red text-4xl uppercase italic tracking-tighter">WARGYM</div>
         <div class="flex flex-wrap justify-center gap-x-12 gap-y-6">
             <a class="font-label-caps text-xs text-on-surface-variant hover:text-brand-red transition-all uppercase tracking-widest" href="#">Privacy Policy</a>
             <a class="font-label-caps text-xs text-on-surface-variant hover:text-brand-red transition-all uppercase tracking-widest" href="#">Terms of Service</a>
             <a class="font-label-caps text-xs text-on-surface-variant hover:text-brand-red transition-all uppercase tracking-widest" href="#">Support Center</a>
             <a class="font-label-caps text-xs text-on-surface-variant hover:text-brand-red transition-all uppercase tracking-widest" href="#">Careers</a>
         </div>
-        <p class="font-label-caps text-[10px] text-on-surface-variant/40 tracking-[0.2em]">&copy; 2024 Arena Fitness. ALL RIGHTS RESERVED. DOMINASI SETIAP LIMIT.</p>
+        <p class="font-label-caps text-[10px] text-on-surface-variant/40 tracking-[0.2em]">&copy; 2024 WARGYM. ALL RIGHTS RESERVED. DOMINASI SETIAP LIMIT.</p>
     </div>
 </footer>
 <script>

@@ -4,26 +4,27 @@
 $activeNav = 'fasilitas'; 
 
 $facilities = [
-    ['name' => 'Treadmill', 'qty' => '3 Unit', 'category' => 'cardio', 'img' => 'https://images.unsplash.com/photo-1576678927484-cc907957088c?w=500&h=400&fit=crop'],
-    ['name' => 'Samsak / Sandsack', 'qty' => '1 Unit', 'category' => 'cardio', 'img' => 'https://images.unsplash.com/photo-1555597673-b21d5c935865?w=500&h=400&fit=crop'],
-    
-    ['name' => 'Smith Machine', 'qty' => '1 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=500&h=400&fit=crop'],
-    ['name' => 'Chest Press', 'qty' => '1 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=500&h=400&fit=crop'],
-    ['name' => 'Leg Curl + Leg Ext + Triceps', 'qty' => '1 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=500&h=400&fit=crop'],
-    ['name' => 'LatPullDown + Seated Row', 'qty' => '2 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=500&h=400&fit=crop'],
-    ['name' => 'Flat Bench Press', 'qty' => '1 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&h=400&fit=crop'],
+    ['name' => 'Treadmill', 'qty' => '3 Unit', 'category' => 'cardio', 'img' => asset('images/treadmill.jpeg')],
+    ['name' => 'Spinning Bike', 'qty' => '2 Unit', 'category' => 'cardio', 'img' => asset('images/spinning-bike.jpeg')],
+    ['name' => 'Samsak / Sandsack', 'qty' => '1 Unit', 'category' => 'cardio', 'img' => asset('images/samsak.jpeg')],
+    ['name' => 'Smith Machine', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/smith-machine.jpeg')],
+    ['name' => 'Chest Press', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/chest-press.jpeg')],
+    ['name' => 'Leg Curl + Leg Extension + Triceps', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/leg-curl-extension-triceps.jpeg')],
+    ['name' => 'Lat Pulldown', 'qty' => '2 Unit', 'category' => 'strength', 'img' => asset('images/lat-pulldown.jpeg')],
+    ['name' => 'Flat Bench Press', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/flat-bench-press.jpeg')],
+    ['name' => 'Leg Press + Dips', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/leg-press-dips.jpeg')],
+    ['name' => 'Peck Deck Butterfly', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/peck-deck-butterfly.jpeg')],
+    ['name' => 'Abductor', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/Abductor.jpeg')],
+    ['name' => 'Dumbel', 'qty' => '1-4kg & 2.5-20kg', 'category' => 'strength', 'img' => asset('images/dumbel.jpeg')],
+    ['name' => 'Bumper Plate Untuk Deadlift', 'qty' => '5-20kg', 'category' => 'strength', 'img' => asset('images/bumper-plate-deadlift.jpeg')],
     ['name' => 'Adjustable Bench', 'qty' => '3 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1584863231364-2edc166de576?w=500&h=400&fit=crop'],
-    ['name' => 'Abductor + Adductor', 'qty' => '2 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=500&h=400&fit=crop'],
-    ['name' => 'Peck Deck / Butterfly', 'qty' => '1 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=500&h=400&fit=crop'],
-    ['name' => 'Leg Press + Dips', 'qty' => '1 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=500&h=400&fit=crop'],
     ['name' => 'Alat Sit Up', 'qty' => '1 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=400&fit=crop'],
-    ['name' => 'Dumbbell Set', 'qty' => '1-4kg & 2.5-20kg', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1586401100295-7a8096fd231a?w=500&h=400&fit=crop'],
     ['name' => 'Tempat Pull Up', 'qty' => '2 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=500&h=400&fit=crop'],
-    ['name' => 'Bumper Plate (Deadlift)', 'qty' => '5-20kg', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=400&fit=crop'],
-    
-    ['name' => 'Kamar Mandi', 'qty' => '2 Ruang', 'category' => 'lainnya', 'img' => 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&h=400&fit=crop'],
-    ['name' => 'Toilet', 'qty' => '2 Ruang', 'category' => 'lainnya', 'img' => 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=500&h=400&fit=crop'],
-    ['name' => 'Warung', 'qty' => '1 Unit', 'category' => 'lainnya', 'img' => 'https://images.unsplash.com/photo-1521790797524-b2497295b8a0?w=500&h=400&fit=crop'],
+    ['name' => 'Toilet & Loker', 'qty' => 'Tersedia', 'category' => 'lainnya', 'img' => asset('images/toilet-loker.jpeg')],
+    ['name' => 'Tempat Ibadah / Sholat', 'qty' => 'Tersedia', 'category' => 'lainnya', 'img' => asset('images/musholla.jpeg')],
+    ['name' => 'Free WiFi', 'qty' => 'Tersedia', 'category' => 'lainnya', 'img' => 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500&h=400&fit=crop'],
+    ['name' => 'Sirkulasi Udara Lancar + Kipas Angin', 'qty' => 'Tersedia', 'category' => 'lainnya', 'img' => asset('images/kipas.png')],
+    ['name' => 'Warung', 'qty' => '1 Unit', 'category' => 'lainnya', 'img' => asset('images/warung.jpg')],
 ];
 @endphp
 
@@ -66,13 +67,13 @@ $facilities = [
                          x-transition:enter-end="opacity-100 scale-100"
                          class="glass-panel rounded-sm flex flex-col group cursor-default relative overflow-hidden h-36 sm:h-[360px] border border-white/10 hover:border-brand-red/60 transition-all duration-300 p-0">
                         
-                        <!-- Top 2/3 Image -->
+                        <!-- Top Image -->
                         <div class="h-20 sm:h-[240px] w-full relative overflow-hidden bg-black shrink-0">
                             <img src="{{ $facility['img'] }}" alt="{{ $facility['name'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#131313] via-transparent to-transparent opacity-80"></div>
                         </div>
                          
-                        <!-- Bottom 1/3 Text -->
+                        <!-- Bottom Text -->
                         <div class="flex flex-col p-2 sm:p-5 flex-grow justify-between relative z-10 bg-[#131313]/50">
                             <h3 class="font-headline-md text-[9px] sm:text-lg text-white tracking-wide uppercase line-clamp-2 leading-tight">
                                 {{ $facility['name'] }}

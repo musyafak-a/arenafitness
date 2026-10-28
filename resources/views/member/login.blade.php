@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login Member | Arena Fitness</title>
+    <title>Login Member | WARGYM</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="{{ asset('js/tailwind.min.js') }}"></script>
@@ -114,9 +114,9 @@
                 <div class="relative">
                     <a href="/" class="inline-flex items-center gap-3">
                         <span class="flex h-12 w-14 items-center justify-center overflow-hidden rounded-xl border border-ember/40 bg-white/10 shadow-[0_0_28px_rgba(255,85,64,.22)]">
-                            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="Arena Fitness" class="h-full w-full object-cover"/>
+                            <img src="{{ asset('images/arena-fitness-logo.jpg') }}" alt="WARGYM" class="h-full w-full object-cover"/>
                         </span>
-                        <span class="font-display text-2xl font-bold uppercase tracking-tight text-white">Arena Fitness</span>
+                        <span class="font-display text-2xl font-bold uppercase tracking-tight text-white">WARGYM</span>
                     </a>
 
                     <div class="mt-10">
@@ -175,7 +175,7 @@
                         <a href="{{ route('member.activate.show') }}" class="font-mono text-xs uppercase tracking-[0.14em] text-emberSoft hover:text-white transition-colors">
                             Aktivasi akun member baru
                         </a>
-                        <p class="text-sm leading-6 text-muted">Pendaftaran dan perpanjangan membership dilakukan langsung lewat kasir Arena Fitness.</p>
+                        <p class="text-sm leading-6 text-muted">Pendaftaran dan perpanjangan membership dilakukan langsung lewat kasir WARGYM.</p>
                     </div>
                 </div>
             </div>
