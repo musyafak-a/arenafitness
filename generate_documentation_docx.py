@@ -501,7 +501,7 @@ def create_document():
     
     trainer_schema = """interface PersonalTrainer {
   name: string;               // Nama panggilan (misal: "GHION", "FANNY", "IZAA")
-  fullName: string;           // Nama lengkap / gelar profesional (misal: "Coach Fanny")
+  fullName: string;           // Nama lengkap / gelar profesional (misal: "kak Fanny")
   profession: string;         // Jabatan profesional (misal: "Personal Trainer / Fitness Coach")
   role?: string;              // Peran spesifik (misal: "Women Personal Trainer")
   tagline?: string;           // Slogan singkat (misal: "Beginner Friendly Women Fitness")
@@ -592,7 +592,7 @@ def create_document():
         ("UC-02", "Melihat Cerita & Filosofi", "Pengunjung", "Membaca latar belakang asal-usul nama WARGYM dan komitmen gym ramah kantong."),
         ("UC-03", "Katalog Fasilitas Lengkap", "Pengunjung", "Menjelajahi daftar inventaris alat kebugaran dan sarana gym dengan foto riil."),
         ("UC-04", "Filter Kategori Fasilitas", "Pengunjung", "Menyortir alat berdasarkan kategori Cardio, Strength Machine, atau Fasilitas Umum."),
-        ("UC-05", "Melihat Daftar Personal Trainer", "Pengunjung", "Melihat 3 kartu pelatih resmi (Kak Ghion, Coach Fanny, Kak Izaa) dengan badge spesialisasi."),
+        ("UC-05", "Melihat Daftar Personal Trainer", "Pengunjung", "Melihat 3 kartu pelatih resmi (Kak Ghion, Kak Fanny, Kak Izaa) dengan badge spesialisasi."),
         ("UC-06", "Buka Modal Detail Profil Trainer", "Pengunjung", "Mengklik kartu pelatih untuk membuka jendela modal interaktif dengan layar penuh."),
         ("UC-07", "Membaca Riwayat & Filosofi PT", "Pengunjung", "Membaca kisah inspiratif pelatih, rincian keahlian, checklist latihan, dan visi."),
         ("UC-08", "Melihat Jam Buka & Lokasi", "Pengunjung", "Mengetahui jam buka operasional gym, alamat lengkap, dan denah Google Maps."),
@@ -730,7 +730,7 @@ def create_document():
     
     flow_steps = [
         ("Tahap 1: Akses Halaman", "Pengunjung membuka URL website /personal-trainer. Vue Router merender halaman secara dinamis."),
-        ("Tahap 2: Rendering Kartu Trainer", "Sistem merender 3 kartu pelatih (Kak Ghion, Coach Fanny, Kak Izaa) dalam susunan 3 kolom simetris pada desktop (lg:grid-cols-3) atau vertikal pada mobile."),
+        ("Tahap 2: Rendering Kartu Trainer", "Sistem merender 3 kartu pelatih (Kak Ghion, Kak Fanny, Kak Izaa) dalam susunan 3 kolom simetris pada desktop (lg:grid-cols-3) atau vertikal pada mobile."),
         ("Tahap 3: Pemilihan Aksi Pengguna", "Pengguna dapat membaca kutipan dan ringkasan preview (line-clamp-3) di kartu depan, atau mengklik tombol 'Lihat Profil Lengkap'."),
         ("Tahap 4: Pembukaan Modal Interaktif", "State selectedTrainer diaktifkan. Body browser secara otomatis dikunci (overflow-hidden) untuk mencegah scroll ganda pada latar belakang."),
         ("Tahap 5: Eksplorasi Detail Profil", "Pengguna membaca cerita otentik About Me, rincian keahlian, checklist pendekatan, dan komitmen visi pelatih."),

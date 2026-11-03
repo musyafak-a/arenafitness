@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database ERD Diagram - Arena Fitness (WARGYM)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #1e293b;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --accent-soft: rgba(56, 189, 248, 0.1);
+      --badge-pk: #f43f5e;
+      --badge-fk: #a855f7;
+    }
+
+    html.light {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --accent-soft: rgba(2, 132, 199, 0.08);
+      --badge-pk: #e11d48;
+      --badge-fk: #9333ea;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    /* Top Navbar */
+    header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 20;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
+    }
+
+    .brand-title h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .pill-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Toolbar Actions */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      color: var(--text-main);
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    /* Main Workspace */
+    .workspace {
+      flex: 1;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Diagram Canvas */
+    #diagram-container {
+      flex: 1;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    #mermaid-render {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #mermaid-render svg {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Floating Controls */
+    .floating-controls {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 10;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 6px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .ctrl-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.15s;
+    }
+
+    .ctrl-btn:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* Sidebar Table List */
+    .sidebar {
+      width: 320px;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 15;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      overflow: hidden;
+      border-left: none;
+    }
+
+    .sidebar-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar-header h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .table-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .table-item {
+      padding: 10px 12px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .table-item:hover {
+      border-color: var(--accent);
+      transform: translateX(2px);
+    }
+
+    .table-item-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-item-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Loading overlay */
+    #loading {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      gap: 12px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border-color);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">AF</div>
+      <div class="brand-title">
+        <h1>Database ERD Diagram <span class="pill-badge">Laravel 11 & MySQL</span></h1>
+        <p>Arena Fitness (WARGYM) &bull; 16 Tabel &bull; 6 Modul Bisnis</p>
+      </div>
+    </div>
+    <div class="toolbar">
+      <button class="btn" id="theme-btn" title="Toggle Tema">
+        <span id="theme-icon">☀️ Light</span>
+      </button>
+      <button class="btn" id="export-svg-btn" title="Download Format SVG">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export SVG
+      </button>
+      <button class="btn btn-primary" id="export-png-btn" title="Download Gambar PNG">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Download PNG
+      </button>
+      <button class="btn" id="toggle-sidebar" title="Daftar Tabel">
+        📑 Tabel
+      </button>
+    </div>
+  </header>
+
+  <!-- Workspace -->
+  <div class="workspace">
+    <!-- Loading Overlay -->
+    <div id="loading">
+      <div class="spinner"></div>
+      <p style="font-size: 14px; font-weight: 500;">Merender Diagram Database...</p>
+    </div>
+
+    <!-- Main Canvas -->
+    <div id="diagram-container">
+      <div id="mermaid-render">
+        <pre class="mermaid" id="erd-code">
+erDiagram
+    users ||--o| members : "user_id"
+    users ||--o{ transactions : "cashier_user_id"
+    users ||--o{ checkins : "verified_by"
+    users ||--o{ product_stock_logs : "user_id"
+    users ||--o{ membership_renewal_requests : "reviewed_by"
+    users ||--o{ profile_photo_change_requests : "reviewed_by"
+    users ||--o{ member_feedbacks : "user_id"
+
+    members ||--o{ membership_subscriptions : "member_id"
+    membership_plans ||--o{ membership_subscriptions : "plan_id"
+    members ||--o{ membership_renewal_requests : "member_id"
+    membership_plans ||--o{ membership_renewal_requests : "plan_id"
+    members ||--o{ profile_photo_change_requests : "member_id"
+    members ||--o{ member_feedbacks : "member_id"
+
+    members ||--o{ checkins : "member_id"
+    daily_guests ||--o{ checkins : "daily_guest_id"
+
+    members ||--o{ transactions : "member_id"
+    daily_guests ||--o{ transactions : "daily_guest_id"
+    transactions ||--|{ transaction_items : "transaction_id"
+
+    categories ||--o{ products : "category_id"
+    products ||--o{ transaction_items : "product_id"
+    products ||--o{ product_stock_logs : "product_id"
+
+    users {
+        bigint id PK
+        string name
+        string login UK
+        string email UK
+        string role
+        string password
+        timestamp email_verified_at
+    }
+
+    members {
+        bigint id PK
+        bigint user_id FK
+        string full_name
+        string email UK
+        string phone
+        string checkin_code UK
+        string profile_photo_path
+        tinyint photo_change_count
+        date joined_at
+        date expires_at
+    }
+
+    membership_plans {
+        bigint id PK
+        string name UK
+        tinyint duration_months
+        integer price
+        boolean is_active
+    }
+
+    membership_subscriptions {
+        bigint id PK
+        bigint member_id FK
+        bigint membership_plan_id FK
+        date start_date
+        date end_date
+        integer amount_paid
+        string payment_method
+        string status
+    }
+
+    daily_guests {
+        bigint id PK
+        string full_name
+        string phone
+        string visit_type
+        timestamp visit_at
+    }
+
+    checkins {
+        bigint id PK
+        bigint member_id FK
+        bigint daily_guest_id FK
+        timestamp checked_in_at
+        string checkin_method
+        string verification_status
+        bigint verified_by FK
+    }
+
+    categories {
+        bigint id PK
+        string name UK
+        text description
+    }
+
+    products {
+        bigint id PK
+        bigint category_id FK
+        string name
+        string sku UK
+        integer price
+        integer stock
+        string unit
+        boolean is_active
+    }
+
+    product_stock_logs {
+        bigint id PK
+        bigint product_id FK
+        enum type
+        integer quantity
+        string description
+        string reference_id
+        bigint user_id FK
+    }
+
+    transactions {
+        bigint id PK
+        string invoice UK
+        string snap_token
+        bigint member_id FK
+        bigint daily_guest_id FK
+        bigint cashier_user_id FK
+        string type
+        integer amount
+        string payment_method
+        string payment_status
+        timestamp transaction_at
+    }
+
+    transaction_items {
+        bigint id PK
+        bigint transaction_id FK
+        bigint product_id FK
+        string item_name
+        integer quantity
+        integer unit_price
+        integer subtotal
+    }
+
+    expense_records {
+        bigint id PK
+        string title
+        string category
+        integer amount
+        string payment_method
+        date expense_date
+    }
+
+    announcements {
+        bigint id PK
+        string title
+        text body
+        string status
+        timestamp publish_at
+    }
+
+    member_feedbacks {
+        bigint id PK
+        bigint user_id FK
+        bigint member_id FK
+        string name
+        string subject
+        text message
+    }
+
+    membership_renewal_requests {
+        bigint id PK
+        bigint member_id FK
+        bigint user_id FK
+        bigint membership_plan_id FK
+        integer amount
+        string payment_method
+        string status
+        bigint reviewed_by FK
+    }
+
+    profile_photo_change_requests {
+        bigint id PK
+        bigint user_id FK
+        bigint member_id FK
+        string requested_photo_path
+        string status
+        bigint reviewed_by FK
+    }
+        </pre>
+      </div>
+
+      <!-- Floating Zoom Controls -->
+      <div class="floating-controls">
+        <button class="ctrl-btn" id="zoom-in" title="Perbesar (+)">+</button>
+        <button class="ctrl-btn" id="zoom-out" title="Perkecil (-)">−</button>
+        <button class="ctrl-btn" id="zoom-reset" title="Reset Zoom">⟲</button>
+        <button class="ctrl-btn" id="zoom-fit" title="Fit ke Layar">⛶</button>
+      </div>
+    </div>
+
+    <!-- Sidebar Info -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Daftar Entitas Tabel</h2>
+        <span class="pill-badge">16 Tabel</span>
+      </div>
+      <div class="table-list">
+        <div class="table-item">
+          <div class="table-item-name">users <span class="pill-badge">Auth</span></div>
+          <div class="table-item-desc">Admin, Master Admin, Kasir, dan Member</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">members <span class="pill-badge">Member</span></div>
+          <div class="table-item-desc">Data identitas member, QR Code & masa berlaku</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">membership_plans <span class="pill-badge">Paket</span></div>
+          <div class="table-item-desc">Master paket membership (Bulanan, Tahunan)</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">membership_subscriptions <span class="pill-badge">Langganan</span></div>
+          <div class="table-item-desc">Catatan kontrak aktif & riwayat langganan</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">daily_guests <span class="pill-badge">Tamu</span></div>
+          <div class="table-item-desc">Tamu harian non-member (Daily Pass)</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">checkins <span class="pill-badge">Presensi</span></div>
+          <div class="table-item-desc">Log kehadiran harian member & daily pass</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">categories <span class="pill-badge">Katalog</span></div>
+          <div class="table-item-desc">Kategori produk suplemen & minuman</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">products <span class="pill-badge">Katalog</span></div>
+          <div class="table-item-desc">Katalog produk, harga, & stok real-time</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">product_stock_logs <span class="pill-badge">Inventaris</span></div>
+          <div class="table-item-desc">Mutasi stok (In, Out, Penyesuaian)</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">transactions <span class="pill-badge">POS</span></div>
+          <div class="table-item-desc">Transaksi kasir, invoice & Midtrans snap token</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">transaction_items <span class="pill-badge">POS</span></div>
+          <div class="table-item-desc">Barang/item belanjaan per transaksi</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">expense_records <span class="pill-badge">Biaya</span></div>
+          <div class="table-item-desc">Beban pengeluaran operasional gym</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">announcements <span class="pill-badge">Info</span></div>
+          <div class="table-item-desc">Pengumuman info gym di portal member</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">membership_renewal_requests <span class="pill-badge">Portal</span></div>
+          <div class="table-item-desc">Permohonan perpanjangan mandiri + bukti bayar</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">profile_photo_change_requests <span class="pill-badge">Portal</span></div>
+          <div class="table-item-desc">Verifikasi pengajuan foto profil member</div>
+        </div>
+        <div class="table-item">
+          <div class="table-item-name">member_feedbacks <span class="pill-badge">Portal</span></div>
+          <div class="table-item-desc">Kritik & saran dari member gym</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    let panZoomInstance = null;
+
+    // Inisialisasi Mermaid
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#0f172a',
+        primaryColor: '#1e293b',
+        primaryTextColor: '#f8fafc',
+        primaryBorderColor: '#0284c7',
+        lineColor: '#38bdf8',
+        secondaryColor: '#334155',
+        tertiaryColor: '#0f172a'
+      },
+      er: {
+        useMaxWidth: false,
+        layoutDirection: 'TB'
+      }
+    });
+
+    async function renderDiagram() {
+      const codeElement = document.getElementById('erd-code');
+      const container = document.getElementById('mermaid-render');
+
+      try {
+        const { svg } = await mermaid.render('mermaid-svg', codeElement.innerText.trim());
+        container.innerHTML = svg;
+        document.getElementById('loading').style.display = 'none';
+
+        const svgElement = container.querySelector('svg');
+        svgElement.style.width = '100%';
+        svgElement.style.height = '100%';
+
+        panZoomInstance = svgPanZoom(svgElement, {
+          zoomEnabled: true,
+          controlIconsEnabled: false,
+          fit: true,
+          center: true,
+          minZoom: 0.2,
+          maxZoom: 10,
+          zoomScaleSensitivity: 0.2
+        });
+
+      } catch (err) {
+        console.error('Mermaid render error:', err);
+        document.getElementById('loading').innerHTML = `
+          <div style="color: #ef4444; text-align: center; max-width: 400px;">
+            <h3>Gagal Memuat Diagram</h3>
+            <p style="font-size: 13px; margin-top: 8px;">${err.message || 'Cek konsol browser untuk informasi lebih detail.'}</p>
+          </div>
+        `;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDiagram();
+
+      // Zoom Controls
+      document.getElementById('zoom-in').addEventListener('click', () => panZoomInstance && panZoomInstance.zoomIn());
+      document.getElementById('zoom-out').addEventListener('click', () => panZoomInstance && panZoomInstance.zoomOut());
+      document.getElementById('zoom-reset').addEventListener('click', () => {
+        if (panZoomInstance) {
+          panZoomInstance.reset();
+          panZoomInstance.center();
+        }
+      });
+      document.getElementById('zoom-fit').addEventListener('click', () => {
+        if (panZoomInstance) {
+          panZoomInstance.fit();
+          panZoomInstance.center();
+        }
+      });
+
+      // Toggle Sidebar
+      document.getElementById('toggle-sidebar').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+        setTimeout(() => panZoomInstance && panZoomInstance.resize(), 300);
+      });
+
+      // Theme Toggle
+      const themeBtn = document.getElementById('theme-btn');
+      const themeIcon = document.getElementById('theme-icon');
+      themeBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        document.documentElement.classList.toggle('light', !isDark);
+        themeIcon.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+      });
+
+      // Export SVG
+      document.getElementById('export-svg-btn').addEventListener('click', () => {
+        const svg = document.querySelector('#mermaid-render svg');
+        if (!svg) return;
+        const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'arena_fitness_erd_diagram.svg';
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      // Export PNG
+      document.getElementById('export-png-btn').addEventListener('click', () => {
+        const svg = document.querySelector('#mermaid-render svg');
+        if (!svg) return;
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+
+        const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+
+        img.onload = () => {
+          canvas.width = img.width * 2;
+          canvas.height = img.height * 2;
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          const a = document.createElement('a');
+          a.href = canvas.toDataURL('image/png');
+          a.download = 'arena_fitness_erd_diagram.png';
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+        img.src = url;
+      });
+    });
+  </script>
+</body>
+</html>

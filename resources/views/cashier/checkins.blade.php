@@ -295,7 +295,7 @@
             <span>Manual</span>
         </a>
         <a href="{{ route('cashier.checkins', ['section' => 'qr', 'scan' => 1]) }}" class="checkin-action-card {{ $checkinSection === 'qr' ? 'active' : '' }}">
-            <span class="checkin-action-icon"><i class="fas fa-barcode"></i></span>
+            <span class="checkin-action-icon"><i class="fas fa-qrcode"></i></span>
             <span>Scan QR</span>
         </a>
     </div>

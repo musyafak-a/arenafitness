@@ -11,15 +11,15 @@ $facilities = [
     ['name' => 'Chest Press', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/chest-press.jpeg')],
     ['name' => 'Leg Curl + Leg Extension + Triceps', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/leg-curl-extension-triceps.jpeg')],
     ['name' => 'Lat Pulldown', 'qty' => '2 Unit', 'category' => 'strength', 'img' => asset('images/lat-pulldown.jpeg')],
-    ['name' => 'Flat Bench Press', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/flat-bench-press.jpeg')],
+    ['name' => 'Flat Bench Press', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/flat-bench.jpeg')],
     ['name' => 'Leg Press + Dips', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/leg-press-dips.jpeg')],
     ['name' => 'Peck Deck Butterfly', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/peck-deck-butterfly.jpeg')],
     ['name' => 'Abductor', 'qty' => '1 Unit', 'category' => 'strength', 'img' => asset('images/Abductor.jpeg')],
     ['name' => 'Dumbel', 'qty' => '1-4kg & 2.5-20kg', 'category' => 'strength', 'img' => asset('images/dumbel.jpeg')],
-    ['name' => 'Bumper Plate Untuk Deadlift', 'qty' => '5-20kg', 'category' => 'strength', 'img' => asset('images/bumper-plate-deadlift.jpeg')],
-    ['name' => 'Adjustable Bench', 'qty' => '3 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1584863231364-2edc166de576?w=500&h=400&fit=crop'],
+    ['name' => 'Bumper Plate Untuk Deadlift', 'qty' => 'Total Beban 100kg', 'desc' => '5kg, 10kg, 15kg, 20kg (masing-masing 2 buah)', 'category' => 'strength', 'img' => asset('images/bumper-plate.jpeg')],
+    ['name' => 'Adjustable Bench', 'qty' => '3 Unit', 'category' => 'strength', 'img' => asset('images/adjustable.jpeg')],
     ['name' => 'Alat Sit Up', 'qty' => '1 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=400&fit=crop'],
-    ['name' => 'Tempat Pull Up', 'qty' => '2 Unit', 'category' => 'strength', 'img' => 'https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=500&h=400&fit=crop'],
+    ['name' => 'Tempat Pull Up', 'qty' => '2 Unit', 'category' => 'strength', 'img' => asset('images/tempat-pullup.jpeg')],
     ['name' => 'Toilet & Loker', 'qty' => 'Tersedia', 'category' => 'lainnya', 'img' => asset('images/toilet-loker.jpeg')],
     ['name' => 'Tempat Ibadah / Sholat', 'qty' => 'Tersedia', 'category' => 'lainnya', 'img' => asset('images/musholla.jpeg')],
     ['name' => 'Free WiFi', 'qty' => 'Tersedia', 'category' => 'lainnya', 'img' => 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500&h=400&fit=crop'],
@@ -61,7 +61,7 @@ $facilities = [
             <!-- Cards Section -->
             <div class="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-6">
                 @foreach($facilities as $facility)
-                    <div x-show="(currentCategory === 'all' || currentCategory === '{{ $facility['category'] }}') && ('{{ strtolower($facility['name']) }}'.includes(searchQuery.toLowerCase()))"
+                    <div x-show="(currentCategory === 'all' || currentCategory === '{{ $facility['category'] }}') && ('{{ strtolower($facility['name']) }} {{ strtolower($facility['desc'] ?? '') }} {{ strtolower($facility['qty']) }}'.includes(searchQuery.toLowerCase()))"
                          x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 scale-95"
                          x-transition:enter-end="opacity-100 scale-100"
@@ -75,9 +75,16 @@ $facilities = [
                          
                         <!-- Bottom Text -->
                         <div class="flex flex-col p-2 sm:p-5 flex-grow justify-between relative z-10 bg-[#131313]/50">
-                            <h3 class="font-headline-md text-[9px] sm:text-lg text-white tracking-wide uppercase line-clamp-2 leading-tight">
-                                {{ $facility['name'] }}
-                            </h3>
+                            <div>
+                                <h3 class="font-headline-md text-[9px] sm:text-lg text-white tracking-wide uppercase line-clamp-2 leading-tight">
+                                    {{ $facility['name'] }}
+                                </h3>
+                                @if(!empty($facility['desc']))
+                                    <p class="font-body-md text-[7px] sm:text-xs text-on-surface-variant line-clamp-1 sm:line-clamp-2 mt-0.5 sm:mt-1 leading-tight sm:leading-snug">
+                                        {{ $facility['desc'] }}
+                                    </p>
+                                @endif
+                            </div>
                             
                             <div class="flex items-center justify-between mt-auto pt-1 sm:pt-3 border-t border-white/10">
                                 <span class="font-label-caps text-[7px] sm:text-xs text-brand-red font-bold tracking-widest">

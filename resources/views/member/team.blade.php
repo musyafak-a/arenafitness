@@ -308,7 +308,7 @@
                 <div class="lg:col-span-5 xl:col-span-5 relative group lg:sticky lg:top-28 order-1 lg:order-2 space-y-6">
                     <div class="relative">
                         <div class="absolute inset-0 bg-brand-red/10 blur-3xl -z-10 group-hover:bg-brand-red/20 transition-colors duration-700"></div>
-                        <img src="{{ asset('images/team2.jpg') }}" alt="Cerita Kami - Team WARGYM" class="w-full h-auto max-h-[500px] lg:max-h-[600px] object-cover rounded-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-700 transform group-hover:scale-[1.02]">
+                        <img src="{{ asset('images/kita.jpg') }}" alt="Cerita Kami - Team WARGYM" class="w-full h-auto max-h-[500px] lg:max-h-[600px] object-cover rounded-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-700 transform group-hover:scale-[1.02]">
                     </div>
                     <div class="glass-panel p-5 border border-white/10 rounded-xl text-center hidden lg:block">
                         <p class="font-headline-md text-lg text-white uppercase tracking-wider">WARGYM MOJOSONGO</p>

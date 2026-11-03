@@ -94,7 +94,7 @@
                         <!-- Header Name -->
                         <div class="mb-5 pb-5 border-b border-white/10">
                             <h3 class="font-headline-md text-3xl sm:text-4xl text-white uppercase tracking-wider m-0 leading-tight group-hover:text-brand-red transition-colors">
-                                COACH FANNY
+                                KAK FANNY
                             </h3>
                         </div>
 
@@ -482,7 +482,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- POPUP MODAL: PROFIL COACH FANNY            -->
+    <!-- POPUP MODAL: PROFIL KAK FANNY              -->
     <!-- ========================================== -->
     <div 
         x-show="activeModal === 'fanny'" 
@@ -531,7 +531,7 @@
                     <div>
                         <span class="font-label-caps text-brand-red text-[10px] uppercase tracking-widest block mb-1">PROFIL PELATIH GYM</span>
                         <h4 class="font-headline-md text-white text-base sm:text-lg uppercase">
-                            COACH FANNY &bull; WOMEN PT
+                            KAK FANNY &bull; WOMEN PT
                         </h4>
                     </div>
                     <div class="flex flex-wrap gap-1.5">
@@ -641,12 +641,12 @@
                     </p>
                     <div class="pt-2">
                         <a 
-                            href="https://wa.me/6289508366293?text=Halo%20Coach%20Fanny%20WARGYM%2C%20saya%20tertarik%20untuk%20konsultasi%20program%20Women%20Personal%20Trainer."
+                            href="https://wa.me/6289508366293?text=Halo%20Kak%20Fanny%20WARGYM%2C%20saya%20tertarik%20untuk%20konsultasi%20program%20Women%20Personal%20Trainer."
                             target="_blank"
                             class="btn-primary inline-flex items-center gap-2 py-3 px-8 text-xs sm:text-sm tracking-widest rounded-lg shadow-lg"
                         >
                             <span class="material-symbols-outlined text-[18px]">chat</span>
-                            KONSULTASI DENGAN COACH FANNY
+                            KONSULTASI DENGAN KAK FANNY
                         </a>
                     </div>
                 </div>

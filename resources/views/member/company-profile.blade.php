@@ -10,7 +10,7 @@
         <!-- Slide 1 -->
         <div class="absolute inset-0 z-0 transition-opacity duration-1000" :class="currentSlide === 0 ? 'opacity-100' : 'opacity-0'">
             <video class="w-full h-full object-cover brightness-125" autoplay loop muted playsinline>
-                <source src="{{ asset('videos/wargym-carousel.mp4') }}" type="video/mp4">
+                <source src="{{ asset('videos/wargym.mp4') }}" type="video/mp4">
             </video>
             <div class="absolute inset-0 hero-vignette"></div>
         </div>
@@ -226,13 +226,13 @@
                             'link' => 'https://maps.app.goo.gl/VnvJkbAYRgqnrp2BA',
                         ],
                         [
-                            'name' => 'ghiona ghionaw',
-                            'role' => '1 ulasan',
+                            'name' => 'Miftaqul Qoiroh',
+                            'role' => '3 ulasan · 4 foto',
                             'rating' => 5,
-                            'time' => '4 bulan lalu',
+                            'time' => 'Sebulan lalu',
                             'avatar' => null,
-                            'text' => 'Tempat sangat nyaman, komunitas nya friendly banget, cocok buat pemula dan kantong pelajar, harganya murah meriah. cuma 5k per kedatangan. 60k per bulan. josjis pokoknya. gaspol ndangak!',
-                            'link' => 'https://maps.app.goo.gl/9GGB3eGPq5Q5PAi6A',
+                            'text' => 'Harga terjangkau , area gymnya juga bersih, alat alatnya juga lengkap. Ada PT harian juga , PT cewek ataupun cowok, ramah & sangat membantu sekali bagi pemula sepertiku. Tempat gym yang pas banget buat yang baru mau memulai gaya hidup sehat 😍',
+                            'link' => 'https://share.google/nfAPujHaMuS3p0OUe',
                         ],
                         [
                             'name' => 'Muhammad Rofiqi',

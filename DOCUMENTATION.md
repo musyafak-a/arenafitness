@@ -101,7 +101,7 @@ Model ini mengelola seluruh informasi profil pelatih kebugaran yang ditampilkan 
 ```typescript
 interface PersonalTrainer {
   name: string;               // Nama panggilan (misal: "GHION", "FANNY", "IZAA")
-  fullName: string;           // Nama lengkap / title resmi (misal: "Coach Fanny", "Kak Izaa")
+  fullName: string;           // Nama lengkap / title resmi (misal: "Kak Fanny", "Kak Izaa")
   age?: number;               // Usia (opsional)
   profession: string;         // Jabatan profesional (misal: "Personal Trainer / Fitness Coach")
   role?: string;              // Peran spesifik (misal: "Women Personal Trainer")
